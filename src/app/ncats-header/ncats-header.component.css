@@ -1,0 +1,46 @@
+#ncats-banner{
+  height: 30px;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+}
+
+a{
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
+#ncats-banner img{
+  height: 26px;
+  padding: 10px;
+}
+
+#ncats-logo{
+  min-height: 8vh;
+  background-color: #fff;
+  width:100%
+}
+
+#ncats-logo img{
+  height: 5vh;
+  padding: 10px;
+}
+
+
+ .logo-header {
+  font-size: 55px;
+}
+
+span.logo-header {
+  color: #ababab;
+}
+
+span.logo-header.subsection {
+  color: #642f6c;
+}
