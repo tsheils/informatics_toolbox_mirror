@@ -1,15 +1,13 @@
-# Angular 5 boilerplate app
+# NCATS Toolbox
 This app contains:
 1. NCATS header
 2. NCATS footer
 3. sticky footer
 4. Angular Material design module
-5. services to hook up a websocket
-6. loading modal service
-7. Federal government operating status check
-8. IE browser warning
-9. NCATS scss color scheme
-10. NCATS favicon
+5. Federal government operating status check
+6. IE browser warning
+7. NCATS scss color scheme
+8. NCATS favicon
 
 
 
