@@ -1,19 +1,7 @@
 <div class="flex-body">
 <app-ncats-header></app-ncats-header>
-<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around center">
-
-
-
-
-<!--
-  ADD CONTENT HERE
--->
-<app-tool-list></app-tool-list>
-
-
-
-
-
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="start center">
+    <router-outlet></router-outlet>
 </div>
 <div class="scroll-to-top" [ngClass]="{'show-scroll': navIsFixed}">
   <button  mat-fab color="primary" (click)="scrollToTop()">

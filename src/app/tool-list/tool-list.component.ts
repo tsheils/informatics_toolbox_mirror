@@ -13,7 +13,7 @@ import {FormControl} from "@angular/forms";
 })
 export class ToolListComponent implements OnInit {
 tools: Tool[] = [];
-filteredTools: Tool[] =[];
+filteredTools: Tool[] = [];
   constructor(private dataLoaderService: DataLoaderService) { }
 
   ngOnInit() {

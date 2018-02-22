@@ -13,21 +13,42 @@ export class DataLoaderService {
     private _dataSource = new Subject<any>();
     //  Observable navItem stream
     data$ = this._dataSource.asObservable();
-    data: Tool[] = [];
+    data: Tool[];
 
     constructor(private http: HttpClient) {}
 
     getData(): Observable<any> {
-        return this.http.get(URL, {responseType: 'text'})
-            .pipe(
-                map(response => {
-                    this.csvJSON(response.trim());
-                    return this.data;
-                }),
-                catchError(this.handleError('getData', []))
-            );
+        if (this.data) {
+            return Observable.of(this.data)
+        } else {
+            return this.http.get(URL, {responseType: 'text'})
+                .pipe(
+                    map(response => {
+                        this.data = [];
+                        this.csvJSON(response.trim());
+                        return this.data;
+                    }),
+                    catchError(this.handleError('getData', []))
+                );
+        }
     }
 
+    getByName(name: string): Observable<Tool> {
+        console.log(name);
+        if (this.data) {
+          console.log(this.data.filter(tool => tool.toolName.toLowerCase() == name));
+            return Observable.of(this.data.filter(tool => tool.toolName.toLowerCase() == name)[0])
+        } else {
+            return this.http.get(URL, {responseType: 'text'})
+                .pipe(
+                    map(response => {
+                        this.data = [];
+                        this.csvJSON(response.trim());
+                        console.log(this.data.filter(tool => tool.toolName.toLowerCase() == name));
+                        return this.data.filter(tool => tool.toolName.toLowerCase() == name)[0]
+                    }))
+        }
+    }
 
     /**
      * Handle Http operation that failed.
@@ -64,6 +85,7 @@ export class DataLoaderService {
             const tool: Tool = new Tool(data);
          this.data.push(tool);
         }
+        console.log('done');
         this._dataSource.next(this.data);
     }
 }
