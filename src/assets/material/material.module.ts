@@ -8,16 +8,18 @@ import {
   MatSlideToggleModule, MatRadioModule, MatCheckboxModule, MatTabsModule, MatCardModule, MatTooltipModule,
   MatSelectModule, MatExpansionModule
 } from '@angular/material';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 @NgModule({
   imports: [MatButtonModule, MatAutocompleteModule, MatMenuModule, MatToolbarModule,
     MatInputModule, MatIconModule, MatListModule, MatSliderModule, MatProgressSpinnerModule,
     MatTableModule, MatSortModule, MatSidenavModule, MatSlideToggleModule, MatRadioModule,
-    MatTabsModule, MatCheckboxModule, MatCardModule, MatTooltipModule, MatSelectModule, MatExpansionModule],
+    MatTabsModule, MatCheckboxModule, MatCardModule, MatTooltipModule, MatSelectModule, MatExpansionModule, MatChipsModule],
   exports: [MatButtonModule, MatAutocompleteModule, MatMenuModule, MatToolbarModule,
     MatInputModule, MatIconModule, MatListModule, MatSliderModule, MatProgressSpinnerModule,
     MatTableModule, MatSortModule, MatSidenavModule, MatSlideToggleModule, MatRadioModule,
-    MatTabsModule, MatCheckboxModule, MatCardModule, MatTooltipModule, MatSelectModule, MatExpansionModule],
+    MatTabsModule, MatCheckboxModule, MatCardModule, MatTooltipModule, MatSelectModule, MatExpansionModule, MatChipsModule],
 })
 export class MaterialModule { }
 

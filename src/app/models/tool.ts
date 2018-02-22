@@ -19,11 +19,11 @@ export class Tool {
         this.url = obj.url;
         this.contact = obj.contact.split(',');
         this.description = obj.description;
-        this.toolType = obj.toolType;
+        this.toolType = obj.toolType || null;
         this.note = obj.note;
         this.collaborators = obj.collaborators.split(',');
         this.visibility = obj.visibility;
-        this.obsolete = obj.obsolete;
+        this.obsolete = obj.obsolete || false;
         this.audience = obj.audience;
         this.codebase = obj.codebase;
         this.publicCodebase = obj.publicCodebase || false;

@@ -24,11 +24,9 @@ filteredTools: Tool[] =[];
   }
 
   filter(term: string): void {
-    console.log(term);
     let filtered: Tool[] = [];
     this.tools.forEach(tool => {
-      let str = JSON.stringify(tool);
-      console.log(str);
+      let str = Object.values(tool).join(' ');
         if(str.includes(term)) {
           filtered.push(tool);
         }

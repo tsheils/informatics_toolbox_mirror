@@ -12,8 +12,12 @@
     <div fxLayout="row" fxLayoutAlign="start none">
       <div fxFlex = "100">
     <span class="mat-title"><i>
-   <a href = {{tool.url}}>{{tool.toolName}}</a></i><br>
+   <a href = {{tool.url}} target="_blank">{{tool.toolName}}</a></i><br>
     </span>
+          <mat-chip-list>
+              <mat-chip color="primary"  selected="true">{{tool.category}}</mat-chip>
+              <mat-chip color="accent"  selected="true" *ngIf = tool.toolType>{{tool.toolType}}</mat-chip>
+          </mat-chip-list>
       </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="center end">
