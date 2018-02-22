@@ -1,0 +1,27 @@
+<a class = "tool-link"><mat-card class="tool-card">
+  <mat-card-header>
+<!--
+    <img mat-card-avatar src="./assets/{{intern.year}}/{{intern.firstName | lowercase}}-crop-min.jpg" alt="Photo of {{intern.firstName}} {{intern.lastName}}">
+-->
+    <mat-card-title><a class="mat-title secondary-color" >{{tool.toolName}}</a></mat-card-title>
+    <mat-card-subtitle>{{tool.description}}</mat-card-subtitle>
+    <mat-card-subtitle >Contact<span *ngIf="tool.contact.length > 1">s</span>: {{tool.contact.join(', ')}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="start none">
+      <div fxFlex = "100">
+    <span class="mat-title"><i>
+   <a href = {{tool.url}}>{{tool.toolName}}</a></i><br>
+    </span>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center end">
+<!--
+      <img class = "thumbnail" src = "./assets/{{intern.year}}/{{intern.firstName | lowercase}}-poster-thumb.jpg">
+-->
+    </div>
+  </mat-card-content>
+</mat-card>
+  <br>
+</a>

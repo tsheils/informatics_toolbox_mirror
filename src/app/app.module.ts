@@ -13,13 +13,18 @@ import {NcatsFooterComponent} from './ncats-footer/ncats-footer.component';
 import {LoadingService} from './services/loading.service';
 import {DataConnectionService} from './services/data-connection.service';
 import {WebSocketService} from './services/websocket.service';
+import { ToolComponent } from './tool/tool.component';
+import { ToolListComponent } from './tool-list/tool-list.component';
+import {DataLoaderService} from "./services/data-loader.service";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NcatsHeaderComponent,
-    NcatsFooterComponent
+    NcatsFooterComponent,
+    ToolComponent,
+    ToolListComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,8 @@ import {WebSocketService} from './services/websocket.service';
   providers: [
     WebSocketService,
     DataConnectionService,
-    LoadingService
+    LoadingService,
+      DataLoaderService
   ],
   bootstrap: [AppComponent]
 })

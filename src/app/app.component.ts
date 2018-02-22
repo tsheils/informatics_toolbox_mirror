@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
   loading = false;
   navIsFixed: boolean;
-  title = 'app';
+  title = 'NCATS Toolkit';
 
   constructor(
     private loadingService: LoadingService,
