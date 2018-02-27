@@ -6,7 +6,8 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import {Tool} from '../models/tool';
 
-const URL = 'assets/tool-list.csv';
+//const URL = 'assets/tool-list.csv';
+const URL = 'https://sheets.googleapis.com/v4/spreadsheets/1SLbypy2WC8vld-_NPiFJiLSBBMsQlic22gNmRv5EYv8?key=AIzaSyDxUuWWyIKNZIQ0bP2GJchBdARPsxcNA04';
 @Injectable()
 export class DataLoaderService {
 
@@ -21,6 +22,7 @@ export class DataLoaderService {
         return this.http.get(URL, {responseType: 'text'})
             .pipe(
                 map(response => {
+                    console.log(response);
                     this.csvJSON(response.trim());
                     return this.data;
                 }),

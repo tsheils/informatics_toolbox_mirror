@@ -15,7 +15,8 @@ import {DataConnectionService} from './services/data-connection.service';
 import {WebSocketService} from './services/websocket.service';
 import { ToolComponent } from './tool/tool.component';
 import { ToolListComponent } from './tool-list/tool-list.component';
-import {DataLoaderService} from "./services/data-loader.service";
+import {DataLoaderService} from './services/data-loader.service';
+import {GoogleApiService} from './services/google-api.service';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import {DataLoaderService} from "./services/data-loader.service";
     WebSocketService,
     DataConnectionService,
     LoadingService,
-      DataLoaderService
+      DataLoaderService,
+      GoogleApiService
   ],
   bootstrap: [AppComponent]
 })
