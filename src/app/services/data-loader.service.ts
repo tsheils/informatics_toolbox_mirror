@@ -6,15 +6,15 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import {Tool} from '../models/tool';
 
-//const URL = 'assets/tool-list.csv';
-const URL = 'https://sheets.googleapis.com/v4/spreadsheets/1SLbypy2WC8vld-_NPiFJiLSBBMsQlic22gNmRv5EYv8?key=AIzaSyDxUuWWyIKNZIQ0bP2GJchBdARPsxcNA04';
+const URL = 'assets/tool-list.csv';
+//const URL = 'https://sheets.googleapis.com/v4/spreadsheets/1SLbypy2WC8vld-_NPiFJiLSBBMsQlic22gNmRv5EYv8?key=AIzaSyDxUuWWyIKNZIQ0bP2GJchBdARPsxcNA04';
 @Injectable()
 export class DataLoaderService {
 
     private _dataSource = new Subject<any>();
     //  Observable navItem stream
     data$ = this._dataSource.asObservable();
-    data: Tool[];
+    data: Tool[] =[];
 
     constructor(private http: HttpClient) {}
 
@@ -22,7 +22,6 @@ export class DataLoaderService {
         return this.http.get(URL, {responseType: 'text'})
             .pipe(
                 map(response => {
-                    console.log(response);
                     this.csvJSON(response.trim());
                     return this.data;
                 }),
@@ -46,16 +45,18 @@ export class DataLoaderService {
     getByName(name: string): Observable<Tool> {
         console.log(name);
         if (this.data) {
-          console.log(this.data.filter(tool => tool.toolName.toLowerCase() == name));
-            return Observable.of(this.data.filter(tool => tool.toolName.toLowerCase() == name)[0])
+            console.log(this.data);
+          console.log(this.data.filter(tool => tool.toolName.toLowerCase() === name));
+            return Observable.of(this.data.filter(tool => tool.toolName.toLowerCase() === name)[0])
         } else {
             return this.http.get(URL, {responseType: 'text'})
                 .pipe(
                     map(response => {
+                        console.log(response);
                         this.data = [];
                         this.csvJSON(response.trim());
-                        console.log(this.data.filter(tool => tool.toolName.toLowerCase() == name));
-                        return this.data.filter(tool => tool.toolName.toLowerCase() == name)[0]
+                        console.log(this.data.filter(tool => tool.toolName.toLowerCase() === name));
+                        return this.data.filter(tool => tool.toolName.toLowerCase() === name)[0]
                     }))
         }
     }

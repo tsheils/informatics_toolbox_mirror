@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-c-calculator',
@@ -6,74 +7,42 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./c-calculator.component.css']
 })
 export class CCalculatorComponent implements OnInit {
-
+        data: any[] = [];
+    sequenceCtrl = new FormControl();
+    error: string;
   constructor() { }
 
   ngOnInit() {
   }
 
-         process(form) {
+         process() {
             this.deleteOutputTableRows();
-            const table = document.getElementById("outputTable");
-            let targetStrings = form.targetBox.value.split(/\s+/);
-            let outputString = "Input Sequence,C911 Target,C911 Sense,C911 Antisense\n";
-            console.log("Target Strings length: " + targetStrings.length);
-            for (var i=0;i<targetStrings.length;i++) {
-                console.log("Processing string number " +  i + "\n");
-                let targetString = targetStrings[i];
+            console.log(this.sequenceCtrl.value);
+            let targetStrings = this.sequenceCtrl.value.split(/\s+/);
+            for (let targetString of targetStrings) {
                 if (targetString == "") { continue; }
-                var row: any = {} //table.insertRow(i+1);
-                row.style.fontFamily = "Courier";
-                var cell1 = row.insertCell(0);
-// should change this to one cell for error messages, right?
 
-                cell1.innerHTML = targetString;
                 if (targetString.length != 21) {
-                    var errorCell = row.insertCell(1);
-                    errorCell.colSpan = "3";
-                    errorCell.style.color = "red";
-                    errorCell.style.textAlign = "center";
-                    errorCell.innerHTML = "Target sequence is not 21 characters in length!";
+                    this.error = "Target sequence is not 21 characters in length!";
                 }
                 else if (targetString.match(/[^ACGTUacgtu]/) != null) {
-                    var errorCell = row.insertCell(1);
-                    errorCell.colSpan = "3";
-                    errorCell.style.color = "red";
-                    errorCell.style.textAlign = "center";
-                    errorCell.innerHTML = "Target sequence contains characters other than A,C,G,T or U!";
+                    this.error = "Target sequence contains characters other than A,C,G,T or U!";
                 }
                 else {
-                    var cell2 = row.insertCell(1);
-                    var cell3 = row.insertCell(2);
-                    var cell4 = row.insertCell(3);
-                    let myC911 = this.getC911Target(this.convertDNAtoRNA(targetString));
-                    cell2.innerHTML = myC911;
-                    let senseString = this.getSense(myC911);
-                    cell3.innerHTML = senseString;
-                    let antisenseString = this.getAntisense(myC911);
-                    cell4.innerHTML= antisenseString;
+                    this.error = '';
+                    let row: any = {};
+                    row.cell1 = targetString;
+                    row.myC911 = this.getC911Target(this.convertDNAtoRNA(targetString));
+                    row.senseString = this.getSense(row.myC911);
+                    row.antisenseString = this.getAntisense(row.myC911);
+                    this.data.push(row);
                 }
-// outputString += targetString + "," + myC911 + "," + senseString + "," + antisenseString + "\n";
+                console.log(this.data);
             }
-// form.outputBox.value = outputString;
-
-// var w = window.open('','csvWindow'); // popup, may be blocked though
-// the following line does not actually do anything interesting with the
-// parameter given in current browsers, but really should have.
-// Maybe in some browser it will. It does not hurt anyway to give the mime type
-// w.document.open("application/vnd.ms-excel");
-// w.document.write(outputString); // the csv string from for example a jquery plugin
-// w.document.close();
-
         }
 
      deleteOutputTableRows() {
-        var table=document.getElementById("outputTable");
-        /*if (table.rows.length > 1) {
-            for(var i = table.rows.length - 1; i > 0;i--) {
-                table.deleteRow(i);
-            }
-        }*/
+      this.data = [];
     }
 
      getAntisense(targetString) {

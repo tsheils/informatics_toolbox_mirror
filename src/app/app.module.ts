@@ -15,6 +15,7 @@ import {DataLoaderService} from './services/data-loader.service';
 import {GoogleApiService} from './services/google-api.service';
 import { ToolDetailsComponent } from './tool-details/tool-details.component';
 import {AppRoutingModule} from './app-routing.module';
+import {CCalculatorComponent} from "./c-calculator/c-calculator.component";
 
 @NgModule({
   declarations: [
@@ -23,12 +24,13 @@ import {AppRoutingModule} from './app-routing.module';
     NcatsFooterComponent,
     ToolComponent,
     ToolListComponent,
-      ToolDetailsComponent
+      ToolDetailsComponent,
+    CCalculatorComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-
+      AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,

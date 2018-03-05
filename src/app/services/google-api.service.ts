@@ -24,9 +24,9 @@ export class GoogleApiService {
     console.log(signature);
       const buf = new ArrayBuffer(signature.length);
  //   console.log(new Uint8Array(buf).);
-      var uint8array = new TextEncoder("utf-8").encode("Plain Text");
-      var string = new TextDecoder().decode(uint8array);
-      console.log(uint8array ,string );
+ //     var uint8array = new TextEncoder("utf-8").encode("Plain Text");
+   //   var string = new TextDecoder().decode(uint8array);
+     // console.log(uint8array ,string );
     //  const arr = new Uint8Array(signature);
   }
 

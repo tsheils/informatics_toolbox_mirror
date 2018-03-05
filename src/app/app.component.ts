@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   constructor(
     private loadingService: LoadingService,
     private http: HttpClient,
-    private googleAPIService: GoogleApiService,
+   // private googleAPIService: GoogleApiService,
     @Inject(DOCUMENT) private document: Document) {
   }
   ngOnInit(){
