@@ -1,0 +1,31 @@
+
+<h1>C911 Calculator Version 1</h1>
+<div>
+  <h2>C911 Calculator Version 1</h2>
+  This is a simple JavaScript calculator that generates C911 controls for a set of existing target sequences. This version of the calculator takes 21-base target sequences (which includes 19 bases and a two base overhang).  A second version that takes 19-mer target sequences, assuming that the 2 base overhang is standardized, is <a href="http://rnai.nih.gov/haystack/C911Calc2.html">here</a>.<P>
+  The C911 control uses the complement of bases 9 through 11 of the original siRNA.  In our experiments, C911 controls maintain the off-target effects of the original sequence while eliminating the on-target effect of the siRNA, making it an ideal negative control to allow for experimental differentiation between on-target and off-target effects.  For more deatils, see <a href="http://www.plosone.org/article/info:doi%2F10.1371%2Fjournal.pone.0051942">C911: A Bench-Level Control for Sequence Specific siRNA Off-Target Effects</a>.  If you have questions, feel free to contact me at eugen.buehler@nih.gov.<P>
+  <p>
+</div>
+
+<form action="GET">
+  <table id="inputTable" border ="1" align = center cellpadding="10">
+    <tr align="center">
+      <td colspan =2 align=center>Enter 21-mer Sequences Below, one sequence per line.</td>
+    </tr>
+
+    <tr align="center">
+      <td colspan=2 align=center>
+        <textarea name="targetBox" cols="32" rows="8" onChange="process(this.form)"></textarea>
+      </td>
+    </tr>
+
+    <tr><td colspan=2 align=center>
+      <input type="button" value="Generate C911 Sequences" name="Calbutton" onClick="Process(this.form)"></td>
+    </tr>
+  </table>
+
+</form>
+
+<table id="outputTable" border ="1" align = center cellpadding=5>
+  <tr><th>Original Target</th><th>C911 Target</th><th>C911 Sense</th><th>C911 Antisense</th></tr>
+</table>
