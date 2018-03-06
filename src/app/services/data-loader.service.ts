@@ -14,22 +14,24 @@ export class DataLoaderService {
     private _dataSource = new Subject<any>();
     //  Observable navItem stream
     data$ = this._dataSource.asObservable();
-    data: Tool[] =[];
+    data: Tool[] = [];
 
     constructor(private http: HttpClient) {}
 
     getData(): Observable<any> {
-        return this.http.get(URL, {responseType: 'text'})
+/*        return this.http.get(URL, {responseType: 'text'})
             .pipe(
                 map(response => {
                     this.csvJSON(response.trim());
                     return this.data;
                 }),
                 catchError(this.handleError('getData', []))
-            );
-/*        if (this.data) {
+            );*/
+        if (this.data.length > 0) {
+            console.log("data already loaded");
             return Observable.of(this.data)
         } else {
+            console.log("loading data")
             return this.http.get(URL, {responseType: 'text'})
                 .pipe(
                     map(response => {
@@ -39,16 +41,18 @@ export class DataLoaderService {
                     }),
                     catchError(this.handleError('getData', []))
                 );
-        }*/
+        }
     }
 
     getByName(name: string): Observable<Tool> {
         console.log(name);
-        if (this.data) {
+        if (this.data.length > 0) {
+            console.log("data is already here");
             console.log(this.data);
           console.log(this.data.filter(tool => tool.toolName.toLowerCase() === name));
             return Observable.of(this.data.filter(tool => tool.toolName.toLowerCase() === name)[0])
         } else {
+            console.log("getting data");
             return this.http.get(URL, {responseType: 'text'})
                 .pipe(
                     map(response => {
