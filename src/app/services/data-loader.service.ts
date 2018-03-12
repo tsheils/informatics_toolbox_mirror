@@ -28,10 +28,8 @@ export class DataLoaderService {
                 catchError(this.handleError('getData', []))
             );*/
         if (this.data.length > 0) {
-            console.log("data already loaded");
             return Observable.of(this.data)
         } else {
-            console.log("loading data")
             return this.http.get(URL, {responseType: 'text'})
                 .pipe(
                     map(response => {
@@ -45,21 +43,14 @@ export class DataLoaderService {
     }
 
     getByName(name: string): Observable<Tool> {
-        console.log(name);
         if (this.data.length > 0) {
-            console.log("data is already here");
-            console.log(this.data);
-          console.log(this.data.filter(tool => tool.toolName.toLowerCase() === name));
             return Observable.of(this.data.filter(tool => tool.toolName.toLowerCase() === name)[0])
         } else {
-            console.log("getting data");
             return this.http.get(URL, {responseType: 'text'})
                 .pipe(
                     map(response => {
-                        console.log(response);
                         this.data = [];
                         this.csvJSON(response.trim());
-                        console.log(this.data.filter(tool => tool.toolName.toLowerCase() === name));
                         return this.data.filter(tool => tool.toolName.toLowerCase() === name)[0]
                     }))
         }
@@ -87,7 +78,6 @@ export class DataLoaderService {
 
     private csvJSON(csv): void {
         const lines: string[] = csv.split(/\r\n|\n/);
-        const result: any[] = [];
 
         const headers = lines.shift().split(',');
         for (const i of lines) {
@@ -100,7 +90,6 @@ export class DataLoaderService {
             const tool: Tool = new Tool(data);
          this.data.push(tool);
         }
-        console.log('done');
         this._dataSource.next(this.data);
     }
 }
