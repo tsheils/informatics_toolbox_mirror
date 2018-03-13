@@ -5,3 +5,7 @@
 .tool-filter {
     width: 100%;
 }
+
+app-tool.tool-comp {
+    height: 100%;
+}

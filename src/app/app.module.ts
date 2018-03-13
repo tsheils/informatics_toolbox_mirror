@@ -18,6 +18,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {CCalculatorComponent} from "./c-calculator/c-calculator.component";
 import { QhtsDataBrowserComponent } from './qhts-data-browser/qhts-data-browser.component';
 import { ToolBasicsComponent } from './tool-basics/tool-basics.component';
+import {UnfurlingMetaService} from './services/unfurling-meta.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ToolBasicsComponent } from './tool-basics/tool-basics.component';
   providers: [
     LoadingService,
       DataLoaderService,
-      GoogleApiService
+      GoogleApiService,
+      UnfurlingMetaService
   ],
   bootstrap: [AppComponent]
 })

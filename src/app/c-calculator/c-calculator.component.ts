@@ -5,12 +5,12 @@ import {ActivatedRoute} from "@angular/router";
 import {Tool} from "../models/tool";
 
 @Component({
-  selector: 'app-c-calculator',
-  templateUrl: './c-calculator.component.html',
-  styleUrls: ['./c-calculator.component.css']
+    selector: 'app-c-calculator',
+    templateUrl: './c-calculator.component.html',
+    styleUrls: ['./c-calculator.component.css']
 })
 export class CCalculatorComponent implements OnInit {
-        data: any[] = [];
+    data: any[] = [];
     sequenceCtrl = new FormControl();
     error: string;
     imgSrc: string;
@@ -27,58 +27,52 @@ export class CCalculatorComponent implements OnInit {
         });
     }
 
-    ngAfterViewChecked() {
-        window.scrollTo(0, 0);
-    }
+    process() {
+        this.deleteOutputTableRows();
+        let targetStrings = this.sequenceCtrl.value.split(/\s+/);
+        for (let targetString of targetStrings) {
+            if (targetString == "") { continue; }
 
-         process() {
-            this.deleteOutputTableRows();
-            console.log(this.sequenceCtrl.value);
-            let targetStrings = this.sequenceCtrl.value.split(/\s+/);
-            for (let targetString of targetStrings) {
-                if (targetString == "") { continue; }
-
-                if (targetString.length != 21) {
-                    this.error = "Target sequence is not 21 characters in length!";
-                }
-                else if (targetString.match(/[^ACGTUacgtu]/) != null) {
-                    this.error = "Target sequence contains characters other than A,C,G,T or U!";
-                }
-                else {
-                    this.error = '';
-                    let row: any = {};
-                    row.cell1 = targetString;
-                    row.myC911 = this.getC911Target(this.convertDNAtoRNA(targetString));
-                    row.senseString = this.getSense(row.myC911);
-                    row.antisenseString = this.getAntisense(row.myC911);
-                    this.data.push(row);
-                }
-                console.log(this.data);
+            if (targetString.length != 21) {
+                this.error = "Target sequence is not 21 characters in length!";
+            }
+            else if (targetString.match(/[^ACGTUacgtu]/) != null) {
+                this.error = "Target sequence contains characters other than A,C,G,T or U!";
+            }
+            else {
+                this.error = '';
+                let row: any = {};
+                row.cell1 = targetString;
+                row.myC911 = this.getC911Target(this.convertDNAtoRNA(targetString));
+                row.senseString = this.getSense(row.myC911);
+                row.antisenseString = this.getAntisense(row.myC911);
+                this.data.push(row);
             }
         }
-
-     deleteOutputTableRows() {
-      this.data = [];
     }
 
-     getAntisense(targetString) {
+    deleteOutputTableRows() {
+        this.data = [];
+    }
+
+    getAntisense(targetString) {
         let tmpSeq = this.reverseComplement(targetString);
         return tmpSeq.substr(0,19) + "d" + this.convertRNAtoDNA(tmpSeq).charAt(19) + "d" + this.convertRNAtoDNA(tmpSeq).charAt(20);
     }
 
-     getSense(targetString) {
+    getSense(targetString) {
         return targetString.substr(2) + "dTdT";
     }
 
-     getC911Target(targetString) {
+    getC911Target(targetString) {
         return targetString.substr(0,10) + this.complement(targetString.substr(10,3))  + targetString.substr(13);
     }
 
-     reverseComplement(seqString) {
+    reverseComplement(seqString) {
         return this.complement(seqString).split("").reverse().join("");
     }
 
-     complement(seqString) {
+    complement(seqString) {
         let returnString = "";
         for (let i=0;i<seqString.length;i++) {
             switch (seqString.charAt(i)) {

@@ -18,7 +18,7 @@ export class Tool {
 
     constructor (obj: any){
         this.toolName = obj.toolName;
-        this.category = obj.category;
+        this.category = obj.category ? obj.category : null;
         this.url = obj.url;
         this.contact = obj.contact.split(',');
         this.description = obj.description;
@@ -31,6 +31,6 @@ export class Tool {
         this.codebase = obj.codebase;
         this.publicCodebase = obj.publicCodebase || false;
         this.parentProject = obj.parentProject;
-        this.image = obj.image || false;
+        this.image = obj.image === "yes" ? obj.image : false;
     }
 }

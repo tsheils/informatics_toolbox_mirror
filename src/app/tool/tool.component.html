@@ -1,30 +1,33 @@
-<mat-card class="tool-card">
+<mat-card fxFlex="100" fxFlexAlign="stretch">
+    <a class = "tool-link" routerLink="/{{tool.toolName.toLowerCase()}}">
   <mat-card-header>
-      <a class = "tool-link" routerLink="/{{tool.toolName.toLowerCase()}}">
-<!--
-    <img mat-card-avatar src="./assets/{{intern.year}}/{{intern.firstName | lowercase}}-crop-min.jpg" alt="Photo of {{intern.firstName}} {{intern.lastName}}">
--->
     <mat-card-title><span class="mat-title secondary-color" >{{tool.toolName}}</span></mat-card-title>
-    <mat-card-subtitle>{{tool.description}}</mat-card-subtitle>
-    <mat-card-subtitle >Contact<span *ngIf="tool.contact.length > 1">s</span>: {{tool.contact.join(', ')}}</mat-card-subtitle>
-      </a>
   </mat-card-header>
   <mat-card-content>
-
-    <div fxLayout="row" fxLayoutAlign="start none">
-      <div fxFlex = "100">
-    <span class="mat-title"><i>
+      <br>
+      <div *ngIf="tool.image" fxLayout = "row" fxLayoutAlign="center center">
+      <div fxFlex="66">
+          <img mat-card-image src= {{imgSrc}} alt='{{tool.toolName}} representative image'>
+        </div>
+      </div>
+      <br>
+      <div fxLayout = "row" fxLayoutAlign="center center">
+          <div fxFlex="90">
+              <mat-card-subtitle>{{tool.description}}</mat-card-subtitle>
+          </div>
+      </div>
+      <span class="mat-title"><i>
         <a href = {{tool.url}} target="_blank">{{tool.toolName}}</a>&nbsp;<mat-icon>open_in_new</mat-icon></i><br>
     </span>
-          <mat-chip-list>
-              <mat-chip color="primary"  selected="true">{{tool.category}}</mat-chip>
-              <mat-chip color="accent"  selected="true" *ngIf = tool.toolType>{{tool.toolType}}</mat-chip>
-          </mat-chip-list>
-      </div>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="center end">
-        <img *ngIf="tool.image" mat-card-image src= "imgSrc" alt='{{tool.toolName}} representative image'>
-    </div>
   </mat-card-content>
+    </a>
+    <mat-card-actions>
+        <mat-chip-list>
+        <mat-chip color="primary"  selected="true" *ngIf = tool.category>{{tool.category}}</mat-chip>
+        <mat-chip color="accent"  selected="true" *ngIf = tool.toolType>{{tool.toolType}}</mat-chip>
+        </mat-chip-list>
+<!--
+        <mat-card-subtitle >Contact<span *ngIf="tool.contact.length > 1">s</span>: {{tool.contact.join(', ')}}</mat-card-subtitle>
+-->
+    </mat-card-actions>
 </mat-card>
-  <br>
