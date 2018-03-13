@@ -10,9 +10,11 @@ export class Tool {
     collaborators: string[];
     visibility: string;
     obsolete: boolean;
-    audience: string;
+    audience: string[];
     codebase: string;
     publicCodebase: boolean;
+    parentProject: string;
+    image: boolean;
 
     constructor (obj: any){
         this.toolName = obj.toolName;
@@ -22,11 +24,13 @@ export class Tool {
         this.description = obj.description;
         this.toolType = obj.toolType || null;
         this.note = obj.note;
-        this.collaborators = obj.collaborators.split(',');
+        this.collaborators = obj.collaborators ? obj.collaborators.split(','): [];
         this.visibility = obj.visibility;
         this.obsolete = obj.obsolete || false;
-        this.audience = obj.audience;
+        this.audience = obj.audience? obj.audience.split(',') : [];
         this.codebase = obj.codebase;
         this.publicCodebase = obj.publicCodebase || false;
+        this.parentProject = obj.parentProject;
+        this.image = obj.image || false;
     }
 }

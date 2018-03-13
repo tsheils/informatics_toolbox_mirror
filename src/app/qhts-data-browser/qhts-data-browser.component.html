@@ -1,0 +1,104 @@
+
+
+<app-tool-basics [tool]=tool></app-tool-basics>
+
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
+  <mat-card fxFlex = "20" fxFlexAlign="stretch">
+    <img mat-card-image src= '{{imgSrcBase}}/primary.png' alt='{{tool.toolName}} representative image'>
+    <mat-card-content>
+      <p>
+        qHTS client is the primary way to retrieve compound screening data.
+      </p>
+    </mat-card-content>
+  </mat-card>
+  <mat-card fxFlex = "20" fxFlexAlign="stretch">
+    <img mat-card-image src= '{{imgSrcBase}}/query.png' alt='{{tool.toolName}} representative image'>
+    <mat-card-content >
+      <p>
+        Data can be retrieved based on a specific list of assay protocols, compounds, or potency or efficacy of the compound response.
+      </p>
+    </mat-card-content>
+  </mat-card>
+  <mat-card fxFlex = "20" fxFlexAlign="stretch">
+    <img mat-card-image src= '{{imgSrcBase}}/compare.png' alt='{{tool.toolName}} representative image'>
+    <mat-card-content>
+      <p>
+        It can be used to compare responses of a given compound across many different assays.
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
+<br>
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" class="row-purple">
+  <div fxFlex = "95">
+    <div class = "mat-display-2">Software Requirements</div>
+    <p>
+      The CR Client requires Java to run. Java is routinely available on most windows and Mac workstations and laptops.
+      The CR Client launches by hitting a URL link and downloads the application and launches it using a technology called Java Web Start (JWS).
+      Security warnings will warn about trusting the software. We don’t have an officially signed Java Archive (JAR file)
+      so just accept the application when prompted.  The client extracts data from our internal databases so the client
+      will only function when connected to our internal NCATS network, either when working on-site or via a Virtual Private Network (VPN)
+      connection or Remote Desktop Session (RDS).
+    </p>
+  </div>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" class="row-green">
+  <div fxFlex = "95">
+    <div class = "mat-display-2">Where do I find the client?</div>
+    <p>
+      <a class = "tool-link secondary-color" href = 'http://qhts/ws/qhtsclient.jnlp'>qHTS Client Launch &nbsp;<mat-icon>file_download</mat-icon></a><br>
+    </p>
+  </div>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" class="row-purple">
+  <div fxFlex = "95">
+    <div class = "mat-display-2">Launching the Client</div>
+    <p>
+      Use the CR Client Launch URL to start the application (http://qhts/ws/cr_client.jnlp).
+      You can bookmark this url or add it to a bookmark toolbar for easy access.
+      Initially you will be prompted on how to handle the ‘jnlp’ launch file. Select to ‘Open’ the file using Java Web Start Launcher.
+      Next you will be prompted or warned about security.
+      Java webstart downloads the program in a compressed file and launches the program on your machine. Select to ‘Run’ the application.
+    </p>
+  </div>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
+  <div fxFlex = "95">
+    <div class = "mat-display-2">About NCATS curve classes</div>
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-around stretch" fxLayout.xs="column">
+  <mat-card fxFlex = "45" fxFlexAlign="stretch">
+    <img mat-card-image src= '{{imgSrcBase}}/curve-table.png' alt='Overview of curve classification at the NCGC'>
+    <mat-card-content>
+      <p>
+        <span><i>Overview of curve classification at the NCGC</i></span>
+      </p>
+    </mat-card-content>
+  </mat-card>
+  <mat-card fxFlex = "45" fxFlexAlign="stretch">
+
+    <img mat-card-image src= '{{imgSrcBase}}/curves.png' alt='How we sort responses from qHTS screens'>
+    <mat-card-content>
+      <p>
+        <span><i>How we sort responses from qHTS screens</i></span>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
+<br>
+
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" >
+  <div fxFlex = "95">
+  <span>Learn More: Southall NT, Jadhav A, Huang R, Nguyen T, Wang Y.
+    19 Enabling the Large-Scale Analysis of Quantitative High-Throughput Screening Data. Handbook of Drug Screening.
+    2009 page 442-464.</span>
+  </div>
+</div>
+<br>
+
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" class="row-green">
+</div>

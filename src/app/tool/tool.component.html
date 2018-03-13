@@ -23,9 +23,7 @@
       </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="center end">
-<!--
-      <img class = "thumbnail" src = "./assets/{{intern.year}}/{{intern.firstName | lowercase}}-poster-thumb.jpg">
--->
+        <img *ngIf="tool.image" mat-card-image src= "imgSrc" alt='{{tool.toolName}} representative image'>
     </div>
   </mat-card-content>
 </mat-card>

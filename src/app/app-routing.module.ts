@@ -5,6 +5,8 @@ import {ToolListComponent} from './tool-list/tool-list.component';
 import {ToolListResolver} from './services/tool-list.resolver';
 import {ToolResolver} from './services/tool.resolver';
 import {CCalculatorComponent} from "./c-calculator/c-calculator.component";
+import {ToolNameResolver} from "./services/tool-name.resolver";
+import {QhtsDataBrowserComponent} from "./qhts-data-browser/qhts-data-browser.component";
 
 const ROUTES: Routes = [
   {
@@ -18,10 +20,17 @@ const ROUTES: Routes = [
         path: 'c911 calculator',
         component: CCalculatorComponent,
         resolve: {
-           // tool: ToolResolver
+            tool: ToolNameResolver
         }
     },
   {
+        path: 'qhts data browser',
+        component: QhtsDataBrowserComponent,
+        resolve: {
+            tool: ToolNameResolver
+        }
+    },
+    {
     path: ':tool',
     component: ToolDetailsComponent,
       resolve: {
@@ -36,6 +45,7 @@ const ROUTES: Routes = [
   ],
   providers: [
     ToolListResolver,
+      ToolNameResolver,
       ToolResolver
   ],
   exports: [ RouterModule ]

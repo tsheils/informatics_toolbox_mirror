@@ -5,11 +5,11 @@ import {DataLoaderService} from './data-loader.service';
 import {Tool} from "../models/tool";
 
 @Injectable()
-export class ToolResolver implements Resolve<any> {
+export class ToolNameResolver implements Resolve<any> {
     constructor(private dataLoaderService: DataLoaderService) {  }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Tool> {
-        console.log(route);
-        return this.dataLoaderService.getByName(route.paramMap.get('tool'));
+        console.log(route.routeConfig.path);
+        return this.dataLoaderService.getByName(route.routeConfig.path);
     }
 }

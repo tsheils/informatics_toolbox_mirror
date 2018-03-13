@@ -16,7 +16,6 @@ export class ToolDetailsComponent implements OnInit, AfterViewChecked {
 
     ngOnInit() {
         this.route.data.subscribe(res => {
-          console.log(res);
             this.tool = res.tool;
         });
 

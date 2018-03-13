@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from "@angular/forms";
+import {Meta} from "@angular/platform-browser";
+import {ActivatedRoute} from "@angular/router";
+import {Tool} from "../models/tool";
 
 @Component({
   selector: 'app-c-calculator',
@@ -10,10 +13,23 @@ export class CCalculatorComponent implements OnInit {
         data: any[] = [];
     sequenceCtrl = new FormControl();
     error: string;
-  constructor() { }
+    imgSrc: string;
+    imgSrcBase: string;
+    tool: Tool;
+    constructor(private route: ActivatedRoute) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.route.data.subscribe(res => {
+            this.tool = res.tool;
+            this.imgSrcBase = '../../assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
+            this.imgSrc = this.imgSrcBase + '/primary.png';
+        });
+    }
+
+    ngAfterViewChecked() {
+        window.scrollTo(0, 0);
+    }
 
          process() {
             this.deleteOutputTableRows();

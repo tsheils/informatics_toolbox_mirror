@@ -1,0 +1,11 @@
+
+img.full-width-banner {
+    height: 25vh;
+    width: 100vw;
+    object-fit: cover;
+}
+
+.placeholder {
+    height: 25vh;
+    width: 100vw;
+}

@@ -19,14 +19,6 @@ export class DataLoaderService {
     constructor(private http: HttpClient) {}
 
     getData(): Observable<any> {
-/*        return this.http.get(URL, {responseType: 'text'})
-            .pipe(
-                map(response => {
-                    this.csvJSON(response.trim());
-                    return this.data;
-                }),
-                catchError(this.handleError('getData', []))
-            );*/
         if (this.data.length > 0) {
             return Observable.of(this.data)
         } else {
@@ -44,14 +36,14 @@ export class DataLoaderService {
 
     getByName(name: string): Observable<Tool> {
         if (this.data.length > 0) {
-            return Observable.of(this.data.filter(tool => tool.toolName.toLowerCase() === name)[0])
+            return Observable.of(this.data.filter(tool => tool.toolName.toLowerCase() === name.toLowerCase())[0])
         } else {
             return this.http.get(URL, {responseType: 'text'})
                 .pipe(
                     map(response => {
                         this.data = [];
                         this.csvJSON(response.trim());
-                        return this.data.filter(tool => tool.toolName.toLowerCase() === name)[0]
+                        return this.data.filter(tool => tool.toolName.toLowerCase() === name.toLowerCase())[0]
                     }))
         }
     }

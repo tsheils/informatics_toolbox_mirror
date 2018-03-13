@@ -18,9 +18,7 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
-      "styles": [
-        "ncats-theme.scss"
-      ],
+      "styles": ["styles.scss"],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {

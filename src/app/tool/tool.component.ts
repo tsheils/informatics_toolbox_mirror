@@ -8,9 +8,13 @@ import {Tool} from "../models/tool";
 })
 export class ToolComponent implements OnInit {
 @Input() tool: Tool;
+    imgSrcBase: string;
+    imgSrc: string;
   constructor() { }
 
   ngOnInit() {
+      this.imgSrcBase = '../../assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
+      this.imgSrc = this.imgSrcBase + '/primary.png';
   }
 
 }

@@ -16,6 +16,8 @@ import {GoogleApiService} from './services/google-api.service';
 import { ToolDetailsComponent } from './tool-details/tool-details.component';
 import {AppRoutingModule} from './app-routing.module';
 import {CCalculatorComponent} from "./c-calculator/c-calculator.component";
+import { QhtsDataBrowserComponent } from './qhts-data-browser/qhts-data-browser.component';
+import { ToolBasicsComponent } from './tool-basics/tool-basics.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import {CCalculatorComponent} from "./c-calculator/c-calculator.component";
     ToolComponent,
     ToolListComponent,
       ToolDetailsComponent,
-    CCalculatorComponent
+    CCalculatorComponent,
+    QhtsDataBrowserComponent,
+    ToolBasicsComponent
   ],
   imports: [
     BrowserModule,

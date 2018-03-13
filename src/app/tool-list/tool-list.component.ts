@@ -26,12 +26,11 @@ filteredTools: Tool[] = [];
   filter(term: string): void {
     let filtered: Tool[] = [];
     this.tools.forEach(tool => {
-      let str = Object.values(tool).join(' ');
-        if(str.includes(term)) {
+      let str = Object.values(tool).join(' ').toLowerCase();
+        if(str.includes(term.toLowerCase())) {
           filtered.push(tool);
         }
     });
-    console.log(filtered);
     this.filteredTools = filtered;
   }
 }
