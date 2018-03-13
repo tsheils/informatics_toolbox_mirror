@@ -16,12 +16,13 @@
               <mat-card-subtitle>{{tool.description}}</mat-card-subtitle>
           </div>
       </div>
-      <span class="mat-title"><i>
-        <a href = {{tool.url}} target="_blank">{{tool.toolName}}</a>&nbsp;<mat-icon>open_in_new</mat-icon></i><br>
-    </span>
+
   </mat-card-content>
     </a>
     <mat-card-actions>
+        <span class="mat-title"><i>
+        <a href = {{tool.url}} target="_blank">{{tool.toolName}}&nbsp;<mat-icon>open_in_new</mat-icon></a></i><br>
+    </span>
         <mat-chip-list>
         <mat-chip color="primary"  selected="true" *ngIf = tool.category>{{tool.category}}</mat-chip>
         <mat-chip color="accent"  selected="true" *ngIf = tool.toolType>{{tool.toolType}}</mat-chip>

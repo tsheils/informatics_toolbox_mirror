@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {Tool} from '../models/tool';
-import {ActivatedRoute} from '@angular/router';
-import {Meta} from '@angular/platform-browser';
+import {ActivatedRoute} from "@angular/router";
+import {Tool} from "../models/tool";
 
 @Component({
-  selector: 'app-qhts-data-browser',
-  templateUrl: './qhts-data-browser.component.html',
-  styleUrls: ['./qhts-data-browser.component.css']
+  selector: 'app-qhts-curve-fit',
+  templateUrl: './qhts-curve-fit.component.html',
+  styleUrls: ['./qhts-curve-fit.component.css']
 })
-export class QhtsDataBrowserComponent implements OnInit {
+export class QhtsCurveFitComponent implements OnInit {
     tool: Tool;
     imgSrcBase : string;
     constructor(private route: ActivatedRoute) {

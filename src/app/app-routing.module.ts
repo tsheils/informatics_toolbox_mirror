@@ -7,6 +7,7 @@ import {ToolResolver} from './services/tool.resolver';
 import {CCalculatorComponent} from "./c-calculator/c-calculator.component";
 import {ToolNameResolver} from "./services/tool-name.resolver";
 import {QhtsDataBrowserComponent} from "./qhts-data-browser/qhts-data-browser.component";
+import {QhtsCurveFitComponent} from "./qhts-curve-fit/qhts-curve-fit.component";
 
 const ROUTES: Routes = [
   {
@@ -26,6 +27,12 @@ const ROUTES: Routes = [
   {
         path: 'qhts data browser',
         component: QhtsDataBrowserComponent,
+        resolve: {
+            tool: ToolNameResolver
+        }
+    }, {
+        path: 'qhts curvefit',
+        component: QhtsCurveFitComponent,
         resolve: {
             tool: ToolNameResolver
         }

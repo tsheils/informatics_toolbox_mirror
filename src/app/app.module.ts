@@ -19,6 +19,7 @@ import {CCalculatorComponent} from "./c-calculator/c-calculator.component";
 import { QhtsDataBrowserComponent } from './qhts-data-browser/qhts-data-browser.component';
 import { ToolBasicsComponent } from './tool-basics/tool-basics.component';
 import {UnfurlingMetaService} from './services/unfurling-meta.service';
+import { QhtsCurveFitComponent } from './qhts-curve-fit/qhts-curve-fit.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {UnfurlingMetaService} from './services/unfurling-meta.service';
       ToolDetailsComponent,
     CCalculatorComponent,
     QhtsDataBrowserComponent,
-    ToolBasicsComponent
+    ToolBasicsComponent,
+    QhtsCurveFitComponent
   ],
   imports: [
     BrowserModule,
