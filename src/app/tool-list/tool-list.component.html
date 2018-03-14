@@ -10,8 +10,16 @@
 <span>{{filteredTools.length}} of {{tools.length}}</span>
   </div>
 </div>
-<div fxLayout="row wrap" fxLayoutAlign="space-around stretch" fxLayout.xs="column">
-  <div fxFlex="30" class ="card-holder" *ngFor="let tool of filteredTools">
-    <app-tool class="tool-comp" [tool] = tool></app-tool>
+
+<mat-expansion-panel *ngFor="let project of filteredTools" [expanded]="'true'">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h1>{{project.parent}}</h1><br>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div fxLayout="row wrap" fxLayoutAlign="space-around stretch" fxLayout.xs="column">
+    <div fxFlex="30" class ="card-holder" *ngFor="let tool of project.tools">
+      <app-tool class="tool-comp" [tool] = tool></app-tool>
+    </div>
   </div>
-</div>
+</mat-expansion-panel>

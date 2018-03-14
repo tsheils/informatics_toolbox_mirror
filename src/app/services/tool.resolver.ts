@@ -9,7 +9,6 @@ export class ToolResolver implements Resolve<any> {
     constructor(private dataLoaderService: DataLoaderService) {  }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Tool> {
-        console.log(route);
         return this.dataLoaderService.getByName(route.paramMap.get('tool'));
     }
 }

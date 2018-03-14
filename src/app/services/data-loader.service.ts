@@ -15,19 +15,21 @@ export class DataLoaderService {
     //  Observable navItem stream
     data$ = this._dataSource.asObservable();
     data: Tool[] = [];
+    dataMap: Map<string, Tool[]> = new Map();
+
 
     constructor(private http: HttpClient) {}
 
     getData(): Observable<any> {
-        if (this.data.length > 0) {
-            return Observable.of(this.data)
+        if (this.dataMap.size > 0) {
+            return Observable.of(this.dataMap)
         } else {
             return this.http.get(URL, {responseType: 'text'})
                 .pipe(
                     map(response => {
                         this.data = [];
                         this.csvJSON(response.trim());
-                        return this.data;
+                        return this.dataMap;
                     }),
                     catchError(this.handleError('getData', []))
                 );
@@ -81,8 +83,17 @@ export class DataLoaderService {
             }
             const tool: Tool = new Tool(data);
          this.data.push(tool);
+         console.log(tool.parentProject);
+            let parentList: Tool[] = this.dataMap.get(tool.parentProject);
+            if (parentList && parentList.length > 0) {
+                parentList.push(tool);
+            }else {
+                parentList = [tool];
+            }
+            this.dataMap.set(tool.parentProject, parentList);
+            //  result.push(obj);
         }
-        this._dataSource.next(this.data);
+     //   this._dataSource.next(this.dataMap);
     }
 }
 

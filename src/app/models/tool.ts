@@ -1,4 +1,6 @@
 
+import {Type} from "@angular/core";
+
 export class Tool {
     toolName: string;
     category: string;
@@ -15,6 +17,7 @@ export class Tool {
     publicCodebase: boolean;
     parentProject: string;
     image: boolean;
+    component: string;
 
     constructor (obj: any){
         this.toolName = obj.toolName;
@@ -32,5 +35,6 @@ export class Tool {
         this.publicCodebase = obj.publicCodebase || false;
         this.parentProject = obj.parentProject;
         this.image = obj.image === "yes" ? obj.image : false;
+        this.component = obj.component || null;
     }
 }

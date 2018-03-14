@@ -8,6 +8,9 @@ import {CCalculatorComponent} from "./c-calculator/c-calculator.component";
 import {ToolNameResolver} from "./services/tool-name.resolver";
 import {QhtsDataBrowserComponent} from "./qhts-data-browser/qhts-data-browser.component";
 import {QhtsCurveFitComponent} from "./qhts-curve-fit/qhts-curve-fit.component";
+import {QhtsPlateBrowserComponent} from "./qhts-plate-browser/qhts-plate-browser.component";
+import {ToolBasicsComponent} from "./tool-basics/tool-basics.component";
+import {ComponentNameResolver} from "./services/component-name.resolver";
 
 const ROUTES: Routes = [
   {
@@ -17,26 +20,6 @@ const ROUTES: Routes = [
       tools: ToolListResolver
     }
   },
-    {
-        path: 'c911 calculator',
-        component: CCalculatorComponent,
-        resolve: {
-            tool: ToolNameResolver
-        }
-    },
-  {
-        path: 'qhts data browser',
-        component: QhtsDataBrowserComponent,
-        resolve: {
-            tool: ToolNameResolver
-        }
-    }, {
-        path: 'qhts curvefit',
-        component: QhtsCurveFitComponent,
-        resolve: {
-            tool: ToolNameResolver
-        }
-    },
     {
     path: ':tool',
     component: ToolDetailsComponent,

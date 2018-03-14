@@ -1,23 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Tool} from '../models/tool';
-import {ActivatedRoute} from '@angular/router';
-import {Meta} from '@angular/platform-browser';
+import {NCATSImage} from "../models/ncatsimage";
 
 @Component({
-  selector: 'app-qhts-data-browser',
   templateUrl: './qhts-data-browser.component.html',
   styleUrls: ['./qhts-data-browser.component.css']
 })
 export class QhtsDataBrowserComponent implements OnInit {
-    tool: Tool;
+    @Input() tool: Tool;
     imgSrcBase : string;
-    constructor(private route: ActivatedRoute) {
-    }
+    images: NCATSImage[];
 
     ngOnInit() {
-        this.route.data.subscribe(res => {
-            this.tool = res.tool;
             this.imgSrcBase = '../../assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
-        });
+            this.images = [
+                new NCATSImage({url: this.imgSrcBase + '/primary.png', caption: 'qHTS client is the primary way to retrieve compound screening data.'}),
+                new NCATSImage({url: this.imgSrcBase + '/query.png', caption: 'Data can be retrieved based on a specific list of assay protocols, compounds, or potency or efficacy of the compound response.'}),
+                new NCATSImage({url: this.imgSrcBase + '/compare.png', caption: 'It can be used to compare responses of a given compound across many different assays.'})
+            ];
     }
 }

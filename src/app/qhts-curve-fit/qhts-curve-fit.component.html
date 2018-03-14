@@ -1,12 +1,4 @@
-<app-tool-basics [tool]=tool></app-tool-basics>
 
-<div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column" fxLayoutWrap>
-  <div fxFlex = "95">
-(requires <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/javaws/" target="_blank">Java WebStart</a>)<br>
-<a class = "mat-title tool-link secondary-color" href="https://tripod.nih.gov/curvefit/sample_data.txt"><strong>Sample Data File</strong>&nbsp;<mat-icon>file_download</mat-icon></a><br>
-  </div>
-</div>
-<br>
 <div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column" fxLayoutWrap>
   <mat-card fxFlex = "75" fxFlexAlign="stretch">
     <mat-card-content>
@@ -58,3 +50,11 @@
     </mat-card-content>
   </mat-card>
 </div>
+<br>
+<div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column" fxLayoutWrap>
+  <div fxFlex = "95">
+    <a class = "mat-title tool-link secondary-color" href="https://tripod.nih.gov/curvefit/sample_data.txt"><strong>Sample Data File</strong>&nbsp;<mat-icon>file_download</mat-icon></a><br>
+  </div>
+</div>
+<br>
+<app-java-web-start [tool]=tool></app-java-web-start>

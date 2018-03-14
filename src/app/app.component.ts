@@ -24,7 +24,6 @@ export class AppComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document) {
   }
   ngOnInit(){
-    console.log(this);
     this.loadingService.loading$.subscribe(res =>this.loading = res);
 
   }

@@ -13,24 +13,34 @@ import {FormControl} from "@angular/forms";
 })
 export class ToolListComponent implements OnInit {
 tools: Tool[] = [];
-filteredTools: Tool[] = [];
+toolsArr: any[] = [];
+filteredTools: any[] = [];
   constructor(private dataLoaderService: DataLoaderService) { }
 
   ngOnInit() {
       this.dataLoaderService.getData().subscribe(res => {
-          this.tools = res;
-          this.filteredTools = this.tools;
+          res.forEach((value, key) => this.toolsArr.push({parent: key, tools: value}));
+          this.filteredTools = this.toolsArr;
+          this.toolsArr.reverse();
       });
   }
 
   filter(term: string): void {
-    let filtered: Tool[] = [];
-    this.tools.forEach(tool => {
-      let str = Object.values(tool).join(' ').toLowerCase();
-        if(str.includes(term.toLowerCase())) {
-          filtered.push(tool);
+      let filteredArr: any[] = [];
+    this.toolsArr.forEach((values, key) => {
+        let filtered: Tool[] = [];
+        console.log(values);
+        console.log(key);
+        values.forEach(tool => {
+            let str = Object.values(tool).join(' ').toLowerCase();
+            if (str.includes(term.toLowerCase())) {
+                filtered.push(tool);
+            }
+        });
+        if (filtered.length > 0) {
+            filteredArr.push({parent: key, tools: filtered})
         }
     });
-    this.filteredTools = filtered;
+    this.filteredTools = filteredArr;
   }
 }

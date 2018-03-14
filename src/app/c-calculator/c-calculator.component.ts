@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {Meta} from "@angular/platform-browser";
 import {ActivatedRoute} from "@angular/router";
 import {Tool} from "../models/tool";
 
 @Component({
-    selector: 'app-c-calculator',
     templateUrl: './c-calculator.component.html',
     styleUrls: ['./c-calculator.component.css']
 })
@@ -15,16 +14,11 @@ export class CCalculatorComponent implements OnInit {
     error: string;
     imgSrc: string;
     imgSrcBase: string;
-    tool: Tool;
-    constructor(private route: ActivatedRoute) {
-    }
+    @Input() tool: Tool;
 
     ngOnInit() {
-        this.route.data.subscribe(res => {
-            this.tool = res.tool;
             this.imgSrcBase = '../../assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
             this.imgSrc = this.imgSrcBase + '/primary.png';
-        });
     }
 
     process() {
