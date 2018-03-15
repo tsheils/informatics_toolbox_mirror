@@ -13,7 +13,7 @@ export class ToolComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-      this.imgSrcBase = '../../assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
+      this.imgSrcBase = './assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
       this.imgSrc = this.imgSrcBase + '/primary.png';
   }
 
