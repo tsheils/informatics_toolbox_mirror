@@ -1,13 +1,37 @@
 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
   <div fxFlex = "95">
     <mat-form-field class ="tool-filter">
-      <input matInput placeholder="Search Tools" aria-label="Filter tools" (keyup)="filter($event.target.value)">
+      <input matInput placeholder="Search Tools" aria-label="Filter tools" (keyup)="search($event.target.value)">
     </mat-form-field>
   </div>
 </div>
+
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
+  <div fxFlex = "45">
+    Show me tools for:
+    <mat-chip-list #chipList [(ngModel)]="selectedFilters" multiple>
+      <mat-chip *ngFor="let filter of audiences"
+                [selected]="isSelected(filter)"
+                (click)="selectFilter('audience',filter)">
+        {{filter}}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+ <div fxFlex = "45">
+    Show me:
+   <mat-chip-list #chipList [(ngModel)]="selectedFilters" multiple>
+     <mat-chip *ngFor="let filter of toolTypes"
+               [selected]="isSelected(filter)"
+               (click)="selectFilter('toolType', filter)">
+       {{filter}}
+     </mat-chip>
+   </mat-chip-list>
+  </div>
+</div>
+
 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
   <div fxFlex = "95">
-<span>{{filteredTools.length}} of {{tools.length}}</span>
+<span>{{filteredToolsCount}} of {{count}}</span>
   </div>
 </div>
 

@@ -7,7 +7,7 @@ export class Tool {
     url: string;
     contact: string[];
     description: string;
-    toolType: string;
+    toolType: string[];
     note: string;
     collaborators: string[];
     visibility: string;
@@ -23,18 +23,27 @@ export class Tool {
         this.toolName = obj.toolName;
         this.category = obj.category ? obj.category : null;
         this.url = obj.url;
-        this.contact = obj.contact.split(',');
+        this.contact = this.parse(obj.contact);
         this.description = obj.description;
-        this.toolType = obj.toolType || null;
+        this.toolType = this.parse(obj.toolType);
         this.note = obj.note;
-        this.collaborators = obj.collaborators ? obj.collaborators.split(','): [];
+        this.collaborators = this.parse(obj.collaborators);
         this.visibility = obj.visibility;
         this.obsolete = obj.obsolete || false;
-        this.audience = obj.audience? obj.audience.split(',') : [];
+        this.audience = this.parse(obj.audience);
         this.codebase = obj.codebase;
         this.publicCodebase = obj.publicCodebase || false;
         this.parentProject = obj.parentProject;
         this.image = obj.image === "yes" ? obj.image : false;
         this.component = obj.component || null;
+    }
+
+    parse(string): string[] {
+        let ret = [];
+        if(string){
+            ret = string.split(', ');
+            ret.map(str => str.trim())
+        }
+        return ret;
     }
 }

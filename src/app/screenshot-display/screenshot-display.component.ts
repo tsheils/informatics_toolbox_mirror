@@ -8,6 +8,7 @@ import {NCATSImage} from "../models/ncatsimage";
 })
 export class ScreenshotDisplayComponent implements OnInit {
   @Input() images: NCATSImage[];
+  @Input() size: number;
   constructor() { }
 
   ngOnInit() {

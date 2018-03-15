@@ -25,6 +25,8 @@ import {QhtsPlateBrowserComponent} from "./qhts-plate-browser/qhts-plate-browser
 import { CustomContentDirective } from './tool-details/custom-content.directive';
 import {ComponentNameService} from "./services/component-name.service";
 import { ScreenshotDisplayComponent } from './screenshot-display/screenshot-display.component';
+import { QhtsSampleClientComponent } from './qhts-sample-client/qhts-sample-client.component';
+import { QhtsHeatmapBrowserComponent } from './qhts-heatmap-browser/qhts-heatmap-browser.component';
 
 @NgModule({
   imports: [
@@ -58,14 +60,18 @@ import { ScreenshotDisplayComponent } from './screenshot-display/screenshot-disp
         QhtsCurveFitComponent,
         QhtsPlateBrowserComponent,
         CustomContentDirective,
-        ScreenshotDisplayComponent
+        ScreenshotDisplayComponent,
+        QhtsSampleClientComponent,
+        QhtsHeatmapBrowserComponent
 
     ],
     entryComponents: [
         CCalculatorComponent,
         QhtsDataBrowserComponent,
         QhtsCurveFitComponent,
-        QhtsPlateBrowserComponent
+        QhtsPlateBrowserComponent,
+        QhtsSampleClientComponent,
+        QhtsHeatmapBrowserComponent
     ],
   bootstrap: [AppComponent]
 })

@@ -50,6 +50,12 @@ export class DataLoaderService {
         }
     }
 
+    getFields(property: string): string[] {
+        let temp: any[] = [];
+        this.data.map(tool => temp.push(tool[property]));
+        return Array.from(new Set([].concat(...temp)));
+    }
+
     /**
      * Handle Http operation that failed.
      * Let the app continue.
@@ -83,7 +89,6 @@ export class DataLoaderService {
             }
             const tool: Tool = new Tool(data);
          this.data.push(tool);
-         console.log(tool.parentProject);
             let parentList: Tool[] = this.dataMap.get(tool.parentProject);
             if (parentList && parentList.length > 0) {
                 parentList.push(tool);
@@ -91,9 +96,7 @@ export class DataLoaderService {
                 parentList = [tool];
             }
             this.dataMap.set(tool.parentProject, parentList);
-            //  result.push(obj);
         }
-     //   this._dataSource.next(this.dataMap);
     }
 }
 

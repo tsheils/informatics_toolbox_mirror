@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
-  <mat-card *ngFor="let image of images" fxFlex = "30" fxFlexAlign="stretch">
+  <mat-card *ngFor="let image of images" fxFlex = {{size}} fxFlexAlign="stretch">
     <img mat-card-image src= {{image.url}} alt='{{image.caption}}'>
     <mat-card-content>
       <p>

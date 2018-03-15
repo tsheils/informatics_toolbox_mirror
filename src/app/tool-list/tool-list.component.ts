@@ -7,40 +7,99 @@ import "rxjs/add/observable/of";
 import {FormControl} from "@angular/forms";
 
 @Component({
-  selector: 'app-tool-list',
-  templateUrl: './tool-list.component.html',
-  styleUrls: ['./tool-list.component.css']
+    selector: 'app-tool-list',
+    templateUrl: './tool-list.component.html',
+    styleUrls: ['./tool-list.component.css']
 })
 export class ToolListComponent implements OnInit {
-tools: Tool[] = [];
-toolsArr: any[] = [];
-filteredTools: any[] = [];
-  constructor(private dataLoaderService: DataLoaderService) { }
+    tools: Tool[] = [];
+    toolsArr: any[] = [];
+    filteredTools: any[] = [];
+    count = 0;
+    filteredToolsCount = 0;
+    selectedFilters: any[] = [];
+    audiences: string[] = [];
+    toolTypes: string[] = [];
 
-  ngOnInit() {
-      this.dataLoaderService.getData().subscribe(res => {
-          res.forEach((value, key) => this.toolsArr.push({parent: key, tools: value}));
-          this.filteredTools = this.toolsArr;
-          this.toolsArr.reverse();
-      });
-  }
+    constructor(private dataLoaderService: DataLoaderService) { }
 
-  filter(term: string): void {
-      let filteredArr: any[] = [];
-    this.toolsArr.forEach((values, key) => {
-        let filtered: Tool[] = [];
-        console.log(values);
-        console.log(key);
-        values.forEach(tool => {
-            let str = Object.values(tool).join(' ').toLowerCase();
-            if (str.includes(term.toLowerCase())) {
-                filtered.push(tool);
+    ngOnInit() {
+        this.dataLoaderService.getData().subscribe(res => {
+            res.forEach((value, key) => {
+                this.toolsArr.push({parent: key, tools: value});
+                this.count += value.length;
+                this.filteredToolsCount = this.count;
+            });
+            this.filteredTools = this.toolsArr;
+        });
+
+        this.audiences = this.dataLoaderService.getFields('audience');
+        this.toolTypes = this.dataLoaderService.getFields('toolType');
+    }
+
+
+    isSelected(filter: any): boolean {
+        return this.selectedFilters.includes(filter);
+    }
+
+
+    selectFilter(property:string, filter: any): void {
+        let index = this.selectedFilters.indexOf(filter);
+
+        if (index >= 0) {
+            this.selectedFilters.splice(index, 1);
+            this.filteredTools = this.toolsArr;
+            this.filteredToolsCount = this.count;
+            if (this.selectedFilters.length > 0) {
+                this.filter(property);
+            }
+        } else {
+            this.selectedFilters.push(filter);
+            this.filter(property);
+        }
+    }
+
+    filter(property: string): void {
+        this.filteredToolsCount = 0;
+        let filteredArr: any[] = [];
+        this.selectedFilters.forEach(filter=> {
+        this.toolsArr.forEach(values => {
+            let filtered: Tool[] = [];
+            values.tools.forEach(tool => {
+                if (tool[property].includes(filter)) {
+                    console.log(tool);
+                    filtered.push(tool);
+                }
+            });
+            console.log(filtered);
+            if (filtered.length > 0) {
+                filteredArr.push({parent: values.parent, tools: filtered});
+                this.filteredToolsCount += filtered.length;
             }
         });
-        if (filtered.length > 0) {
-            filteredArr.push({parent: key, tools: filtered})
-        }
-    });
-    this.filteredTools = filteredArr;
-  }
+        });
+        console.log(filteredArr);
+        this.filteredTools = filteredArr;
+    }
+
+    search(term: string): void {
+        this.filteredToolsCount = 0;
+        let filteredArr: any[] = [];
+        this.toolsArr.forEach(values => {
+            let filtered: Tool[] = [];
+            values.tools.forEach(tool => {
+                let str = Object.values(tool).join(' ').toLowerCase();
+                if (str.includes(term.toLowerCase())) {
+                    filtered.push(tool);
+                }
+            });
+            console.log(filtered);
+            if (filtered.length > 0) {
+                filteredArr.push({parent: values.parent, tools: filtered});
+                this.filteredToolsCount += filtered.length;
+            }
+        });
+        console.log(filteredArr);
+        this.filteredTools = filteredArr;
+    }
 }
