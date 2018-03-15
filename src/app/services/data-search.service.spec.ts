@@ -1,11 +1,19 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { DataSearchService } from './data-search.service';
+import {HttpClientModule} from "@angular/common/http";
+import {DataLoaderService} from "./data-loader.service";
 
 describe('DataSearchService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DataSearchService]
+        imports: [
+            HttpClientModule
+        ],
+      providers: [
+          DataLoaderService,
+          DataSearchService
+      ]
     });
   });
 

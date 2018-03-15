@@ -9,8 +9,8 @@ import {NCATSImage} from '../models/ncatsimage';
 })
 export class QhtsHeatmapBrowserComponent implements OnInit {
     @Input() tool: Tool;
-    imgSrcBase : string;
-    images : NCATSImage[];
+    imgSrcBase: string;
+    images: NCATSImage[];
 
     ngOnInit() {
         this.imgSrcBase = '../../assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from "@angular/common/http";
+/*import {HttpClient} from "@angular/common/http";
 import {utf8Encode} from "@angular/compiler/src/util";
 //import {google, GoogleApis} from "googleapis";
 //const {google} = require('googleapis');
@@ -14,12 +14,12 @@ const JWT: JWT = {
     aud: "https://www.googleapis.com/oauth2/v4/token",
     exp: (Date.now() + 3600000),
     iat: Date.now()
-};
+};*/
 
 
 @Injectable()
 export class GoogleApiService {
-    key: any;
+/*    key: any;
   constructor(private http: HttpClient) {
     //  console.log(google);
       const header = window.btoa(JSON.stringify(HEADER));
@@ -34,16 +34,16 @@ export class GoogleApiService {
      var uint8array = new window['TextEncoder']("utf-8").encode(signature);
    //   var string = new TextDecoder().decode(uint8array);
       console.log(uint8array );
-    /*  window.crypto.subtle.importKey("pkcs8", new window['TextEncoder']("utf-8").encode(TOKEN.private_key),{
+    /!*  window.crypto.subtle.importKey("pkcs8", new window['TextEncoder']("utf-8").encode(TOKEN.private_key),{
           name: "RSASSA-PKCS1-v1_5",
           hash: "SHA-256"
       },false, ['sign']).then(res => {
           console.log(res);
           this.key =res;
           this.sign(uint8array);
-      });*/
+      });*!/
      // this.sign(uint8array);
-    //  const arr = new Uint8Array(signature);
+    //  const arr = new Uint8Array(signature);*/
   }
 /*
   sign(arr) {
@@ -103,7 +103,7 @@ export class GoogleApiService {
 */
 
 
-}
+//}
 
 export interface JWT {
   iss: string;

@@ -1,4 +1,7 @@
-import {AfterViewInit, Component, ComponentFactoryResolver, ElementRef, OnInit, Type, ViewChild} from '@angular/core';
+import {
+    AfterViewInit, Component, ComponentFactoryResolver, ElementRef, Input, OnInit, Type,
+    ViewChild
+} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import {Tool} from '../models/tool';
@@ -12,7 +15,7 @@ import {ComponentNameService} from '../services/component-name.service';
   styleUrls: ['./tool-details.component.css']
 })
 export class ToolDetailsComponent implements OnInit, AfterViewInit {
-  tool: Tool;
+  @Input() tool: Tool;
     @ViewChild(CustomContentDirective) componentHost: CustomContentDirective;
 
 
@@ -25,7 +28,7 @@ export class ToolDetailsComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.route.data.subscribe(res => {
             this.tool = res.tool;
-            if (this.tool.component) {
+            if (this.tool && this.tool.component) {
                 this.loadComponent();
             }
         });
@@ -59,7 +62,6 @@ export class ToolDetailsComponent implements OnInit, AfterViewInit {
             }],
             true
         );*/
-        console.log(this);
     }
 
     ngAfterViewInit() {
@@ -68,11 +70,11 @@ export class ToolDetailsComponent implements OnInit, AfterViewInit {
 
     loadComponent() {
         const instance: Type<any> = this.componentNameService.getComponent(this.tool.component);
-        let componentFactory = this.componentFactoryResolver.resolveComponentFactory(instance);
-        let viewContainerRef = this.componentHost.viewContainerRef;
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(instance);
+        const viewContainerRef = this.componentHost.viewContainerRef;
         viewContainerRef.clear();
 
-        let componentRef = viewContainerRef.createComponent(componentFactory);
+        const componentRef = viewContainerRef.createComponent(componentFactory);
         componentRef.instance.tool = this.tool;
     }
 }

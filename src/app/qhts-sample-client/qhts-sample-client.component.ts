@@ -8,14 +8,16 @@ import {NCATSImage} from '../models/ncatsimage';
 })
 export class QhtsSampleClientComponent implements OnInit {
     @Input() tool: Tool;
-    imgSrcBase : string;
-    images : NCATSImage[];
+    imgSrcBase: string;
+    images: NCATSImage[];
 
     ngOnInit() {
         this.imgSrcBase = '../../assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
         this.images = [
-            new NCATSImage({url: this.imgSrcBase + '/primary.png', caption: 'Get structures, common names, Supplier IDs and additional information from a list of NCGC sample IDs.'}),
-            new NCATSImage({url: this.imgSrcBase + '/structure-search.png', caption: 'Search by structure.'}),
+            new NCATSImage({url: this.imgSrcBase + '/primary.png',
+                caption: 'Get structures, common names, Supplier IDs and additional information from a list of NCGC sample IDs.'}),
+            new NCATSImage({url: this.imgSrcBase + '/structure-search.png',
+                caption: 'Search by structure.'}),
         ];
     }
 }

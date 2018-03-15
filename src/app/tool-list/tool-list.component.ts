@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {DataLoaderService} from "../services/data-loader.service";
-import {Tool} from "../models/tool";
-import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
-import {Observable} from "rxjs/Observable";
-import "rxjs/add/observable/of";
-import {FormControl} from "@angular/forms";
+import {DataLoaderService} from '../services/data-loader.service';
+import {Tool} from '../models/tool';
+import 'rxjs/add/observable/of';
 
 @Component({
     selector: 'app-tool-list',
@@ -43,8 +40,8 @@ export class ToolListComponent implements OnInit {
     }
 
 
-    selectFilter(property:string, filter: any): void {
-        let index = this.selectedFilters.indexOf(filter);
+    selectFilter(property: string, filter: any): void {
+        const index = this.selectedFilters.indexOf(filter);
 
         if (index >= 0) {
             this.selectedFilters.splice(index, 1);
@@ -62,10 +59,10 @@ export class ToolListComponent implements OnInit {
     filter(property: string): void {
         this.filteredToolsCount = 0;
         const filteredArr: any[] = [];
-        let filteredMap: Map<string, Tool[]> = new Map<string, Tool[]>();
-        this.selectedFilters.forEach(filter=> {
+        const filteredMap: Map<string, Tool[]> = new Map<string, Tool[]>();
+        this.selectedFilters.forEach(filter => {
         this.toolsArr.forEach(values => {
-            let filtered: Tool[] = filteredMap.get(values.parent) ? filteredMap.get(values.parent) : [];
+            const filtered: Tool[] = filteredMap.get(values.parent) ? filteredMap.get(values.parent) : [];
             values.tools.forEach(tool => {
                 if (tool[property].includes(filter)) {
                     console.log(tool);
@@ -87,22 +84,20 @@ export class ToolListComponent implements OnInit {
 
     search(term: string): void {
         this.filteredToolsCount = 0;
-        let filteredArr: any[] = [];
+        const filteredArr: any[] = [];
         this.toolsArr.forEach(values => {
-            let filtered: Tool[] = [];
+            const filtered: Tool[] = [];
             values.tools.forEach(tool => {
-                let str = Object.values(tool).join(' ').toLowerCase();
+                const str = Object.values(tool).join(' ').toLowerCase();
                 if (str.includes(term.toLowerCase())) {
                     filtered.push(tool);
                 }
             });
-            console.log(filtered);
             if (filtered.length > 0) {
                 filteredArr.push({parent: values.parent, tools: filtered});
                 this.filteredToolsCount += filtered.length;
             }
         });
-        console.log(filteredArr);
         this.filteredTools = filteredArr;
     }
 }

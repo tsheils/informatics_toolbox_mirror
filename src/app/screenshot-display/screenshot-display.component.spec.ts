@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScreenshotDisplayComponent } from './screenshot-display.component';
+import {NCATSImage} from "../models/ncatsimage";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {MaterialModule} from "../../assets/material/material.module";
 
 describe('ScreenshotDisplayComponent', () => {
   let component: ScreenshotDisplayComponent;
@@ -8,6 +11,10 @@ describe('ScreenshotDisplayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+        imports: [
+            MaterialModule,
+            FlexLayoutModule
+        ],
       declarations: [ ScreenshotDisplayComponent ]
     })
     .compileComponents();
@@ -16,6 +23,12 @@ describe('ScreenshotDisplayComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ScreenshotDisplayComponent);
     component = fixture.componentInstance;
+      component.images = [
+          new NCATSImage({url: this.imgSrcBase + '/primary.png', caption: 'Compare dose responses across assays.'}),
+          new NCATSImage({url: this.imgSrcBase + '/browse.png', caption: 'At a glance browse qHTS data for large data sets. '}),
+          new NCATSImage({url: this.imgSrcBase + '/helper.png', caption: 'Heat Map client helper.'})
+      ];
+      component.size = 30;
     fixture.detectChanges();
   });
 

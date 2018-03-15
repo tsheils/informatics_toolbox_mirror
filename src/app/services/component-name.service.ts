@@ -18,7 +18,7 @@ export class ComponentNameService {
       this.COMPONENTS.set('QhtsHeatmapBrowserComponent', QhtsHeatmapBrowserComponent);
   }
 
-  getComponent(name: string): Type<any>{
+  getComponent(name: string): Type<any> {
     return this.COMPONENTS.get(name);
   }
 }

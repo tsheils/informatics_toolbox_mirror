@@ -8,9 +8,9 @@ import {UnfurlingMetaService} from '../services/unfurling-meta.service';
   styleUrls: ['./tool-basics.component.css']
 })
 export class ToolBasicsComponent implements OnInit {
-  @Input() tool:Tool;
-    imgSrc : string;
-    imgSrcBase : string;
+  @Input() tool: Tool;
+    imgSrc: string;
+    imgSrcBase: string;
 
   constructor(private unfurlingMetaService: UnfurlingMetaService) { }
 

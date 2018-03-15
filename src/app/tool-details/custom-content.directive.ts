@@ -1,7 +1,7 @@
 import {Directive, ViewContainerRef} from '@angular/core';
 
 @Directive({
-  selector: '[ncatsCustomContent]'
+  selector: '[appNcatsCustomContent]'
 })
 export class CustomContentDirective {
 

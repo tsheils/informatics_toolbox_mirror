@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Tool} from "../models/tool";
+import {Tool} from '../models/tool';
 
 @Component({
   templateUrl: './qhts-curve-fit.component.html',
@@ -7,7 +7,7 @@ import {Tool} from "../models/tool";
 })
 export class QhtsCurveFitComponent implements OnInit {
     @Input() tool: Tool;
-    imgSrcBase : string;
+    imgSrcBase: string;
 
     ngOnInit() {
             this.imgSrcBase = '../../assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');

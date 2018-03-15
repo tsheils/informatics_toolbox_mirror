@@ -7,7 +7,6 @@ import { catchError, map, tap } from 'rxjs/operators';
 import {Tool} from '../models/tool';
 
 const URL = 'assets/tool-list.csv';
-//const URL = 'https://sheets.googleapis.com/v4/spreadsheets/1SLbypy2WC8vld-_NPiFJiLSBBMsQlic22gNmRv5EYv8?key=AIzaSyDxUuWWyIKNZIQ0bP2GJchBdARPsxcNA04';
 @Injectable()
 export class DataLoaderService {
 
@@ -22,7 +21,7 @@ export class DataLoaderService {
 
     getData(): Observable<any> {
         if (this.dataMap.size > 0) {
-            return Observable.of(this.dataMap)
+            return Observable.of(this.dataMap);
         } else {
             return this.http.get(URL, {responseType: 'text'})
                 .pipe(
@@ -38,20 +37,20 @@ export class DataLoaderService {
 
     getByName(name: string): Observable<Tool> {
         if (this.data.length > 0) {
-            return Observable.of(this.data.filter(tool => tool.toolName.toLowerCase() === name.toLowerCase())[0])
+            return Observable.of(this.data.filter(tool => tool.toolName.toLowerCase() === name.toLowerCase())[0]);
         } else {
             return this.http.get(URL, {responseType: 'text'})
                 .pipe(
                     map(response => {
                         this.data = [];
                         this.csvJSON(response.trim());
-                        return this.data.filter(tool => tool.toolName.toLowerCase() === name.toLowerCase())[0]
-                    }))
+                        return this.data.filter(tool => tool.toolName.toLowerCase() === name.toLowerCase())[0];
+                    }));
         }
     }
 
     getFields(property: string): string[] {
-        let temp: any[] = [];
+        const temp: any[] = [];
         this.data.map(tool => temp.push(tool[property]));
         return Array.from(new Set([].concat(...temp)));
     }
@@ -80,22 +79,24 @@ export class DataLoaderService {
         const lines: string[] = csv.split(/\r\n|\n/);
 
         const headers = lines.shift().split(',');
+        if (lines.length > 0) {
         for (const i of lines) {
             const currentline = i.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-            let data: {} = {};
-            for (const j in headers) {
-                // todo : switch to global replace
-                data[headers[j]] = currentline[j].replace('"','').replace('"','');
+            const data: {} = {};
+                for (const j of Object.keys(headers)) {
+                    // todo : switch to global replace
+                    data[headers[j]] = currentline[j].replace('"',  '').replace('"',  '');
             }
             const tool: Tool = new Tool(data);
          this.data.push(tool);
             let parentList: Tool[] = this.dataMap.get(tool.parentProject);
             if (parentList && parentList.length > 0) {
                 parentList.push(tool);
-            }else {
+            } else {
                 parentList = [tool];
             }
             this.dataMap.set(tool.parentProject, parentList);
+        }
         }
     }
 }

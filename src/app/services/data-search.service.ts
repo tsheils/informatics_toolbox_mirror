@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {DataLoaderService} from "./data-loader.service";
-import {Subject} from "rxjs/Subject";
+import {DataLoaderService} from './data-loader.service';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class DataSearchService {

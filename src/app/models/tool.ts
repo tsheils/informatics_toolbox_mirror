@@ -1,6 +1,4 @@
 
-import {Type} from "@angular/core";
-
 export class Tool {
     toolName: string;
     category: string;
@@ -19,7 +17,7 @@ export class Tool {
     image: boolean;
     component: string;
 
-    constructor (obj: any){
+    constructor (obj: any) {
         this.toolName = obj.toolName;
         this.category = obj.category ? obj.category : null;
         this.url = obj.url;
@@ -34,15 +32,15 @@ export class Tool {
         this.codebase = obj.codebase;
         this.publicCodebase = obj.publicCodebase || false;
         this.parentProject = obj.parentProject;
-        this.image = obj.image === "yes" ? obj.image : false;
+        this.image = obj.image === 'yes' ? obj.image : false;
         this.component = obj.component || null;
     }
 
     parse(string): string[] {
         let ret = [];
-        if(string){
+        if (string) {
             ret = string.split(', ');
-            ret.map(str => str.trim())
+            ret.map(str => str.trim());
         }
         return ret;
     }
