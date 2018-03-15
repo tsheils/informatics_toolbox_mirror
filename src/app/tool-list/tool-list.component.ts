@@ -61,24 +61,27 @@ export class ToolListComponent implements OnInit {
 
     filter(property: string): void {
         this.filteredToolsCount = 0;
-        let filteredArr: any[] = [];
+        const filteredArr: any[] = [];
+        let filteredMap: Map<string, Tool[]> = new Map<string, Tool[]>();
         this.selectedFilters.forEach(filter=> {
         this.toolsArr.forEach(values => {
-            let filtered: Tool[] = [];
+            let filtered: Tool[] = filteredMap.get(values.parent) ? filteredMap.get(values.parent) : [];
             values.tools.forEach(tool => {
                 if (tool[property].includes(filter)) {
                     console.log(tool);
                     filtered.push(tool);
                 }
             });
-            console.log(filtered);
             if (filtered.length > 0) {
-                filteredArr.push({parent: values.parent, tools: filtered});
-                this.filteredToolsCount += filtered.length;
+                filteredMap.set(values.parent, filtered);
             }
         });
         });
-        console.log(filteredArr);
+        filteredMap.forEach((value, key) => {
+            value = Array.from(new Set([...value]));
+            this.filteredToolsCount += value.length;
+            filteredArr.push({parent: key, tools: value});
+        });
         this.filteredTools = filteredArr;
     }
 
