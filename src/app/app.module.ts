@@ -26,6 +26,7 @@ import {ComponentNameService} from './services/component-name.service';
 import { ScreenshotDisplayComponent } from './screenshot-display/screenshot-display.component';
 import { QhtsSampleClientComponent } from './qhts-sample-client/qhts-sample-client.component';
 import { QhtsHeatmapBrowserComponent } from './qhts-heatmap-browser/qhts-heatmap-browser.component';
+import { ResolverComponent } from './resolver/resolver.component';
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import { QhtsHeatmapBrowserComponent } from './qhts-heatmap-browser/qhts-heatmap
         CustomContentDirective,
         ScreenshotDisplayComponent,
         QhtsSampleClientComponent,
-        QhtsHeatmapBrowserComponent
+        QhtsHeatmapBrowserComponent,
+        ResolverComponent
 
     ],
     entryComponents: [
@@ -69,7 +71,9 @@ import { QhtsHeatmapBrowserComponent } from './qhts-heatmap-browser/qhts-heatmap
         QhtsCurveFitComponent,
         QhtsPlateBrowserComponent,
         QhtsSampleClientComponent,
-        QhtsHeatmapBrowserComponent
+        QhtsHeatmapBrowserComponent,
+        ResolverComponent
+
     ],
   bootstrap: [AppComponent]
 })
