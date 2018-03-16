@@ -12,7 +12,7 @@ export class QhtsDataBrowserComponent implements OnInit {
     images: NCATSImage[];
 
     ngOnInit() {
-            this.imgSrcBase = '../../assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
+            this.imgSrcBase = './assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
             this.images = [
                 new NCATSImage({url: this.imgSrcBase + '/primary.png',
                     caption: 'qHTS client is the primary way to retrieve compound screening data.'}),

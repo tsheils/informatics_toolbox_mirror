@@ -12,7 +12,7 @@ export class QhtsPlateBrowserComponent implements OnInit {
     images: NCATSImage[];
 
     ngOnInit() {
-            this.imgSrcBase = '../../assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
+            this.imgSrcBase = './assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
             this.images = [
                 new NCATSImage({url: this.imgSrcBase + '/primary.png',
                     caption: 'Quickly assess plates for screening artifacts and distortions. Get basic QC parameters ' +

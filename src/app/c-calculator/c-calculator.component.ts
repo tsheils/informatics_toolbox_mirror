@@ -1,7 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Meta} from '@angular/platform-browser';
-import {ActivatedRoute} from '@angular/router';
 import {Tool} from '../models/tool';
 
 @Component({
@@ -12,13 +10,9 @@ export class CCalculatorComponent implements OnInit {
     data: any[] = [];
     sequenceCtrl = new FormControl();
     error: string;
-    imgSrc: string;
-    imgSrcBase: string;
     @Input() tool: Tool;
 
     ngOnInit() {
-            this.imgSrcBase = '../../assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
-            this.imgSrc = this.imgSrcBase + '/primary.png';
     }
 
     process() {

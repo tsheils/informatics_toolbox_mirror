@@ -12,7 +12,7 @@ export class QhtsSampleClientComponent implements OnInit {
     images: NCATSImage[];
 
     ngOnInit() {
-        this.imgSrcBase = '../../assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
+        this.imgSrcBase = './assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
         this.images = [
             new NCATSImage({url: this.imgSrcBase + '/primary.png',
                 caption: 'Get structures, common names, Supplier IDs and additional information from a list of NCGC sample IDs.'}),

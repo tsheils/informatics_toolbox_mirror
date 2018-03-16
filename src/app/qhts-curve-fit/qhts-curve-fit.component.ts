@@ -10,6 +10,6 @@ export class QhtsCurveFitComponent implements OnInit {
     imgSrcBase: string;
 
     ngOnInit() {
-            this.imgSrcBase = '../../assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
+            this.imgSrcBase = './assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
     }
 }
