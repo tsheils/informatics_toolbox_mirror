@@ -9,3 +9,8 @@
     <button mat-raised-button color="accent" name="Calbutton" (click)="submit()">Resolve</button>
   </div>
 </div>
+<div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column">
+  <div fxFlex = "10">
+    <mat-checkbox (change)="checked($event, 'smiles')" name = "smiles">Smiles</mat-checkbox>
+  </div>
+</div>
