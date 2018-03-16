@@ -31,4 +31,9 @@ export class ResolverComponent implements OnInit {
     resolve(): void {
     console.log(this.resolverCtrl.value);
   }
+
+  checked(event: any, property: string) {
+      console.log(event);
+      console.log(property);
+  }
 }
