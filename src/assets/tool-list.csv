@@ -35,7 +35,7 @@ lychi,,https://github.com/ncats/lychi,Trung,chemical structure standardizer,,,,E
 CORAL,Ligand based virtual screening,,Greg,"For a given set of active ligands, find optimized conformations for ROCS based virtual screens",C++ code/system calls to OpenEye/PipeLine pilot,"Prototype complete, can be deployed",,,,Informatics,,,,,,
 scaffold hopper,,https://tripod.nih.gov/ws/hopper.jnlp,Trung and Tyler,"scaffold hopping, r-group decomposition, structure searching pubmed",,,,External,,"Informatics, Biologists, Chemists",,,,,,
 intellij,IDE,,"Noel, Danny",we have licenses,,,,Internal,No,Informatics,contact southalln@mail.nih.gov,No,,,,
-Resolver (NCATSFind),chemistry,https://tripod.nih.gov/servlet/resolverBeta3?structure=gleevec%0A50-00-0,Tyler Peryea,Resolves a name/code/structure to many other name/code/structures/properties,webservice,,,External,,Developers,,,,,,
+Resolver,chemistry,https://tripod.nih.gov/servlet/resolverBeta3?structure=gleevec%0A50-00-0,Tyler Peryea,Resolves a name/code/structure to many other name/code/structures/properties,webservice,,,External,,Developers,,,,,ResolverComponent,
 Renderer,chemistry,https://tripod.nih.gov/servlet/renderServletv12?structure=C1CCCOC1,Tyler Peryea,"Renders a structure based on a smiles string, has lots of low-level options",webservice,,,External,,Developers,,,,,,
 reagent,reagent synthesizer,https://tripod.nih.gov/ws/reagents.jnlp,Trung,library enumeration,,,,,,"Informatics, Chemists",,,,,,
 pcfp,pubchem fingerprint,https://bitbucket.org/caodac/pcfp,Trung,pubchem fingerprint implementation,,,,,,Informatics,,,,,,
