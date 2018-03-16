@@ -18,22 +18,25 @@ export class ResolverComponent implements OnInit {
   ngOnInit() {
   }
 
-    addProperty(property: string): void {
+    /*addProperty(property: string): void {
         const index = this.properties.indexOf(property);
-
         if (index >= 0) {
             this.properties.splice(index, 1);
         } else {
             this.properties.push(property);
         }
-    }
+    }*/
 
     resolve(): void {
     console.log(this.resolverCtrl.value);
   }
 
   checked(event: any, property: string) {
-      console.log(event);
-      console.log(property);
+      if (event.checked) {
+          this.properties.push(property)
+      } else {
+          this.properties = this.properties.filter(prop => prop !== property);
+      }
+      console.log(this.properties);
   }
 }
