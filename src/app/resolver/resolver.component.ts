@@ -1,6 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {Tool} from "../models/tool";
+import {ResolverService} from "./services/resolver.service";
+import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {ActivatedRoute} from "@angular/router";
+import {Subject} from "rxjs/Subject";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   templateUrl: './resolver.component.html',
@@ -8,27 +13,56 @@ import {Tool} from "../models/tool";
 })
 
 export class ResolverComponent implements OnInit {
+    @Input() tool: Tool;
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild('datalist') datalist: ElementRef;
+
     resolverCtrl = new FormControl();
-    error: string;
-    imgSrc: string;
+    file: any;
+    link: any;
+    data: any;
     imgSrcBase: string;
     properties: string[] = [];
-    @Input() tool: Tool;
+    names = false;
+    showTable = false;
+    showRawData = false;
+    rawData: string;
+    fields: string[];
+    options: string[];
+    dataSource = new MatTableDataSource<any[]>([]);
+    private ngUnsubscribe: Subject<any> = new Subject();
 
+
+    constructor(private resolverService: ResolverService){}
   ngOnInit() {
+      this.resolverService.getOptions()
+          .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe(res => this.options = res);
+
+      this.resolverCtrl.valueChanges.subscribe(val => this.names = true);
+      this.link = document.createElement('a');
   }
 
-    /*addProperty(property: string): void {
-        const index = this.properties.indexOf(property);
-        if (index >= 0) {
-            this.properties.splice(index, 1);
-        } else {
-            this.properties.push(property);
-        }
-    }*/
-
     resolve(): void {
-    console.log(this.resolverCtrl.value);
+        this.dataSource.data = [];
+     this.resolverService.resolveData(this.properties, this.resolverCtrl.value.trim().split(/[\t\n,;]+/)).subscribe(res => {
+         this.dataSource.data = res.map(data => {
+             const ret: any = {};
+             if (data.response) {
+                 const arr = data.response.split('\t');
+                 this.properties.forEach((value, index) => {
+                     ret[value] = arr[index];
+                 });
+             }
+                 ret.input = data.input;
+                 ret.source = data.source;
+                 ret.url = data.url;
+                 this.showTable = true;
+                 this.fields = Object.keys(ret);
+                 return ret;
+         });
+    });
   }
 
   checked(event: any, property: string) {
@@ -37,6 +71,62 @@ export class ResolverComponent implements OnInit {
       } else {
           this.properties = this.properties.filter(prop => prop !== property);
       }
-      console.log(this.properties);
   }
+
+    allowResolve(): boolean {
+        return this.properties.length === 0 || !this.names;
+    }
+
+    ngAfterViewInit() {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+    }
+    applyFilter(filterValue: string) {
+        filterValue = filterValue.trim(); // Remove whitespace
+        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+        this.dataSource.filter = filterValue;
+    }
+
+    downloadJSON(): void {
+        console.log(this.dataSource.data);
+        this.file = new Blob([JSON.stringify(this.dataSource.data)], { type: 'text/json'});
+        this.link.download = 'resolver.txt';
+        this.downloadFile();
+    }
+
+    downloadCSV(): void {
+        console.log(this.dataSource.data);
+        const dataKeys = [...Object.keys(this.dataSource.data[0])].join('\t');
+        console.log(dataKeys);
+        let lines = [];
+        this.dataSource.data.forEach(data => lines.push(Object.values(data).join('\t')));
+        let csv = dataKeys + '\n' + lines.join('\n');
+        this.file = new Blob([csv], { type: 'text/csv'});
+        this.link.download = 'drugGenerator.tsv';
+        this.downloadFile();
+    }
+
+    downloadFile(): void {
+        // let url = window.URL.createObjectURL(this.file);
+        this.link.href = window.URL.createObjectURL(this.file);
+        this.link.click();
+        // window.open(url);
+    }
+
+    showRaw(event: any): void {
+        console.log(event);
+        if (event.checked) {
+            let lines = [];
+            this.dataSource.data.forEach(data => lines.push(Object.values(data).join('\t')));
+            this.rawData =  lines.join('\n');
+            this.showRawData = true;
+        } else {
+            this.showRawData = false;
+        }
+    }
+
+    ngOnDestroy() {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
+    }
 }

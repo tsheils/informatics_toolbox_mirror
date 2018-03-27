@@ -27,6 +27,7 @@ import { ScreenshotDisplayComponent } from './screenshot-display/screenshot-disp
 import { QhtsSampleClientComponent } from './qhts-sample-client/qhts-sample-client.component';
 import { QhtsHeatmapBrowserComponent } from './qhts-heatmap-browser/qhts-heatmap-browser.component';
 import { ResolverComponent } from './resolver/resolver.component';
+import {ResolverService} from "./resolver/services/resolver.service";
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { ResolverComponent } from './resolver/resolver.component';
       ComponentNameService,
     LoadingService,
       DataLoaderService,
-      UnfurlingMetaService
+      UnfurlingMetaService,
+      ResolverService
   ],
     declarations: [
         AppComponent,
