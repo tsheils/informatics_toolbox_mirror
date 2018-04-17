@@ -65,7 +65,6 @@ export class ToolListComponent implements OnInit {
             const filtered: Tool[] = filteredMap.get(values.parent) ? filteredMap.get(values.parent) : [];
             values.tools.forEach(tool => {
                 if (tool[property].includes(filter)) {
-                    console.log(tool);
                     filtered.push(tool);
                 }
             });

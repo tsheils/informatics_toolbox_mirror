@@ -29,7 +29,8 @@ export class ResolverComponent implements OnInit {
     showRawData = false;
     rawData: string;
     fields: string[];
-    options: string[];
+    remainder: any[] = [];
+    options: Option[];
     dataSource = new MatTableDataSource<any[]>([]);
     private ngUnsubscribe: Subject<any> = new Subject();
 
@@ -38,7 +39,10 @@ export class ResolverComponent implements OnInit {
   ngOnInit() {
       this.resolverService.getOptions()
           .pipe(takeUntil(this.ngUnsubscribe))
-          .subscribe(res => this.options = res);
+          .subscribe(res => {
+              this.options = res;
+              this.setRemainder();
+          });
 
       this.resolverCtrl.valueChanges.subscribe(val => this.names = true);
       this.link = document.createElement('a');
@@ -88,16 +92,13 @@ export class ResolverComponent implements OnInit {
     }
 
     downloadJSON(): void {
-        console.log(this.dataSource.data);
         this.file = new Blob([JSON.stringify(this.dataSource.data)], { type: 'text/json'});
         this.link.download = 'resolver.txt';
         this.downloadFile();
     }
 
     downloadCSV(): void {
-        console.log(this.dataSource.data);
         const dataKeys = [...Object.keys(this.dataSource.data[0])].join('\t');
-        console.log(dataKeys);
         let lines = [];
         this.dataSource.data.forEach(data => lines.push(Object.values(data).join('\t')));
         let csv = dataKeys + '\n' + lines.join('\n');
@@ -114,7 +115,6 @@ export class ResolverComponent implements OnInit {
     }
 
     showRaw(event: any): void {
-        console.log(event);
         if (event.checked) {
             let lines = [];
             this.dataSource.data.forEach(data => lines.push(Object.values(data).join('\t')));
@@ -125,8 +125,30 @@ export class ResolverComponent implements OnInit {
         }
     }
 
+    getLabel(field:string): string {
+        let ret:string;
+        const option: Option[] = this.options.filter(opt => opt.name === field);
+        if(option.length > 0){
+            ret = option[0].title;
+        } else {
+            ret = field;
+        }
+    return ret;
+    }
+
+    setRemainder(): void {
+        this.remainder = Array(4 - (this.options.length % 4)).fill('');
+    }
+
     ngOnDestroy() {
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();
     }
+}
+
+export class Option {
+    title: string;
+    format: string;
+    name: string;
+    description: string;
 }
