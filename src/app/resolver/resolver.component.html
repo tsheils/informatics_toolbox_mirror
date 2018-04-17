@@ -13,80 +13,16 @@
 <br>
 <div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column">
   <div fxFlex = "95">
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column" fxLayoutWrap>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'smiles')" name = "smiles">Smiles</mat-checkbox>
+    <div fxLayout="row" fxLayoutAlign="center space-around" fxLayout.xs="column" fxLayoutWrap>
+      <div fxFlex = "25" *ngFor ="let option of options">
+        <mat-checkbox
+                matTooltip={{option.description}}
+                (change)="checked($event, option.name)"
+                name = {{option.name}}>
+          {{option.title}}
+        </mat-checkbox>
       </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'smilesParent')" name = "smilesParent">Smiles Parent</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'molForm')" name = "molForm">Mol Form</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'molWeight')" name = "smiles">Mol Weight</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'molExactMass')" name = "molExactMass">Mol Exact Mass</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'unii')" name = "unii">Unii</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'qhts')" name = "qhts">qHTS</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'inchikey')" name = "inchikey">Inchi Key</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'cas')" name = "cas">CAS</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'names')" name = "names">Names</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'hash')" name = "hash">Hash</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'stereo')" name = "stereo">Stereo</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'molFormParent')" name = "molFormParent">Mol Form Parent</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'molWeightParent')" name = "molWeightParent">Mol Weight Parent</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'molExactMassParent')" name = "molExactMassParent">Mol Exact Mass Parent</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'smallestMoietyCount')" name = "smallestMoietyCount">Smallest Moiety Count</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'smallestMoietySmiles')" name = "smallestMoietySmiles">Smallest Moiety Smiles</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'molWeightParent')" name = "molWeightParent">Mol Weight Parent</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'smallestMoietyCount')" name = "smallestMoietyCount">Smallest Moiety Count</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'smallestMoietySmiles')" name = "smallestMoietySmiles">Smallest Moiety Smiles</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'smallestMoietyName')" name = "smallestMoietyName">Smallest Moiety Name</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'stereoParent')" name = "stereoParent">Stereo Parent</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'pt')" name = "pt">Pt</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
-        <mat-checkbox (change)="checked($event, 'lychi')" name = "lychi">Lychi</mat-checkbox>
-      </div>
-      <div fxFlex = "20">
+      <div fxFlex = "25" *ngFor ="let rem of remainder">
       </div>
     </div>
   </div>
@@ -128,7 +64,7 @@
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
       <ng-container *ngFor = "let field of fields" matColumnDef="{{field}}">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>{{field.toLowerCase()}}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>{{getLabel(field)}}</mat-header-cell>
         <mat-cell *matCellDef="let row">
           {{row[field]}}
         </mat-cell>
