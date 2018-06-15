@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable, Subject,  of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import {environment} from "../../environments/environment";
 import {Tool} from '../models/tool';
 
-const URL = 'assets/tool-list.csv';
+const URL = environment.TOOL_URL;
+const ENVIRONMENT = environment;
 @Injectable()
 export class DataLoaderService {
 
@@ -15,7 +17,9 @@ export class DataLoaderService {
     dataMap: Map<string, Tool[]> = new Map();
 
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+        console.log(ENVIRONMENT);
+    }
 
     getData(): Observable<any> {
         if (this.dataMap.size > 0) {

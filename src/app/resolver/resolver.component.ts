@@ -29,7 +29,6 @@ export class ResolverComponent implements OnInit {
     showTableData = false;
     rawData: string;
     fields: string[];
-    remainder: any[] = [];
     options: Option[];
     dataSource = new MatTableDataSource<any[]>([]);
     private ngUnsubscribe: Subject<any> = new Subject();
@@ -61,17 +60,16 @@ export class ResolverComponent implements OnInit {
                         ret[value] = arr[index];
                     });
                 }
+                ret._id = +data.id;
                 ret.input = data.input;
                 ret.source = data.source;
                 ret.url = data.url;
-                this.fields = Object.keys(ret).sort((a, b) => +(b === 'input') - +(a ==='input'));
-                console.log(ret);
-                console.log(this.fields);
+                this.fields = Object.keys(ret).sort((a, b) => +(b === 'input') - +(a ==='input')).filter(field => field !== '_id');
                 lines.push(this.fields.map(field => ret[field]).join('\t'));
                 return ret;
             });
+            data = data.sort((a,b) => a._id - b._id);
             this.dataSource.data = data;
-            console.log(lines);
             this.rawData =  lines.join('\n');
             this.loaded = true;
         });
@@ -100,26 +98,26 @@ export class ResolverComponent implements OnInit {
     }
 
     downloadJSON(): void {
-        this.file = new Blob([JSON.stringify(this.dataSource.data)], { type: 'text/json'});
-        this.link.download = 'resolver.txt';
+        this.file = new Blob([JSON.stringify(this.dataSource.data)], { type: 'text/plain'});
+        this.link.download = 'resolver.json';
         this.downloadFile();
     }
 
     downloadCSV(): void {
-        const dataKeys = [...Object.keys(this.dataSource.data[0])].join('\t');
+        const dataKeys = this.fields.join('\t');
         let lines = [];
-        this.dataSource.data.forEach(data => lines.push(Object.values(data).join('\t')));
+        this.dataSource.data.forEach(data => lines.push(this.fields.map(field => data[field]).join('\t')));
         let csv = dataKeys + '\n' + lines.join('\n');
         this.file = new Blob([csv], { type: 'text/csv'});
-        this.link.download = 'drugGenerator.tsv';
+        this.link.download = 'resolver.tsv';
         this.downloadFile();
     }
 
     downloadFile(): void {
-        // let url = window.URL.createObjectURL(this.file);
         this.link.href = window.URL.createObjectURL(this.file);
-        this.link.click();
-        // window.open(url);
+
+         this.link.click();
+         window.open( this.link.href);
     }
 
     showTable(event: any): void {
@@ -140,6 +138,7 @@ export class ResolverComponent implements OnInit {
     ngOnDestroy() {
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();
+        window.URL.revokeObjectURL(this.link.href);
     }
 }
 

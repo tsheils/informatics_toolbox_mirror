@@ -16,11 +16,12 @@
 <div class ="options-grid">
       <div *ngFor ="let option of options">
         <mat-checkbox
-                matTooltip={{option.description}}
+
                 (change)="checked($event, option.name)"
                 name = {{option.name}}>
           {{option.title}}
         </mat-checkbox>
+        <mat-icon  matTooltip={{option.description}} class ="help-icon">_help_</mat-icon>
       </div>
     </div>
   </div>

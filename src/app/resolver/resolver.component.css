@@ -13,8 +13,15 @@ mat-form-field {
     grid-auto-rows: max-content;
     grid-template-columns: repeat(auto-fill, minmax(19%, 1fr));
     grid-gap: 1em;
+    align-items: center;
 }
 
 .options-grid > div {
     margin-bottom: .5em;
+    align-self: center;
+}
+
+.help-icon {
+    justify-self: end !important;
+    vertical-align: middle;
 }
