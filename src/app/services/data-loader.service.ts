@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import { of } from 'rxjs/observable/of';
-import { catchError, map, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import {Observable, Subject,  of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import {Tool} from '../models/tool';
 
 const URL = 'assets/tool-list.csv';
@@ -21,7 +19,7 @@ export class DataLoaderService {
 
     getData(): Observable<any> {
         if (this.dataMap.size > 0) {
-            return Observable.of(this.dataMap);
+            return of(this.dataMap);
         } else {
             return this.http.get(URL, {responseType: 'text'})
                 .pipe(
@@ -37,7 +35,7 @@ export class DataLoaderService {
 
     getByName(name: string): Observable<Tool> {
         if (this.data.length > 0) {
-            return Observable.of(this.data.filter(tool => tool.toolName.toLowerCase() === name.toLowerCase())[0]);
+            return of(this.data.filter(tool => tool.toolName.toLowerCase() === name.toLowerCase())[0]);
         } else {
             return this.http.get(URL, {responseType: 'text'})
                 .pipe(

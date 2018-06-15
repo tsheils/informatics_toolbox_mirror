@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DataLoaderService} from '../services/data-loader.service';
 import {Tool} from '../models/tool';
-import 'rxjs/add/observable/of';
+
 
 @Component({
     selector: 'app-tool-list',

@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
-import {Subject} from "rxjs/Subject";
-import {catchError} from "rxjs/operators";
-import {ErrorObservable} from "rxjs/observable/ErrorObservable";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable, Subject} from "rxjs";
 
 const URL = 'https://tripod.nih.gov/servlet/resolverBeta3/';
 

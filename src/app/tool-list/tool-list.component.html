@@ -7,8 +7,8 @@
 </div>
 
 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
-  <div fxFlex = "45">
-    Show me tools for:
+  <div fxFlex = "30">
+    I am a:
     <mat-chip-list #chipList [(ngModel)]="selectedFilters" multiple>
       <mat-chip *ngFor="let filter of audiences"
                 [selected]="isSelected(filter)"
@@ -17,8 +17,19 @@
       </mat-chip>
     </mat-chip-list>
   </div>
- <div fxFlex = "45">
-    Show me:
+ <div fxFlex = "30">
+    I need a:
+   <mat-chip-list #chipList [(ngModel)]="selectedFilters" multiple>
+     <mat-chip *ngFor="let filter of toolTypes"
+               [selected]="isSelected(filter)"
+               (click)="selectFilter('toolType', filter)">
+       {{filter}}
+     </mat-chip>
+   </mat-chip-list>
+</div>
+</div>
+<!--<div fxFlex = "30">
+    To:
    <mat-chip-list #chipList [(ngModel)]="selectedFilters" multiple>
      <mat-chip *ngFor="let filter of toolTypes"
                [selected]="isSelected(filter)"
@@ -27,7 +38,7 @@
      </mat-chip>
    </mat-chip-list>
   </div>
-</div>
+</div>-->
 
 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
   <div fxFlex = "95">
@@ -35,15 +46,16 @@
   </div>
 </div>
 
+
 <mat-expansion-panel *ngFor="let project of filteredTools" [expanded]="'true'">
   <mat-expansion-panel-header>
     <mat-panel-title>
       <h1>{{project.parent}}</h1><br>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <div fxLayout="row wrap" fxLayoutAlign="space-around stretch" fxLayout.xs="column">
-    <div fxFlex="30" class ="card-holder" *ngFor="let tool of project.tools">
+  <div class="grid-list">
+    <div class ="card-holder" *ngFor="let tool of project.tools">
       <app-tool class="tool-comp" [tool] = tool></app-tool>
-    </div>
+  </div>
   </div>
 </mat-expansion-panel>

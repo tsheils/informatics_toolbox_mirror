@@ -9,3 +9,19 @@
 app-tool.tool-comp {
     height: 100%;
 }
+
+.grid-list {
+    display: grid;
+    grid-auto-rows: max-content;
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    grid-gap: 1em;
+}
+
+.grid-list > div {
+    /*margin-bottom: 4em;*/
+    height:100%;
+}
+
+.grid-list > mat-card {
+    height: 100%;
+}

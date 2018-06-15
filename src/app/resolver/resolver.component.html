@@ -13,8 +13,8 @@
 <br>
 <div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column">
   <div fxFlex = "95">
-    <div fxLayout="row" fxLayoutAlign="center space-around" fxLayout.xs="column" fxLayoutWrap>
-      <div fxFlex = "25" *ngFor ="let option of options">
+<div class ="options-grid">
+      <div *ngFor ="let option of options">
         <mat-checkbox
                 matTooltip={{option.description}}
                 (change)="checked($event, option.name)"
@@ -22,43 +22,44 @@
           {{option.title}}
         </mat-checkbox>
       </div>
-      <div fxFlex = "25" *ngFor ="let rem of remainder">
-      </div>
     </div>
   </div>
 </div>
 <br>
-<div #dataList *ngIf = "showTable" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center">
-  <div fxFlex="50">
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-    </mat-form-field>
-  </div>
+<div #dataList *ngIf = "dataSource.data.length > 0" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end center">
   <div fxFlex = "10">
     <button mat-button [matMenuTriggerFor]="menu">
-      Download Table <mat-icon>file_download</mat-icon>
+      Download Data <mat-icon>file_download</mat-icon>
     </button>
   </div>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)=" downloadJSON()">
-      <mat-icon>code</mat-icon>
-      <span>JSON</span>
-    </button>
-    <button mat-menu-item (click)=" downloadCSV()">
-      <mat-icon>border_all</mat-icon>
-      <span>CSV</span>
-    </button>
-  </mat-menu>
-  <div fxFlex="10">
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)=" downloadJSON()">
+    <mat-icon>code</mat-icon>
+    <span>JSON</span>
+  </button>
+  <button mat-menu-item (click)=" downloadCSV()">
+    <mat-icon>border_all</mat-icon>
+    <span>CSV</span>
+  </button>
+</mat-menu>
+  <div fxFlex="20">
     <mat-slide-toggle
             [color]="'primary'"
-            (change)="showRaw($event)">
-      Show raw data
+            (change)="showTable($event)">
+      Show data in table
     </mat-slide-toggle>
   </div>
 </div>
 
-<div *ngIf = "showTable && showRawData === false" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around start" class="body-row">
+<div *ngIf = "loaded && showTableData === true" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around start" class="body-row">
+  <div fxFlex="95">
+  <div #dataList fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center">
+    <div fxFlex="50">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+  </div>
   <div fxFlex="95">
     <mat-table #table [dataSource]="dataSource" matSort>
       <!--- Note that these columns can be defined in any order.
@@ -74,8 +75,9 @@
     </mat-table>
   </div>
 </div>
+</div>
 
-<div *ngIf = "showTable && showRawData === true" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around start">
+<div *ngIf = "loaded && showTableData === false" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around start">
   <div fxFlex="95">
     <textarea class = "raw">{{rawData}}</textarea>
   </div>
