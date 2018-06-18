@@ -39,14 +39,14 @@ export class DataLoaderService {
 
     getByName(name: string): Observable<Tool> {
         if (this.data.length > 0) {
-            return of(this.data.filter(tool => tool.toolName.toLowerCase() === name.toLowerCase())[0]);
+            return of(this.data.filter(tool => tool.toolUrl.toLowerCase() === name.toLowerCase())[0]);
         } else {
             return this.http.get(URL, {responseType: 'text'})
                 .pipe(
                     map(response => {
                         this.data = [];
                         this.csvJSON(response.trim());
-                        return this.data.filter(tool => tool.toolName.toLowerCase() === name.toLowerCase())[0];
+                        return this.data.filter(tool => tool.toolUrl.toLowerCase() === name.toLowerCase())[0];
                     }));
         }
     }
@@ -90,14 +90,19 @@ export class DataLoaderService {
                     data[headers[j]] = currentline[j].replace('"',  '').replace('"',  '');
             }
             const tool: Tool = new Tool(data);
-         this.data.push(tool);
-            let parentList: Tool[] = this.dataMap.get(tool.parentProject);
-            if (parentList && parentList.length > 0) {
-                parentList.push(tool);
-            } else {
-                parentList = [tool];
+            console.log(tool);
+            console.log(environment.public);
+            if (environment.public && tool.public) {
+                this.data.push(tool);
+                let parentList: Tool[] = this.dataMap.get(tool.parentProject);
+                if (parentList && parentList.length > 0) {
+                    parentList.push(tool);
+                } else {
+                    parentList = [tool];
+                }
+                this.dataMap.set(tool.parentProject, parentList);
             }
-            this.dataMap.set(tool.parentProject, parentList);
+            console.log(this);
         }
         }
     }

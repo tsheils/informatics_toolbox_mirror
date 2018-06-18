@@ -32,7 +32,7 @@
       <mat-list-item *ngIf="tool.collaborators.length > 0">
         <div class = "mat-title">In Collaboration with: {{tool.collaborators}}</div>
       </mat-list-item>
-      <mat-list-item *ngIf="tool.publicCodebase">
+      <mat-list-item *ngIf="tool.publicCodebase === true">
         <div class = "mat-title">See the code: <a href = {{tool.codebase}} class = "tool-link secondary-color">{{tool.codebase}}</a></div>
       </mat-list-item>
     </mat-list>

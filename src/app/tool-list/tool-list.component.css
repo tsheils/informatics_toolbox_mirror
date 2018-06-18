@@ -10,6 +10,10 @@ app-tool.tool-comp {
     height: 100%;
 }
 
+.grey {
+background-color: #f7f7f7;
+}
+
 .grid-list {
     display: grid;
     grid-auto-rows: max-content;

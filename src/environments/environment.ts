@@ -4,6 +4,9 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
-    BASE_URL: '/toolbox/'
+    production: true,
+    public: true,
+    BASE_URL: '/toolbox',
+    TOOL_URL: 'assets/tool-list.csv'
 };
+

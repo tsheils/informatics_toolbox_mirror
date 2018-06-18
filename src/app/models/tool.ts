@@ -8,7 +8,7 @@ export class Tool {
     toolType: string[];
     note: string;
     collaborators: string[];
-    visibility: string;
+    public: boolean;
     obsolete: boolean;
     audience: string[];
     codebase: string;
@@ -16,6 +16,7 @@ export class Tool {
     parentProject: string;
     image: boolean;
     component: string;
+    toolUrl: string;
 
     constructor (obj: any) {
         this.toolName = obj.toolName;
@@ -26,14 +27,15 @@ export class Tool {
         this.toolType = this.parse(obj.toolType);
         this.note = obj.note;
         this.collaborators = this.parse(obj.collaborators);
-        this.visibility = obj.visibility;
+        this.public = obj.public === "yes";
         this.obsolete = obj.obsolete || false;
         this.audience = this.parse(obj.audience);
         this.codebase = obj.codebase;
-        this.publicCodebase = obj.publicCodebase || false;
+        this.publicCodebase = obj.publicCodebase === "yes";
         this.parentProject = obj.parentProject;
         this.image = obj.image === 'yes' ? obj.image : false;
         this.component = obj.component || null;
+        this.toolUrl = obj.toolName.toLowerCase().replace(/\ /g, '-');
     }
 
     parse(string): string[] {

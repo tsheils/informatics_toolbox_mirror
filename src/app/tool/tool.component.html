@@ -1,5 +1,5 @@
 <mat-card fxFlex="100" fxFlexAlign="stretch" class="tool-card">
-    <a class = "tool-link" routerLink="/{{tool.toolName.toLowerCase()}}">
+    <a class = "tool-link" routerLink="/{{tool.toolUrl}}">
   <mat-card-header>
     <mat-card-title><span class="mat-title secondary-color" >{{tool.toolName}}</span></mat-card-title>
   </mat-card-header>
@@ -25,7 +25,7 @@
     </span>
         <mat-chip-list>
         <mat-chip color="primary"  selected="true" *ngIf = tool.category>{{tool.category}}</mat-chip>
-        <mat-chip color="accent"  selected="true" *ngIf = tool.toolType>{{tool.toolType}}</mat-chip>
+        <mat-chip color="accent"  selected="true" *ngIf = tool.toolType>{{tool.toolType.join(', ')}}</mat-chip>
         </mat-chip-list>
 <!--
         <mat-card-subtitle >Contact<span *ngIf="tool.contact.length > 1">s</span>: {{tool.contact.join(', ')}}</mat-card-subtitle>

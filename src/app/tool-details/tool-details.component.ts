@@ -27,6 +27,7 @@ export class ToolDetailsComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.route.data.subscribe(res => {
+            console.log(res);
             this.tool = res.tool;
             if (this.tool && this.tool.component) {
                 this.loadComponent();
