@@ -1,9 +1,18 @@
 <mat-card fxFlex="100" fxFlexAlign="stretch" class="tool-card">
     <a class = "tool-link" routerLink="/{{tool.toolUrl}}">
-  <mat-card-header>
-    <mat-card-title><span class="mat-title secondary-color" >{{tool.toolName}}</span></mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
+        <div fxLayout = "row" fxLayoutAlign="start center" fxLayout.sm ="column" class="tool-header">
+                <div fxFlex="80" fxFlex.lt-md="100">
+                <span class="mat-title secondary-color" >{{tool.toolName}}</span>
+            </div>
+            <div fxFlex="20" fxFlex.lt-md="100" fxFlexOrder.lt-md="2" *ngIf = tool.public>
+                <mat-icon
+                        mat-card-avatar
+                        matTooltip="public NCATS tool"
+                        [matTooltipPosition]="'above'"
+                        [color]="'primary'" class ="public-icon" >_public_</mat-icon>
+            </div>
+        </div>
+        <mat-card-content class="tool-content">
       <br>
       <div *ngIf="tool.image" fxLayout = "row" fxLayoutAlign="center center">
       <div fxFlex="66">
@@ -19,16 +28,23 @@
 
   </mat-card-content>
     </a>
-    <mat-card-actions>
+    <div class ="tool-footer">
+        <div fxLayout = "row" fxLayoutAlign="space-around center" >
+            <div fxFlex="60">
         <span class="mat-title"><i>
         <a href = {{tool.url}} target="_blank">{{tool.toolName}}&nbsp;<mat-icon>open_in_new</mat-icon></a></i><br>
     </span>
+            </div>
+            <div fxFlex="45">
+            </div>
+            </div>
+        <div fxLayout = "row" fxLayoutAlign="start center">
+            <div fxFlex="50">
         <mat-chip-list>
         <mat-chip color="primary"  selected="true" *ngIf = tool.category>{{tool.category}}</mat-chip>
-        <mat-chip color="accent"  selected="true" *ngIf = tool.toolType>{{tool.toolType.join(', ')}}</mat-chip>
+        <mat-chip color="accent"  selected="true" *ngFor = 'let type of tool.toolType'> {{type}}</mat-chip>
         </mat-chip-list>
-<!--
-        <mat-card-subtitle >Contact<span *ngIf="tool.contact.length > 1">s</span>: {{tool.contact.join(', ')}}</mat-card-subtitle>
--->
-    </mat-card-actions>
+            </div>
+        </div>
+    </div>
 </mat-card>

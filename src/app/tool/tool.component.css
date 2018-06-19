@@ -2,6 +2,26 @@ mat-card.tool-card.mat-card {
     height: 100%;
 }
 
+.public-icon {
+font-size: 2.6em;
+}
+
+.tool-header {
+ align-items: center;
+}
+
+.tool-content {
+flex: 1;
+}
+
+.tool-footer {
+    margin-top:auto;
+}
+
+span.mat-title.secondary-color {
+    font: 500 28px/40px Roboto, "Helvetica Neue", sans-serif;
+}
+
 .thumbnail{
     max-width:200px;
     height:100px;

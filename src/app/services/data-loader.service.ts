@@ -92,7 +92,7 @@ export class DataLoaderService {
             const tool: Tool = new Tool(data);
             console.log(tool);
             console.log(environment.public);
-            if (environment.public && tool.public) {
+            if (!tool.obsolete) {
                 this.data.push(tool);
                 let parentList: Tool[] = this.dataMap.get(tool.parentProject);
                 if (parentList && parentList.length > 0) {

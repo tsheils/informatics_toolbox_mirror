@@ -28,7 +28,7 @@ export class Tool {
         this.note = obj.note;
         this.collaborators = this.parse(obj.collaborators);
         this.public = obj.public === "yes";
-        this.obsolete = obj.obsolete || false;
+        this.obsolete = obj.obsolete.toLowerCase() === "yes";
         this.audience = this.parse(obj.audience);
         this.codebase = obj.codebase;
         this.publicCodebase = obj.publicCodebase === "yes";

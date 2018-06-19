@@ -19,7 +19,7 @@
   </div>
  <div fxFlex = "30">
     I need a:
-   <mat-chip-list #chipList [(ngModel)]="selectedFilters" multiple>
+   <mat-chip-list #chipList [(ngModel)]="selectedFilters" color="accent" multiple>
      <mat-chip *ngFor="let filter of toolTypes"
                [selected]="isSelected(filter)"
                (click)="selectFilter('toolType', filter)">
