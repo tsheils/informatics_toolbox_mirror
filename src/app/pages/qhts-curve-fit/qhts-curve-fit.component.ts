@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Tool} from '../models/tool';
+import {Tool} from '../../models/tool';
 
 @Component({
   templateUrl: './qhts-curve-fit.component.html',

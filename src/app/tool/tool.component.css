@@ -1,21 +1,21 @@
-mat-card.tool-card.mat-card {
-    height: 100%;
-}
 
 .public-icon {
-font-size: 2.6em;
+    font-size: 2.6em;
+}
+
+.tool-card {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .tool-header {
- align-items: center;
+    align-items: center;
 }
 
 .tool-content {
-flex: 1;
-}
-
-.tool-footer {
-    margin-top:auto;
+    flex: 1 0 auto;
 }
 
 span.mat-title.secondary-color {

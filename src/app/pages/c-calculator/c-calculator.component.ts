@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Tool} from '../models/tool';
+import {Tool} from '../../models/tool';
 
 @Component({
     templateUrl: './c-calculator.component.html',

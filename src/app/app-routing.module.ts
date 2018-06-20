@@ -16,9 +16,9 @@ const ROUTES: Routes = [
     {
     path: ':tool',
     component: ToolDetailsComponent,
-      resolve: {
+     /* resolve: {
           tool: ToolResolver
-      }
+      }*/
   }
 ];
 

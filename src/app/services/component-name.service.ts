@@ -1,11 +1,11 @@
 import {Injectable, Type} from '@angular/core';
-import {CCalculatorComponent} from '../c-calculator/c-calculator.component';
-import {QhtsPlateBrowserComponent} from '../qhts-plate-browser/qhts-plate-browser.component';
-import {QhtsCurveFitComponent} from '../qhts-curve-fit/qhts-curve-fit.component';
-import {QhtsDataBrowserComponent} from '../qhts-data-browser/qhts-data-browser.component';
-import {QhtsSampleClientComponent} from '../qhts-sample-client/qhts-sample-client.component';
-import {QhtsHeatmapBrowserComponent} from '../qhts-heatmap-browser/qhts-heatmap-browser.component';
-import {ResolverComponent} from '../resolver/resolver.component';
+import {CCalculatorComponent} from '../pages/c-calculator/c-calculator.component';
+import {QhtsPlateBrowserComponent} from '../pages/qhts-plate-browser/qhts-plate-browser.component';
+import {QhtsCurveFitComponent} from '../pages/qhts-curve-fit/qhts-curve-fit.component';
+import {QhtsDataBrowserComponent} from '../pages/qhts-data-browser/qhts-data-browser.component';
+import {QhtsSampleClientComponent} from '../pages/qhts-sample-client/qhts-sample-client.component';
+import {QhtsHeatmapBrowserComponent} from '../pages/qhts-heatmap-browser/qhts-heatmap-browser.component';
+import {ResolverComponent} from '../pages/resolver/resolver.component';
 
 @Injectable()
 export class ComponentNameService {

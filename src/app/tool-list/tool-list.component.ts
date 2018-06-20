@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {DataLoaderService} from '../services/data-loader.service';
 import {Tool} from '../models/tool';
+import {SelectionModel} from "@angular/cdk/collections";
+import {Subject} from "rxjs/index";
+import {takeUntil} from "rxjs/internal/operators";
 
 
 @Component({
@@ -15,73 +18,32 @@ export class ToolListComponent implements OnInit {
     count = 0;
     filteredToolsCount = 0;
     selectedFilters: any[] = [];
+    selectedFiltersMap: Map<string, string[]> = new Map<string, string[]>();
     audiences: string[] = [];
     toolTypes: string[] = [];
+    filterSelection = new SelectionModel<string>(true, []);
+    private ngUnsubscribe: Subject<any> = new Subject();
+
 
     constructor(private dataLoaderService: DataLoaderService) { }
 
     ngOnInit() {
-        this.dataLoaderService.getData().subscribe(res => {
+        this.dataLoaderService.data$.subscribe(res => {
+            console.log(res);
+            this.filteredTools = [];
+            this.filteredToolsCount = 0;
             res.forEach((value, key) => {
-                this.toolsArr.push({parent: key, tools: value});
-                this.count += value.length;
-                this.filteredToolsCount = this.count;
+                this.filteredTools.push({parent: key, tools: value});
+                this.filteredToolsCount += value.length;
             });
-            this.filteredTools = this.toolsArr;
+            this.audiences = this.dataLoaderService.getFields('audience');
+            this.toolTypes = this.dataLoaderService.getFields('toolType');
+            this.count = this.dataLoaderService.getCount();
         });
 
-        this.audiences = this.dataLoaderService.getFields('audience');
-        this.toolTypes = this.dataLoaderService.getFields('toolType');
-    }
+}
 
-
-    isSelected(filter: any): boolean {
-        return this.selectedFilters.includes(filter);
-    }
-
-
-    selectFilter(property: string, filter: any): void {
-        const index = this.selectedFilters.indexOf(filter);
-
-        if (index >= 0) {
-            this.selectedFilters.splice(index, 1);
-            this.filteredTools = this.toolsArr;
-            this.filteredToolsCount = this.count;
-            if (this.selectedFilters.length > 0) {
-                this.filter(property);
-            }
-        } else {
-            this.selectedFilters.push(filter);
-            this.filter(property);
-        }
-    }
-
-    filter(property: string): void {
-        this.filteredToolsCount = 0;
-        const filteredArr: any[] = [];
-        const filteredMap: Map<string, Tool[]> = new Map<string, Tool[]>();
-        this.selectedFilters.forEach(filter => {
-        this.toolsArr.forEach(values => {
-            const filtered: Tool[] = filteredMap.get(values.parent) ? filteredMap.get(values.parent) : [];
-            values.tools.forEach(tool => {
-                if (tool[property].includes(filter)) {
-                    filtered.push(tool);
-                }
-            });
-            if (filtered.length > 0) {
-                filteredMap.set(values.parent, filtered);
-            }
-        });
-        });
-        filteredMap.forEach((value, key) => {
-            value = Array.from(new Set([...value]));
-            this.filteredToolsCount += value.length;
-            filteredArr.push({parent: key, tools: value});
-        });
-        this.filteredTools = filteredArr;
-    }
-
-    search(term: string): void {
+search(term: string): void {
         this.filteredToolsCount = 0;
         const filteredArr: any[] = [];
         this.toolsArr.forEach(values => {
@@ -99,4 +61,9 @@ export class ToolListComponent implements OnInit {
         });
         this.filteredTools = filteredArr;
     }
+
+ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+}
 }

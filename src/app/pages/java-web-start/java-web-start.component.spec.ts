@@ -2,17 +2,17 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import {BrowserModule} from "@angular/platform-browser";
 import {HttpClientModule} from "@angular/common/http";
-import {AppRoutingModule} from "../app-routing.module";
+import {AppRoutingModule} from "../../app-routing.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MaterialModule} from "../../assets/material/material.module";
-import {ToolListComponent} from "../tool-list/tool-list.component";
-import {ToolDetailsComponent} from "../tool-details/tool-details.component";
-import {ToolComponent} from "../tool/tool.component";
-import {ToolBasicsComponent} from "../tool-basics/tool-basics.component";
+import {MaterialModule} from "../../../assets/material/material.module";
+import {ToolListComponent} from "../../tool-list/tool-list.component";
+import {ToolDetailsComponent} from "../../tool-details/tool-details.component";
+import {ToolComponent} from "../../tool/tool.component";
+import {ToolBasicsComponent} from "../../tool-basics/tool-basics.component";
 import { APP_BASE_HREF } from '@angular/common';
 import { JavaWebStartComponent } from './java-web-start.component';
-import {Tool} from "../models/tool";
+import {Tool} from "../../models/tool";
 
 describe('JavaWebStartComponent', () => {
   let component: JavaWebStartComponent;

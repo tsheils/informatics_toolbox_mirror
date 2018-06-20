@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Tool} from '../models/tool';
-import {NCATSImage} from '../models/ncatsimage';
+import {Tool} from '../../models/tool';
+import {NCATSImage} from '../../models/ncatsimage';
 
 @Component({
   templateUrl: './qhts-data-browser.component.html',

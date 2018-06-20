@@ -16,16 +16,16 @@ import {UnfurlingMetaService} from './services/unfurling-meta.service';
 import {ToolComponent} from "./tool/tool.component";
 import {ToolListComponent} from "./tool-list/tool-list.component";
 import {ToolDetailsComponent} from "./tool-details/tool-details.component";
-import {JavaWebStartComponent} from "./java-web-start/java-web-start.component";
-import {CCalculatorComponent} from "./c-calculator/c-calculator.component";
-import {QhtsDataBrowserComponent} from "./qhts-data-browser/qhts-data-browser.component";
+import {JavaWebStartComponent} from "./pages/java-web-start/java-web-start.component";
+import {CCalculatorComponent} from "./pages/c-calculator/c-calculator.component";
+import {QhtsDataBrowserComponent} from "./pages/qhts-data-browser/qhts-data-browser.component";
 import {ToolBasicsComponent} from "./tool-basics/tool-basics.component";
-import {QhtsCurveFitComponent} from "./qhts-curve-fit/qhts-curve-fit.component";
-import {QhtsPlateBrowserComponent} from "./qhts-plate-browser/qhts-plate-browser.component";
+import {QhtsCurveFitComponent} from "./pages/qhts-curve-fit/qhts-curve-fit.component";
+import {QhtsPlateBrowserComponent} from "./pages/qhts-plate-browser/qhts-plate-browser.component";
 import {CustomContentDirective} from "./tool-details/custom-content.directive";
 import {ScreenshotDisplayComponent} from "./screenshot-display/screenshot-display.component";
-import {QhtsSampleClientComponent} from "./qhts-sample-client/qhts-sample-client.component";
-import {QhtsHeatmapBrowserComponent} from "./qhts-heatmap-browser/qhts-heatmap-browser.component";
+import {QhtsSampleClientComponent} from "./pages/qhts-sample-client/qhts-sample-client.component";
+import {QhtsHeatmapBrowserComponent} from "./pages/qhts-heatmap-browser/qhts-heatmap-browser.component";
 import { APP_BASE_HREF } from '@angular/common';
 
 

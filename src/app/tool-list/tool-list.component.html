@@ -9,45 +9,31 @@
 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
   <div fxFlex = "30">
     I am a:
-    <mat-chip-list #chipList [(ngModel)]="selectedFilters" multiple>
-      <mat-chip *ngFor="let filter of audiences"
-                [selected]="isSelected(filter)"
-                (click)="selectFilter('audience',filter)">
-        {{filter}}
-      </mat-chip>
-    </mat-chip-list>
+    <app-tool-filters [filters] = audiences [property]="'audience'"></app-tool-filters>
   </div>
  <div fxFlex = "30">
     I need a:
-   <mat-chip-list #chipList [(ngModel)]="selectedFilters" color="accent" multiple>
-     <mat-chip *ngFor="let filter of toolTypes"
-               [selected]="isSelected(filter)"
-               (click)="selectFilter('toolType', filter)">
-       {{filter}}
-     </mat-chip>
-   </mat-chip-list>
+   <app-tool-filters [filters] = toolTypes [property]="'toolType'"></app-tool-filters>
+
+   <!-- <mat-chip-list #chipList [(ngModel)]="selectedFilters" color="accent" multiple>
+      <mat-chip *ngFor="let filter of toolTypes"
+                [selected]="isSelected(filter)"
+                (click)="selectFilter('toolType', filter)">
+        {{filter}}
+      </mat-chip>
+    </mat-chip-list>-->
 </div>
 </div>
-<!--<div fxFlex = "30">
-    To:
-   <mat-chip-list #chipList [(ngModel)]="selectedFilters" multiple>
-     <mat-chip *ngFor="let filter of toolTypes"
-               [selected]="isSelected(filter)"
-               (click)="selectFilter('toolType', filter)">
-       {{filter}}
-     </mat-chip>
-   </mat-chip-list>
-  </div>
-</div>-->
 
 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
   <div fxFlex = "95">
-<span>{{filteredToolsCount}} of {{count}}</span>
+    <span class ="mat-h1">{{filteredToolsCount}}</span> of <span class ="mat-h1">{{count}}</span>
   </div>
 </div>
 
 
 <mat-expansion-panel *ngFor="let project of filteredTools" [expanded]="'true'" class="grey">
+    <div class="panel-holder">
   <mat-expansion-panel-header>
     <mat-panel-title>
       <h1>{{project.parent}}</h1><br>
@@ -58,4 +44,5 @@
       <app-tool class="tool-comp" [tool] = tool></app-tool>
   </div>
   </div>
+    </div>
 </mat-expansion-panel>

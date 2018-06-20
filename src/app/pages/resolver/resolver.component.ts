@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {Tool} from "../models/tool";
+import {Tool} from "../../models/tool";
 import {ResolverService} from "./services/resolver.service";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {ActivatedRoute} from "@angular/router";

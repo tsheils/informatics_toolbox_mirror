@@ -6,7 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import {Tool} from '../models/tool';
 import {CustomContentDirective} from './custom-content.directive';
-import {CCalculatorComponent} from '../c-calculator/c-calculator.component';
+import {CCalculatorComponent} from '../pages/c-calculator/c-calculator.component';
 import {ComponentNameService} from '../services/component-name.service';
 
 @Component({

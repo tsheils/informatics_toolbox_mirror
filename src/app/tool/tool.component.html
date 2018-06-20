@@ -1,6 +1,7 @@
-<mat-card fxFlex="100" fxFlexAlign="stretch" class="tool-card">
-    <a class = "tool-link" routerLink="/{{tool.toolUrl}}">
-        <div fxLayout = "row" fxLayoutAlign="start center" fxLayout.sm ="column" class="tool-header">
+<mat-card class = "tool-card">
+        <div class="tool-content">
+            <a class = "tool-link" routerLink="/{{tool.toolUrl}}">
+            <div fxLayout = "row" fxLayoutAlign="start center" fxLayout.sm ="column" class="tool-header">
                 <div fxFlex="80" fxFlex.lt-md="100">
                 <span class="mat-title secondary-color" >{{tool.toolName}}</span>
             </div>
@@ -12,7 +13,7 @@
                         [color]="'primary'" class ="public-icon" >_public_</mat-icon>
             </div>
         </div>
-        <mat-card-content class="tool-content">
+        <br>
       <br>
       <div *ngIf="tool.image" fxLayout = "row" fxLayoutAlign="center center">
       <div fxFlex="66">
@@ -25,11 +26,10 @@
               <mat-card-subtitle>{{tool.description}}</mat-card-subtitle>
           </div>
       </div>
-
-  </mat-card-content>
-    </a>
+            </a>
+  </div>
     <div class ="tool-footer">
-        <div fxLayout = "row" fxLayoutAlign="space-around center" >
+        <div fxLayout = "row" fxLayoutAlign="space-around center">
             <div fxFlex="60">
         <span class="mat-title"><i>
         <a href = {{tool.url}} target="_blank">{{tool.toolName}}&nbsp;<mat-icon>open_in_new</mat-icon></a></i><br>
@@ -39,7 +39,7 @@
             </div>
             </div>
         <div fxLayout = "row" fxLayoutAlign="start center">
-            <div fxFlex="50">
+            <div fxFlex="90">
         <mat-chip-list>
         <mat-chip color="primary"  selected="true" *ngIf = tool.category>{{tool.category}}</mat-chip>
         <mat-chip color="accent"  selected="true" *ngFor = 'let type of tool.toolType'> {{type}}</mat-chip>
