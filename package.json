@@ -6,8 +6,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
+    "test": "ng test NCATS-Toolbox",
+    "lint": "ng lint NCATS-Toolbox",
+    "lint-fix": "ng lint NCATS-Toolbox --fix",
     "e2e": "ng e2e"
   },
   "private": true,

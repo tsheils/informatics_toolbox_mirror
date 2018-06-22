@@ -1,38 +1,39 @@
-<div fxLayout="row" fxLayoutAlign="start center" fxLayout.xs="column">
-  <span class = "tool-name mat-display-4">{{tool.toolName}}</span>
+  <span class = "tool-name mat-display-4" [ngClass.lt-sm]="'mobile-header'">{{tool.toolName}}</span>
   <div *ngIf="tool.image; else empty">
   <img class ="full-width-banner" [src] = imgSrc>
   </div>
   <ng-template #empty>
     <div class="placeholder"></div>
   </ng-template>
-</div>
-<br>
-<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
-  <div fxFlex = "95">
-    <div class = "mat-headline"><i>{{tool.description}}</i></div>
-  </div>
-</div>
 
 <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
   <div fxFlex = "95">
-    <div class ="mat-title">Designed for: {{tool.audience.join(' | ')}}</div>
+    <div class = "mat-headline" [ngClass.lt-sm]="'mobile-headline'"><i>{{tool.description}}</i></div>
   </div>
 </div>
 
-<div fxLayout="row" fxLayoutAlign="space-around stretch" fxLayout.xs="column">
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" fxLayoutAlign.lt-sm="start center">
+  <div fxFlex = "95"> <mat-list>
+    <mat-list-item class ="mat-title">
+    <div  [ngClass.lt-sm]="'mobile-title'">Designed for: {{tool.audience.join(' | ')}}</div>
+    </mat-list-item>
+  </mat-list>
+  </div>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" fxLayoutAlign.lt-sm="start center">
   <div fxFlex = "95">
     <mat-list>
       <mat-list-item *ngIf="tool.toolType">
         <div class = "mat-title">Tool Type: {{tool.toolType}}</div>
       </mat-list-item>
       <mat-list-item *ngIf="tool.contact.length > 0">
-        <div class = "mat-title">NCATS Contact: {{tool.contact}}</div>
+        <div class = "mat-title">NCATS Contact: {{tool.contact.join(', ')}}</div>
       </mat-list-item>
       <mat-list-item *ngIf="tool.collaborators.length > 0">
         <div class = "mat-title">In Collaboration with: {{tool.collaborators}}</div>
       </mat-list-item>
-      <mat-list-item *ngIf="tool.publicCodebase === true">
+      <mat-list-item *ngIf="tool.publicCodebase === true && tool.codebase">
         <div class = "mat-title">See the code: <a href = {{tool.codebase}} class = "tool-link secondary-color">{{tool.codebase}}</a></div>
       </mat-list-item>
     </mat-list>

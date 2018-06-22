@@ -1,3 +1,13 @@
+span.tool-name.mat-display-4.mobile-header {
+    font: 100 50px/50px Roboto, "Helvetica Neue", sans-serif;
+    width: 100%;
+    left: 0;
+}
 
+.mat-headline.mobile-headline {
+    margin-left: 2vw;
+}
 
-
+.tool-link {
+    word-break: break-all;
+}

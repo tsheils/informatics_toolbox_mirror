@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DataLoaderService} from '../services/data-loader.service';
 import {Tool} from '../models/tool';
-import {SelectionModel} from "@angular/cdk/collections";
-import {Subject} from "rxjs/index";
-import {takeUntil} from "rxjs/internal/operators";
+import {SelectionModel} from '@angular/cdk/collections';
+import {Subject} from 'rxjs/index';
 
 
 @Component({
@@ -11,7 +10,8 @@ import {takeUntil} from "rxjs/internal/operators";
     templateUrl: './tool-list.component.html',
     styleUrls: ['./tool-list.component.css']
 })
-export class ToolListComponent implements OnInit {
+export class ToolListComponent implements OnInit, OnDestroy {
+    value: string;
     tools: Tool[] = [];
     toolsArr: any[] = [];
     filteredTools: any[] = [];
@@ -29,9 +29,9 @@ export class ToolListComponent implements OnInit {
 
     ngOnInit() {
         this.dataLoaderService.data$.subscribe(res => {
-            console.log(res);
             this.filteredTools = [];
             this.filteredToolsCount = 0;
+                // map to array
             res.forEach((value, key) => {
                 this.filteredTools.push({parent: key, tools: value});
                 this.filteredToolsCount += value.length;
@@ -44,22 +44,12 @@ export class ToolListComponent implements OnInit {
 }
 
 search(term: string): void {
-        this.filteredToolsCount = 0;
-        const filteredArr: any[] = [];
-        this.toolsArr.forEach(values => {
-            const filtered: Tool[] = [];
-            values.tools.forEach(tool => {
-                const str = Object.values(tool).join(' ').toLowerCase();
-                if (str.includes(term.toLowerCase())) {
-                    filtered.push(tool);
-                }
-            });
-            if (filtered.length > 0) {
-                filteredArr.push({parent: values.parent, tools: filtered});
-                this.filteredToolsCount += filtered.length;
-            }
-        });
-        this.filteredTools = filteredArr;
+        this.dataLoaderService.search(term);
+    }
+
+    clear(): void {
+        this.value = '';
+        this.dataLoaderService.search('');
     }
 
 ngOnDestroy() {

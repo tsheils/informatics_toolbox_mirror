@@ -27,8 +27,10 @@ import { ScreenshotDisplayComponent } from './screenshot-display/screenshot-disp
 import { QhtsSampleClientComponent } from './pages/qhts-sample-client/qhts-sample-client.component';
 import { QhtsHeatmapBrowserComponent } from './pages/qhts-heatmap-browser/qhts-heatmap-browser.component';
 import { ResolverComponent } from './pages/resolver/resolver.component';
-import {ResolverService} from "./pages/resolver/services/resolver.service";
+import {ResolverService} from './pages/resolver/services/resolver.service';
 import { ToolFiltersComponent } from './tool-filters/tool-filters.component';
+import { ScaffoldHopperComponent } from './pages/scaffold-hopper/scaffold-hopper.component';
+import { IqcConvertComponent } from './pages/iqc-convert/iqc-convert.component';
 
 @NgModule({
   imports: [
@@ -66,7 +68,9 @@ import { ToolFiltersComponent } from './tool-filters/tool-filters.component';
         QhtsSampleClientComponent,
         QhtsHeatmapBrowserComponent,
         ResolverComponent,
-        ToolFiltersComponent
+        ToolFiltersComponent,
+        ScaffoldHopperComponent,
+        IqcConvertComponent
 
     ],
     entryComponents: [
@@ -76,7 +80,9 @@ import { ToolFiltersComponent } from './tool-filters/tool-filters.component';
         QhtsPlateBrowserComponent,
         QhtsSampleClientComponent,
         QhtsHeatmapBrowserComponent,
-        ResolverComponent
+        ResolverComponent,
+        ScaffoldHopperComponent,
+        IqcConvertComponent
 
     ],
   bootstrap: [AppComponent]

@@ -9,12 +9,12 @@
   <img src="./assets/images/nih-ribbon.svg" alt="NCATS">
   <a href="http://www.ncats.nih.gov" target="new">NCATS</a>
 </mat-toolbar-row>
-  <mat-toolbar-row id = "ncats-logo" fxLayout="row" fxLayout.xs="column">
+  <mat-toolbar-row id = "ncats-logo" fxLayout="row">
     <div >
       <img src="./assets/images/ncats.svg" alt="NCATS" class=" ncats-logo">
     </div>
-    <div [fxHide.lt-sm]="true">
-      <a routerLink="/"><span class = "logo-header subsection">&nbsp;{{title}}</span></a>
+    <div>
+      <a routerLink="/"><span class = "logo-header subsection" [ngClass.lt-sm]="'mobile-logo-header'">&nbsp;{{title}}</span></a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

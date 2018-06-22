@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SelectionModel} from "@angular/cdk/collections";
-import {Subject} from "rxjs/index";
-import {takeUntil} from "rxjs/internal/operators";
-import {DataLoaderService} from "../services/data-loader.service";
+import {SelectionModel} from '@angular/cdk/collections';
+import {Subject} from 'rxjs/index';
+import {takeUntil} from 'rxjs/internal/operators';
+import {DataLoaderService} from '../services/data-loader.service';
 
 @Component({
   selector: 'app-tool-filters',
@@ -21,10 +21,11 @@ export class ToolFiltersComponent implements OnInit {
       this.filterSelection.onChange
           .pipe(takeUntil(this.ngUnsubscribe))
           .subscribe(change => {
-              console.log(change);
-            //  console.log(this.filterSelection.selected);
-              this.dataLoaderService.filterData({property: this.property, filters: this.filterSelection.selected})
+              this.dataLoaderService.filterData({property: this.property, filters: this.filterSelection.selected});
           });
   }
 
+  clearFilters() {
+      this.filterSelection.clear();
+  }
 }

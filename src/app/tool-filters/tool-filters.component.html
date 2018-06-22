@@ -1,8 +1,11 @@
 <mat-chip-list #chipList chipSelectionChanges="changeChipList($event)" multiple>
   <mat-chip *ngFor="let filter of filters"
             (click)="$event ? filterSelection.toggle(filter) : null"
-            [selected]="filterSelection.isSelected(filter)"
-  >
+            [selected]="filterSelection.isSelected(filter)">
     {{filter}}
   </mat-chip>
+  <mat-chip *ngIf="this.filterSelection.selected.length >0"
+  (click) = "clearFilters()"
+  class="warn">
+    Clear</mat-chip>
 </mat-chip-list>

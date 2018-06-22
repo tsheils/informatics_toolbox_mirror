@@ -1,13 +1,19 @@
-<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
-  <div fxFlex = "95">
-    <mat-form-field class ="tool-filter">
-      <input matInput placeholder="Search Tools" aria-label="Filter tools" (keyup)="search($event.target.value)">
+<div fxLayout="row" fxLayoutAlign="space-around center" [ngClass.lt-sm]="'mobile-padded'">
+  <div fxFlex = "10" [fxHide.gt-sm]="true">
+    <a routerLink="/"><mat-icon>home</mat-icon></a>
+  </div>
+  <div fxFlex = "90">
+  <mat-form-field class ="tool-filter">
+      <input matInput placeholder="Search Tools" aria-label="Filter tools" [(ngModel)]="value" (keyup)="search($event.target.value)">
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+      <mat-icon>close</mat-icon>
+    </button>
     </mat-form-field>
   </div>
 </div>
 
-<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
-  <div fxFlex = "30">
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" [ngClass.lt-sm]="'mobile-padded'">
+  <div fxFlex = "30" >
     I am a:
     <app-tool-filters [filters] = audiences [property]="'audience'"></app-tool-filters>
   </div>
@@ -31,14 +37,15 @@
   </div>
 </div>
 
-
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
+  <div fxFlex = "100">
 <mat-expansion-panel *ngFor="let project of filteredTools" [expanded]="'true'" class="grey">
-    <div class="panel-holder">
   <mat-expansion-panel-header>
     <mat-panel-title>
       <h1>{{project.parent}}</h1><br>
     </mat-panel-title>
   </mat-expansion-panel-header>
+  <div class="panel-holder">
   <div class="grid-list">
     <div class ="card-holder" *ngFor="let tool of project.tools">
       <app-tool class="tool-comp" [tool] = tool></app-tool>
@@ -46,3 +53,5 @@
   </div>
     </div>
 </mat-expansion-panel>
+  </div>
+</div>

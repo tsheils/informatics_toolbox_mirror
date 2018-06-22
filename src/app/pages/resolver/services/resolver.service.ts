@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable, Subject} from "rxjs";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, Subject} from 'rxjs';
 
 const URL = 'https://tripod.nih.gov/servlet/resolverBeta3/';
 
@@ -21,7 +21,7 @@ export class ResolverService {
     }
 
     getOptions(): Observable<any> {
-        return this.http.get<any>(URL +'_options')
+        return this.http.get<any>(URL + '_options');
     }
 
     resolveData(parameters: string[], names: string[]): Observable<any> {
@@ -31,6 +31,6 @@ export class ResolverService {
           format: 'json',
           apiKey: '5fd5bb2a05eb6195'
       };
-        return this.http.post<any>(url, 'structure=' + names.join('%0A')+'&format=json&apikey=5fd5bb2a05eb6195', httpOptions)
+        return this.http.post<any>(url, 'structure=' + names.join('%0A') + '&format=json&apikey=5fd5bb2a05eb6195', httpOptions);
     }
 }

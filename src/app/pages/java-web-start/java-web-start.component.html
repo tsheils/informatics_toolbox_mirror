@@ -1,9 +1,9 @@
-<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" [ngClass.lt-sm]="'mobile-padded'">
   <div fxFlex = "95">
     <div class = "mat-display-2">Software Requirements</div>
   </div>
 </div>
-<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" class="row-purple">
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" class="row-purple" [ngClass.lt-sm]="'mobile-padded'">
   <div fxFlex = "66">
     (requires <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/javaws/" target="_blank">Java WebStart</a>)<br>
     <p>
@@ -17,12 +17,12 @@
   </div>
 </div>
 
-<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" [ngClass.lt-sm]="'mobile-padded'">
   <div fxFlex = "95">
     <div class = "mat-display-2">Where do I find the {{tool.toolName}}?</div>
   </div>
 </div>
-<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" class="row-green">
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" class="row-green" [ngClass.lt-sm]="'mobile-padded'">
   <div fxFlex = "66">
     <p>
       <a class = "mat-title tool-link secondary-color" href = {{tool.url}}>{{tool.toolName}} &nbsp;<mat-icon>file_download</mat-icon></a><br>
@@ -30,12 +30,12 @@
   </div>
 </div>
 
-<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column">
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" [ngClass.lt-sm]="'mobile-padded'">
   <div fxFlex = "95">
     <div class = "mat-display-2">Launching the {{tool.toolName}}</div>
   </div>
 </div>
-<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" class="row-purple">
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" class="row-purple" [ngClass.lt-sm]="'mobile-padded'">
   <div fxFlex = "66">
     <p>
       Use the <a href = {{tool.url}}>{{tool.toolName}}</a> Launch URL to start the application.

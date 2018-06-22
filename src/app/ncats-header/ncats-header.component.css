@@ -44,3 +44,7 @@ span.logo-header {
 span.logo-header.subsection {
   color: #642f6c;
 }
+
+span.logo-header.subsection.mobile-logo-header {
+  font-size: 2rem;
+}

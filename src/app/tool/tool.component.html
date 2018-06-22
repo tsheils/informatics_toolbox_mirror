@@ -16,7 +16,7 @@
         <br>
       <br>
       <div *ngIf="tool.image" fxLayout = "row" fxLayoutAlign="center center">
-      <div fxFlex="66">
+      <div fxFlex="80">
           <img mat-card-image src= {{imgSrc}} alt='{{tool.toolName}} representative image'>
         </div>
       </div>
@@ -30,14 +30,12 @@
   </div>
     <div class ="tool-footer">
         <div fxLayout = "row" fxLayoutAlign="space-around center">
-            <div fxFlex="60">
+            <div fxFlex="95">
         <span class="mat-title"><i>
         <a href = {{tool.url}} target="_blank">{{tool.toolName}}&nbsp;<mat-icon>open_in_new</mat-icon></a></i><br>
     </span>
             </div>
-            <div fxFlex="45">
-            </div>
-            </div>
+        </div>
         <div fxLayout = "row" fxLayoutAlign="start center">
             <div fxFlex="90">
         <mat-chip-list>

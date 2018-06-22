@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable, Subject, of, BehaviorSubject} from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import {environment} from "../../environments/environment";
+import {environment} from '../../environments/environment';
 import {Tool} from '../models/tool';
 
 const URL = environment.TOOL_URL;
@@ -44,7 +44,7 @@ export class DataLoaderService {
         }
     }
 
-    getData():Observable<Tool[]> {
+    getData(): Observable<Tool[]> {
         return this._dataSource.getValue();
     }
 
@@ -52,40 +52,44 @@ export class DataLoaderService {
         return this.data.length;
     }
 
-    filterData(filters): void {
-        console.log(this.filterMap);
-        this.filterMap.set(filters.property, filters.filters);
-        console.log(this.filterMap);
+    filterData(filterObj): void {
+            this.filterMap.set(filterObj.property, filterObj.filters);
         let filteredList: Tool[] = [];
-        this.filterMap.forEach((filters, property) => {
-            let listToFilter: Tool[];
-            if(filteredList.length > 0){
-                listToFilter = filteredList;
-                filteredList = [];
-            } else {
-                listToFilter = this.data;
-            }
-          if(filters.length > 0) {
-              let ret: Tool[] = [];
-              filters.forEach(filter => {
-                  listToFilter.map(tool => {
-                      if(tool[property].includes(filter)){
-                          filteredList.push(tool);
-                      }
-                  })
-                 // ret = Array.from(new Set(ret.concat(ret.filter(tool => tool[property].includes(filter)))));
-              })
-              filteredList = Array.from(new Set(filteredList));
-              console.log(filteredList);
-          } else {
-                this.filterMap.delete(property);
-          }
-        })
-        if(filteredList.length === 0){
+        if (this.filterMap.size === 0) {
             filteredList = this.data;
+        } else {
+            this.filterMap.forEach((filters, property) => {
+                let listToFilter: Tool[];
+                if (filteredList.length > 0) {
+                    listToFilter = filteredList;
+                    filteredList = [];
+                } else {
+                    listToFilter = this.data;
+                }
+                if (filters.length > 0) {
+                    const ret: Tool[] = [];
+                    filters.forEach(filter => {
+                        listToFilter.map(tool => {
+                            if (tool[property].includes(filter)) {
+                                filteredList.push(tool);
+                            }
+                        });
+                    });
+                    filteredList = Array.from(new Set(filteredList));
+                } else {
+                    this.filterMap.delete(property);
+                    filteredList = listToFilter;
+                }
+            });
         }
-        console.log(filteredList);
         this._dataSource.next(this._mapTools(filteredList));
+    }
+
+    search(term: string): void {
+        const filteredArr: any[] = this.data.filter(tool => {
+            return JSON.stringify(tool).toLowerCase().includes(term.toLowerCase());
+        });
+this._dataSource.next(this._mapTools(filteredArr));
     }
 
     getByName(name: string): Observable<Tool> {
@@ -129,7 +133,6 @@ export class DataLoaderService {
     }
 
     private csvJSON(csv): void {
-        console.log("parsing");
         const lines: string[] = csv.split(/\r\n|\n/);
 
         const headers = lines.shift().split(',');
@@ -151,17 +154,17 @@ export class DataLoaderService {
     }
 
     private _mapTools(data: Tool[]): Map<string, Tool[]> {
-        const map: Map<string, Tool[]> = new Map();
+        const dataMap: Map<string, Tool[]> = new Map();
         data.forEach(tool => {
-            let parentList: Tool[] = map.get(tool.parentProject);
+            let parentList: Tool[] = dataMap.get(tool.parentProject);
             if (parentList && parentList.length > 0) {
                 parentList.push(tool);
             } else {
                 parentList = [tool];
             }
-            map.set(tool.parentProject, parentList);
+            dataMap.set(tool.parentProject, parentList);
         });
-        return map;
+        return dataMap;
     }
 }
 

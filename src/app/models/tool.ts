@@ -27,11 +27,11 @@ export class Tool {
         this.toolType = this.parse(obj.toolType);
         this.note = obj.note;
         this.collaborators = this.parse(obj.collaborators);
-        this.public = obj.public === "yes";
-        this.obsolete = obj.obsolete.toLowerCase() === "yes";
+        this.public = obj.public === 'yes';
+        this.obsolete = obj.obsolete.toLowerCase() === 'yes';
         this.audience = this.parse(obj.audience);
         this.codebase = obj.codebase;
-        this.publicCodebase = obj.publicCodebase === "yes";
+        this.publicCodebase = obj.publicCodebase === 'yes';
         this.parentProject = obj.parentProject;
         this.image = obj.image === 'yes' ? obj.image : false;
         this.component = obj.component || null;

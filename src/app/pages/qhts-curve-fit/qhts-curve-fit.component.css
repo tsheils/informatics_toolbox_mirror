@@ -2,3 +2,11 @@
     height: 100%;
     width: 100%;
 }
+
+.plain-list {
+    list-style: none;
+}
+
+.plain-list > li {
+    padding-bottom: 10px;
+}

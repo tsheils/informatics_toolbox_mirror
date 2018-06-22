@@ -3,10 +3,10 @@
  */
 import { NgModule } from '@angular/core';
 import {
-  MatButtonModule, MatAutocompleteModule, MatMenuModule, MatToolbarModule, MatInputModule, MatIconModule,
-  MatListModule, MatSliderModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatSidenavModule,
-  MatSlideToggleModule, MatRadioModule, MatCheckboxModule, MatTabsModule, MatCardModule, MatTooltipModule,
-  MatSelectModule, MatExpansionModule
+    MatButtonModule, MatAutocompleteModule, MatMenuModule, MatToolbarModule, MatInputModule, MatIconModule,
+    MatListModule, MatSliderModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatSidenavModule,
+    MatSlideToggleModule, MatRadioModule, MatCheckboxModule, MatTabsModule, MatCardModule, MatTooltipModule,
+    MatSelectModule, MatExpansionModule, MatDividerModule
 } from '@angular/material';
 import {MatChipsModule} from '@angular/material/chips';
 
@@ -15,11 +15,13 @@ import {MatChipsModule} from '@angular/material/chips';
   imports: [MatButtonModule, MatAutocompleteModule, MatMenuModule, MatToolbarModule,
     MatInputModule, MatIconModule, MatListModule, MatSliderModule, MatProgressSpinnerModule,
     MatTableModule, MatSortModule, MatSidenavModule, MatSlideToggleModule, MatRadioModule,
-    MatTabsModule, MatCheckboxModule, MatCardModule, MatTooltipModule, MatSelectModule, MatExpansionModule, MatChipsModule],
+      MatDividerModule, MatTabsModule, MatCheckboxModule, MatCardModule, MatTooltipModule,
+      MatSelectModule, MatExpansionModule, MatChipsModule],
   exports: [MatButtonModule, MatAutocompleteModule, MatMenuModule, MatToolbarModule,
     MatInputModule, MatIconModule, MatListModule, MatSliderModule, MatProgressSpinnerModule,
     MatTableModule, MatSortModule, MatSidenavModule, MatSlideToggleModule, MatRadioModule,
-    MatTabsModule, MatCheckboxModule, MatCardModule, MatTooltipModule, MatSelectModule, MatExpansionModule, MatChipsModule],
+      MatDividerModule, MatTabsModule, MatCheckboxModule, MatCardModule, MatTooltipModule,
+      MatSelectModule, MatExpansionModule, MatChipsModule],
 })
 export class MaterialModule { }
 

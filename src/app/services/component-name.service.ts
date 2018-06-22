@@ -6,6 +6,8 @@ import {QhtsDataBrowserComponent} from '../pages/qhts-data-browser/qhts-data-bro
 import {QhtsSampleClientComponent} from '../pages/qhts-sample-client/qhts-sample-client.component';
 import {QhtsHeatmapBrowserComponent} from '../pages/qhts-heatmap-browser/qhts-heatmap-browser.component';
 import {ResolverComponent} from '../pages/resolver/resolver.component';
+import {ScaffoldHopperComponent} from '../pages/scaffold-hopper/scaffold-hopper.component';
+import {IqcConvertComponent} from "../pages/iqc-convert/iqc-convert.component";
 
 @Injectable()
 export class ComponentNameService {
@@ -18,6 +20,8 @@ export class ComponentNameService {
       this.COMPONENTS.set('QhtsSampleClientComponent', QhtsSampleClientComponent);
       this.COMPONENTS.set('QhtsHeatmapBrowserComponent', QhtsHeatmapBrowserComponent);
       this.COMPONENTS.set('ResolverComponent', ResolverComponent);
+      this.COMPONENTS.set('ScaffoldHopperComponent', ScaffoldHopperComponent);
+      this.COMPONENTS.set('IqcConvertComponent', IqcConvertComponent);
   }
 
   getComponent(name: string): Type<any> {

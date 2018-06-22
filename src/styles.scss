@@ -55,3 +55,11 @@ img.full-width-banner {
 .row-purple {
   border-bottom: 2px solid #642f6c;
 }
+
+.warn {
+  background-color: mat-color($ncats-app-warn) !important;
+}
+
+.mobile-padded {
+  padding: 3vw;
+}

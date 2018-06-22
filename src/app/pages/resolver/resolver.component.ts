@@ -1,18 +1,18 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {FormControl} from "@angular/forms";
-import {Tool} from "../../models/tool";
-import {ResolverService} from "./services/resolver.service";
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {ActivatedRoute} from "@angular/router";
-import {Subject} from "rxjs";
-import {takeUntil} from "rxjs/operators";
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {Tool} from '../../models/tool';
+import {ResolverService} from './services/resolver.service';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {ActivatedRoute} from '@angular/router';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
     templateUrl: './resolver.component.html',
     styleUrls: ['./resolver.component.css']
 })
 
-export class ResolverComponent implements OnInit {
+export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() tool: Tool;
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -34,7 +34,7 @@ export class ResolverComponent implements OnInit {
     private ngUnsubscribe: Subject<any> = new Subject();
 
 
-    constructor(private resolverService: ResolverService){}
+    constructor(private resolverService: ResolverService) {}
     ngOnInit() {
         this.resolverService.getOptions()
             .pipe(takeUntil(this.ngUnsubscribe))
@@ -47,12 +47,12 @@ export class ResolverComponent implements OnInit {
     }
 
     resolve(): void {
-        this.rawData ='';
+        this.rawData = '';
         this.dataSource.data = [];
-        let data = [];
-        let lines = [];
+        let dataArr = [];
+        const lines = [];
         this.resolverService.resolveData(this.properties, this.resolverCtrl.value.trim().split(/[\t\n,;]+/)).subscribe(res => {
-            data = res.map(data => {
+            dataArr = res.map(data => {
                 const ret: any = {};
                 if (data.response) {
                     const arr = data.response.split('\t');
@@ -64,12 +64,12 @@ export class ResolverComponent implements OnInit {
                 ret.input = data.input;
                 ret.source = data.source;
                 ret.url = data.url;
-                this.fields = Object.keys(ret).sort((a, b) => +(b === 'input') - +(a ==='input')).filter(field => field !== '_id');
+                this.fields = Object.keys(ret).sort((a, b) => +(b === 'input') - +(a === 'input')).filter(field => field !== '_id');
                 lines.push(this.fields.map(field => ret[field]).join('\t'));
                 return ret;
             });
-            data = data.sort((a,b) => a._id - b._id);
-            this.dataSource.data = data;
+            dataArr = dataArr.sort((a, b) => a._id - b._id);
+            this.dataSource.data = dataArr;
             this.rawData =  lines.join('\n');
             this.loaded = true;
         });
@@ -77,7 +77,7 @@ export class ResolverComponent implements OnInit {
 
     checked(event: any, property: string) {
         if (event.checked) {
-            this.properties.push(property)
+            this.properties.push(property);
         } else {
             this.properties = this.properties.filter(prop => prop !== property);
         }
@@ -105,9 +105,9 @@ export class ResolverComponent implements OnInit {
 
     downloadCSV(): void {
         const dataKeys = this.fields.join('\t');
-        let lines = [];
+        const lines = [];
         this.dataSource.data.forEach(data => lines.push(this.fields.map(field => data[field]).join('\t')));
-        let csv = dataKeys + '\n' + lines.join('\n');
+        const csv = dataKeys + '\n' + lines.join('\n');
         this.file = new Blob([csv], { type: 'text/csv'});
         this.link.download = 'resolver.tsv';
         this.downloadFile();
@@ -124,10 +124,10 @@ export class ResolverComponent implements OnInit {
         this.showTableData = event.checked;
     }
 
-    getLabel(field:string): string {
-        let ret:string;
+    getLabel(field: string): string {
+        let ret: string;
         const option: Option[] = this.options.filter(opt => opt.name === field);
-        if(option.length > 0){
+        if (option.length > 0) {
             ret = option[0].title;
         } else {
             ret = field;

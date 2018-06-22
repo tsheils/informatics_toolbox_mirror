@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScreenshotDisplayComponent } from './screenshot-display.component';
-import {NCATSImage} from "../models/ncatsimage";
-import {FlexLayoutModule} from "@angular/flex-layout";
-import {MaterialModule} from "../../assets/material/material.module";
+import {NCATSImage} from '../models/ncatsimage';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {MaterialModule} from '../../assets/material/material.module';
 
 describe('ScreenshotDisplayComponent', () => {
   let component: ScreenshotDisplayComponent;

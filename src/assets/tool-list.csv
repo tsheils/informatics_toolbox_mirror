@@ -33,7 +33,7 @@ Tox21 Portal,Tox21,https://tripod.nih.gov/tox,"Tongan Zhao, Ruili Huang",Tox21 i
 Tox21 public browser,Tox21,https://tripod.nih.gov/tox21,"Trung Nguyen,Tongan Zhao, Ruili Huang",Tox21 public data,"website, DB",,,yes,,"Data Scientist, Biologist, Chemist",,,,yes,,
 lychi,,https://github.com/ncats/lychi,Trung Nguyen,chemical structure standardizer,,,,yes,No,Data Scientist,https://github.com/ncats/lychi,yes,,,,
 CORAL,Ligand based virtual screening,,Gregory Tawa,"For a given set of active ligands, find optimized conformations for ROCS based virtual screens",C++ code/system calls to OpenEye/PipeLine pilot,"Prototype complete, can be deployed",,,,Data Scientist,,,,,,
-scaffold hopper,,https://tripod.nih.gov/ws/hopper/hopper.jnlp,"Trung Nguyen, Tyler Peryea","scaffold hopping, r-group decomposition, structure searching pubmed",java webstart app,,,yes,,"Data Scientist, Biologist, Chemist",,,,,,
+scaffold hopper,,https://tripod.nih.gov/ws/hopper/hopper.jnlp,"Trung Nguyen, Tyler Peryea","scaffold hopping, r-group decomposition, structure searching pubmed",java webstart app,,,yes,,"Data Scientist, Biologist, Chemist",,,,yes,ScaffoldHopperComponent,
 intellij,IDE,,"Noel Southall, Daniel Katzel",we have licenses,,,,no,No,Data Scientist,contact southalln@mail.nih.gov,No,Resources,,,
 NCATSFind Resolver,chemistry,https://tripod.nih.gov/servlet/resolverBeta3?structure=gleevec%0A50-00-0,Tyler Peryea,Resolves a name/code/structure to many other name/code/structures/properties,webservice,,,yes,,Developer,,,,yes,ResolverComponent,
 Renderer,chemistry,https://tripod.nih.gov/servlet/renderServletv12?structure=C1CCCOC1,Tyler Peryea,"Renders a structure based on a smiles string, has lots of low-level options",webservice,,,yes,,Developer,,,,yes,,
