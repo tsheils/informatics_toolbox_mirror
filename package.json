@@ -5,7 +5,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "start:private": "ng serve NCATS-Toolbox --configuration=private --live-reload=true --port=4200",
+    "start:public": "ng serve NCATS-Toolbox --configuration=public --live-reload=true --port=4201",
+    "build:private": "ng build NCATS-Toolbox --configuration=private",
+    "build:public": "ng build NCATS-Toolbox --configuration=public",
     "test": "ng test NCATS-Toolbox",
     "lint": "ng lint NCATS-Toolbox",
     "lint-fix": "ng lint NCATS-Toolbox --fix",

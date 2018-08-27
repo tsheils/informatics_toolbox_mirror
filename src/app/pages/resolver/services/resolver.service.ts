@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
+import {from, Observable, of, Subject} from 'rxjs';
+import {environment} from "../../../../environments/environment";
+import {map} from "rxjs/operators";
 
-const URL = 'https://tripod.nih.gov/servlet/resolverBeta3/';
-
+// const URL = 'https://tripod.nih.gov/servlet/resolverBeta3/';
+ const URL = 'https://tripod.nih.gov/servlet/resolverBeta4/';
+const ENVIRONMENT = environment;
 const httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -21,16 +24,32 @@ export class ResolverService {
     }
 
     getOptions(): Observable<any> {
-        return this.http.get<any>(URL + '_options');
+       return this.http.get<any>(URL + '_options').pipe(
+            map(res => {
+            console.log(res);
+            if(ENVIRONMENT.public === true) {
+                console.log("public");
+                const ret = res.filter(field => !field.tags.includes('restricted'));
+                console.log(ret);
+                return ret;
+            } else {
+                return res;
+            }
+        })
+        );
     }
 
     resolveData(parameters: string[], names: string[]): Observable<any> {
       const url = URL + parameters.join('/');
       const data: any = {
           structure: names,
-          format: 'json',
-          apiKey: '5fd5bb2a05eb6195'
+          format: 'json'
       };
-        return this.http.post<any>(url, 'structure=' + names.join('%0A') + '&format=json&apikey=5fd5bb2a05eb6195', httpOptions);
+        if(ENVIRONMENT.public === false) {
+            data.apiKey = '5fd5bb2a05eb6195';
+            return this.http.post<any>(url, 'structure=' + names.join('%0A') + '&format=json&apikey=5fd5bb2a05eb6195', httpOptions);
+        } else {
+            return this.http.post<any>(url, 'structure=' + names.join('%0A') + '&format=json&apikey=5fd5bb2a05eb6195', httpOptions);
+        }
     }
 }

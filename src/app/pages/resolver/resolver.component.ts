@@ -39,8 +39,10 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         this.resolverService.getOptions()
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(res => {
+                console.log(res);
                 this.options = res;
             });
+        console.log(this);
 
         this.resolverCtrl.valueChanges.subscribe(val => this.names = true);
         this.link = document.createElement('a');

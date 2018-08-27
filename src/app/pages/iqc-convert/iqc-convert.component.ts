@@ -17,4 +17,6 @@ export class IqcConvertComponent implements OnInit {
   convert():void {
 
   }
+
+  onSubmit(){}
 }

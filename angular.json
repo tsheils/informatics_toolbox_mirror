@@ -26,7 +26,7 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
+            "public": {
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -56,7 +56,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.ptivate.ts"
+                  "with": "src/environments/environment.private.ts"
                 }
               ]
             }
@@ -68,8 +68,11 @@
             "browserTarget": "NCATS-Toolbox:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "NCATS-Toolbox:build:production"
+            "public": {
+              "browserTarget": "NCATS-Toolbox:build:public"
+            },
+            "private": {
+              "browserTarget": "NCATS-Toolbox:build:private"
             }
           }
         },
