@@ -26,11 +26,8 @@ export class ResolverService {
     getOptions(): Observable<any> {
        return this.http.get<any>(URL + '_options').pipe(
             map(res => {
-            console.log(res);
             if(ENVIRONMENT.public === true) {
-                console.log("public");
                 const ret = res.filter(field => !field.tags.includes('restricted'));
-                console.log(ret);
                 return ret;
             } else {
                 return res;
@@ -42,14 +39,25 @@ export class ResolverService {
     resolveData(parameters: string[], names: string[]): Observable<any> {
       const url = URL + parameters.join('/');
       const data: any = {
-          structure: names,
+          structure: names.map(name => name = this.parseSmiles(name)),
           format: 'json'
       };
         if(ENVIRONMENT.public === false) {
             data.apiKey = '5fd5bb2a05eb6195';
             return this.http.post<any>(url, 'structure=' + names.join('%0A') + '&format=json&apikey=5fd5bb2a05eb6195', httpOptions);
         } else {
-            return this.http.post<any>(url, 'structure=' + names.join('%0A') + '&format=json&apikey=5fd5bb2a05eb6195', httpOptions);
+            return this.http.post<any>(url, 'structure=' + names.join('%0A') + '&format=json', httpOptions);
         }
+    }
+
+
+    private parseSmiles(smiles: string): string {
+        const parsed = smiles
+            .replace(/[;]/g, '%3B')
+            .replace(/[#]/g, '%23')
+            .replace(/[+]/g, '%2B')
+            .replace(/[\\]/g, '%5C')
+            .replace(/[|]/g, '%7C');
+        return parsed;
     }
 }

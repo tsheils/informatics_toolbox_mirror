@@ -31,6 +31,7 @@ import {ResolverService} from './pages/resolver/services/resolver.service';
 import { ToolFiltersComponent } from './tool-filters/tool-filters.component';
 import { ScaffoldHopperComponent } from './pages/scaffold-hopper/scaffold-hopper.component';
 import { IqcConvertComponent } from './pages/iqc-convert/iqc-convert.component';
+import {NcatsFindExcelComponent} from "./pages/ncatsfind-excel/ncatsfind-excel.component";
 
 @NgModule({
   imports: [
@@ -70,7 +71,8 @@ import { IqcConvertComponent } from './pages/iqc-convert/iqc-convert.component';
         ResolverComponent,
         ToolFiltersComponent,
         ScaffoldHopperComponent,
-        IqcConvertComponent
+        IqcConvertComponent,
+        NcatsFindExcelComponent
 
     ],
     entryComponents: [
@@ -82,8 +84,8 @@ import { IqcConvertComponent } from './pages/iqc-convert/iqc-convert.component';
         QhtsHeatmapBrowserComponent,
         ResolverComponent,
         ScaffoldHopperComponent,
-        IqcConvertComponent
-
+        IqcConvertComponent,
+        NcatsFindExcelComponent
     ],
   bootstrap: [AppComponent]
 })

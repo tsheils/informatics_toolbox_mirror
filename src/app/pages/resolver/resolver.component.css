@@ -8,6 +8,10 @@ mat-form-field {
     height: 10vh;
 }
 
+.targetBox {
+    width: 100%;
+}
+
 .options-grid {
     display: grid;
     grid-auto-rows: max-content;
