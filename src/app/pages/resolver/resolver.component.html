@@ -1,91 +1,158 @@
-<div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column">
-  <div fxFlex = "45" fxFlexAlign="center">
-    Enter a drug name or structure, one per line, or separated by ',' or ';', and click the 'Resolve' button<br>
-    <textarea class = "targetBox" rows="8" placeholder="aspirin" spellcheck="false" [formControl]="resolverCtrl"></textarea>
+<div fxLayout="row" fxLayout.xs="column" class="directions-container">
+  <div class="values-instructions text-bottom">
+    Enter a drug name or structure, one per line, or separated by ',' or ';', and click the 'Resolve' button
   </div>
-</div>
-<br>
-<div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column">
-  <div fxFlex = "10">
-    <button mat-raised-button color="accent" name="Calbutton" (click)="resolve()" [disabled]="allowResolve()">Resolve</button>
+  <div class="options-instructions">
+    <span class="text-bottom">Resolve to:</span>
   </div>
-</div>
-<br>
-<div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column">
-  <div fxFlex = "95">
-<div class ="options-grid">
-      <div *ngFor ="let option of options">
-        <mat-checkbox
-
-                (change)="checked($event, option.name)"
-                name = {{option.name}}>
-          {{option.title}}
-        </mat-checkbox>
-        <mat-icon  matTooltip={{option.description}} class ="help-icon">_help_</mat-icon>
+  <div class="results-instructions">
+    <div #dataList *ngIf="dataSource.data.length > 0" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end center">
+      <div>
+        <button mat-button [matMenuTriggerFor]="menu">
+          Download Data <mat-icon>file_download</mat-icon>
+        </button>
+      </div>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)=" downloadJSON()">
+          <mat-icon>code</mat-icon>
+          <span>JSON</span>
+        </button>
+        <button mat-menu-item (click)=" downloadCSV()">
+          <mat-icon>border_all</mat-icon>
+          <span>CSV</span>
+        </button>
+      </mat-menu>
+      <div>
+        <mat-slide-toggle [color]="'primary'" (change)="showTable($event)">
+          Show data in table
+        </mat-slide-toggle>
       </div>
     </div>
   </div>
 </div>
-<br>
-<div #dataList *ngIf = "dataSource.data.length > 0" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end center">
-  <div fxFlex = "10">
+<div class="content-container">
+  <div class="values-results-container">
+    <textarea class="targetBox" placeholder="aspirin" spellcheck="false" [formControl]="resolverCtrl"></textarea>
+  </div>
+  <div class="options-container">
+    <div class="options">
+      <div *ngFor="let option of options">
+        <mat-checkbox (change)="checked($event, option.name)" name={{option.name}}>
+          {{option.title}}
+        </mat-checkbox>
+        <mat-icon matTooltip={{option.description}} class="help-icon">_help_</mat-icon>
+      </div>
+    </div>
+    <div class="actions-container">
+      <button mat-raised-button color="accent" name="Calbutton" (click)="resolve()" [disabled]="allowResolve()">Resolve</button>
+    </div>
+  </div>
+  <div class="results-container">
+    <div *ngIf="loaded && showTableData === true" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around start"
+      class="body-row">
+      <div fxFlex="100">
+        <div #dataList fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center">
+          <div fxFlex="50">
+            <mat-form-field>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="results-table-container">
+          <mat-table #table [dataSource]="dataSource" matSort>
+            <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+            <ng-container *ngFor="let field of fields" matColumnDef="{{field}}">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>{{getLabel(field)}}</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{row[field]}}
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="fields"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: fields;" fxLayoutAlign="center start"></mat-row>
+          </mat-table>
+        </div>
+      </div>
+    </div>
+
+    <div class="textarea-results-container" *ngIf="loaded && showTableData === false">
+        <textarea class="raw">{{rawData}}</textarea>
+    </div>
+  </div>
+</div>
+
+<!-- <br> -->
+<!-- <div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column">
+  <div fxFlex="95">
+    <div class="options-grid">
+      <div *ngFor="let option of options">
+        <mat-checkbox (change)="checked($event, option.name)" name={{option.name}}>
+          {{option.title}}
+        </mat-checkbox>
+        <mat-icon matTooltip={{option.description}} class="help-icon">_help_</mat-icon>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- <br> -->
+<!-- <div #dataList *ngIf="dataSource.data.length > 0" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end center">
+  <div fxFlex="10">
     <button mat-button [matMenuTriggerFor]="menu">
       Download Data <mat-icon>file_download</mat-icon>
     </button>
   </div>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)=" downloadJSON()">
-    <mat-icon>code</mat-icon>
-    <span>JSON</span>
-  </button>
-  <button mat-menu-item (click)=" downloadCSV()">
-    <mat-icon>border_all</mat-icon>
-    <span>CSV</span>
-  </button>
-</mat-menu>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)=" downloadJSON()">
+      <mat-icon>code</mat-icon>
+      <span>JSON</span>
+    </button>
+    <button mat-menu-item (click)=" downloadCSV()">
+      <mat-icon>border_all</mat-icon>
+      <span>CSV</span>
+    </button>
+  </mat-menu>
   <div fxFlex="20">
-    <mat-slide-toggle
-            [color]="'primary'"
-            (change)="showTable($event)">
+    <mat-slide-toggle [color]="'primary'" (change)="showTable($event)">
       Show data in table
     </mat-slide-toggle>
   </div>
-</div>
+</div> -->
 
-<div *ngIf = "loaded && showTableData === true" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around start" class="body-row">
+<!-- <div *ngIf="loaded && showTableData === true" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around start"
+  class="body-row">
   <div fxFlex="95">
-  <div #dataList fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center">
-    <div fxFlex="50">
-      <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-      </mat-form-field>
+    <div #dataList fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center">
+      <div fxFlex="50">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxFlex="95">
+      <mat-table #table [dataSource]="dataSource" matSort> -->
+<!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+<!-- <ng-container *ngFor="let field of fields" matColumnDef="{{field}}">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{getLabel(field)}}</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{row[field]}}
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="fields"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: fields;" fxLayoutAlign="center start"></mat-row>
+      </mat-table>
     </div>
   </div>
-  <div fxFlex="95">
-    <mat-table #table [dataSource]="dataSource" matSort>
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-      <ng-container *ngFor = "let field of fields" matColumnDef="{{field}}">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>{{getLabel(field)}}</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          {{row[field]}}
-        </mat-cell>
-      </ng-container>
-      <mat-header-row *matHeaderRowDef="fields"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: fields;" fxLayoutAlign="center start"></mat-row>
-    </mat-table>
-  </div>
-</div>
 </div>
 
-<div *ngIf = "loaded && showTableData === false" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around start">
+<div *ngIf="loaded && showTableData === false" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around start">
   <div fxFlex="95">
-    <textarea class = "raw">{{rawData}}</textarea>
+    <textarea class="raw">{{rawData}}</textarea>
   </div>
-</div>
+</div> -->
+<!-- <br>
 <br>
-<br>
-<br>
+<br> -->
 <!--
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 -->

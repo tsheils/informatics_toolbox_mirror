@@ -9,7 +9,7 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
     templateUrl: './resolver.component.html',
-    styleUrls: ['./resolver.component.css']
+    styleUrls: ['./resolver.component.scss']
 })
 
 export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
