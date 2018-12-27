@@ -1,0 +1,420 @@
+[{
+    "title": "InChIKey",
+    "format": "CALCULATED",
+    "name": "inchikey",
+    "tags": ["category-Structure"],
+    "description": "Calculates Standard InChIKey"
+}, {
+    "title": "Stereo [Parent]",
+    "format": "CALCULATED",
+    "name": "stereoParent",
+    "tags": ["category-Structure"],
+    "description": "Stereo designations (R/S) of stereocenters for parent salt-stripped structure."
+}, {
+    "title": "Stereocenter Count",
+    "format": "CALCULATED",
+    "name": "stereoCount",
+    "tags": ["category-Structure"],
+    "description": "Count of stereocenters in format \u003ctotal sites\u003e,\u003cassigned sites\u003e. For example, a structure with 1 possible stereocenter, where that center is undefined would return \"1,0\""
+}, {
+    "title": "SMILES",
+    "format": "CALCULATED",
+    "name": "smiles",
+    "tags": ["category-Structure"],
+    "description": "Calculates SMILES representation for structure"
+}, {
+    "title": "Layered Hashes",
+    "format": "CALCULATED",
+    "name": "hash",
+    "tags": ["category-Structure"],
+    "description": "Calculates layered hash of structure."
+}, {
+    "title": "Pubchem CID",
+    "format": "LOOKUP",
+    "name": "cid",
+    "tags": ["category-Annotations"],
+    "description": "Pubchem CID for the structure, matched based on InChIKey."
+}, {
+    "title": "ChEMBL",
+    "format": "LOOKUP",
+    "name": "chembl",
+    "tags": ["category-Annotations"],
+    "description": "ChEMBL id for the structure, matched based on InChIKey."
+}, {
+    "title": "Exact Molecular Mass",
+    "format": "CALCULATED",
+    "name": "molExactMass",
+    "tags": ["category-Structure"],
+    "description": "Calculates exact molecular mass"
+}, {
+    "title": "NCGC IDs",
+    "format": "LOOKUP",
+    "name": "qhts",
+    "tags": ["restricted", "category-Annotations"],
+    "description": "Get NCGC IDs for given structure"
+}, {
+    "title": "CNS score",
+    "format": "CALCULATED",
+    "name": "cns",
+    "tags": ["category-Calculations"],
+    "description": "CNS penetration score based on physical properties"
+}, {
+    "title": "Hydrogen Bond Donors",
+    "format": "CALCULATED",
+    "name": "hbd",
+    "tags": ["category-Calculations"],
+    "description": "Hydrogen Bond Donor Count at pH 3.0 using ChemAxon software"
+}, {
+    "title": "Hydrogen Bond Acceptors",
+    "format": "CALCULATED",
+    "name": "hba",
+    "tags": ["category-Calculations"],
+    "description": "Hydrogen Bond Acceptor Count at pH 3.0 using ChemAxon software"
+}, {
+    "title": "TPSA",
+    "format": "CALCULATED",
+    "name": "tpsa",
+    "tags": ["category-Calculations"],
+    "description": "Total Polar Surface Area"
+}, {
+    "title": "LogP",
+    "format": "CALCULATED",
+    "name": "logp",
+    "tags": ["category-Calculations"],
+    "description": "LogP"
+}, {
+    "title": "LogD",
+    "format": "CALCULATED",
+    "name": "logd",
+    "tags": ["category-Calculations"],
+    "description": "LogD"
+}, {
+    "title": "Rotatable Bonds",
+    "format": "CALCULATED",
+    "name": "rbc",
+    "tags": ["category-Structure"],
+    "description": "Count of rotatable bonds"
+}, {
+    "title": "SSSR Count",
+    "format": "CALCULATED",
+    "name": "sssr",
+    "tags": ["category-Structure"],
+    "description": "SSSR Count"
+}, {
+    "title": "Lead-like Violations",
+    "format": "CALCULATED",
+    "name": "lead",
+    "tags": ["category-Calculations"],
+    "description": "Lead-like filter violations. Returns the violations of the lead-like filter."
+}, {
+    "title": "Drug-like Violations",
+    "format": "CALCULATED",
+    "name": "drug",
+    "tags": ["category-Calculations"],
+    "description": "Drug-like filter violations. Returns the violations of the drug-like filter."
+}, {
+    "title": "Most Basic pKa",
+    "format": "CALCULATED",
+    "name": "mbpka",
+    "tags": ["category-Calculations"],
+    "description": "Most Basic pKa (highest pH at which molecule will be positively charged 50% of the time)"
+}, {
+    "title": "Lychi",
+    "format": "CALCULATED",
+    "name": "lychi",
+    "tags": ["category-Structure"],
+    "description": "Calculates Lychi 4-layer hash of structure."
+}, {
+    "title": "Lychi [Parent]",
+    "format": "CALCULATED",
+    "name": "lychiParent",
+    "tags": ["category-Structure"],
+    "description": "Calculates Lychi 4-layer hash of structure after selecting the largest disconnected moiety (salt-stripping)."
+}, {
+    "title": "Lychi Layer 1",
+    "format": "CALCULATED",
+    "name": "lychi1",
+    "tags": ["category-Structure"],
+    "description": "Lychi Layer 1 (atom insensitive)"
+}, {
+    "title": "Lychi Layer 2",
+    "format": "CALCULATED",
+    "name": "lychi2",
+    "tags": ["category-Structure"],
+    "description": "Lychi Layer 2 (bond insensitive)"
+}, {
+    "title": "Lychi Layer 3",
+    "format": "CALCULATED",
+    "name": "lychi3",
+    "tags": ["category-Structure"],
+    "description": "Lychi Layer 3 (stereo insensitive)"
+}, {
+    "title": "Lychi Layer 4",
+    "format": "CALCULATED",
+    "name": "lychi4",
+    "tags": ["category-Structure"],
+    "description": "Lychi Layer 4 (stereo sensitive)"
+}, {
+    "title": "PAINS Filters",
+    "format": "CALCULATED",
+    "name": "pains",
+    "tags": ["category-Structure"],
+    "description": "Calculates any patterns that are PAINS problems"
+}, {
+    "title": "Exact Molecular Mass [Parent]",
+    "format": "CALCULATED",
+    "name": "molExactMassParent",
+    "tags": ["category-Structure"],
+    "description": "Calculates exact molecular mass for parent salt-stripped structure."
+}, {
+    "title": "Molecular Formula [Parent]",
+    "format": "CALCULATED",
+    "name": "molFormParent",
+    "tags": ["category-Structure"],
+    "description": "Calculates Molecular Formula for parent salt-stripped structure."
+}, {
+    "title": "Molecular Formula",
+    "format": "CALCULATED",
+    "name": "molForm",
+    "tags": ["category-Structure"],
+    "description": "Calculates Molecular Formula"
+}, {
+    "title": "Molecular Weight",
+    "format": "CALCULATED",
+    "name": "molWeight",
+    "tags": ["category-Structure"],
+    "description": "Calculates Molecular Weight"
+}, {
+    "title": "Molecular Weight [Parent]",
+    "format": "CALCULATED",
+    "name": "molWeightParent",
+    "tags": ["category-Structure"],
+    "description": "Calculates Molecular Weight for parent salt-stripped structure."
+}, {
+    "title": "SMILES [Parent]",
+    "format": "CALCULATED",
+    "name": "smilesParent",
+    "tags": ["category-Structure"],
+    "description": "Calculates SMILES representation for parent salt-stripped structure."
+}, {
+    "title": "Salt SMILES",
+    "format": "CALCULATED",
+    "name": "smallestMoietySmiles",
+    "tags": ["category-Structure"],
+    "description": "Calculates SMILES for the smallest disconnected fragment (sometimes called a moiety by convention)."
+}, {
+    "title": "Salt Name",
+    "format": "LOOKUP",
+    "name": "smallestMoietyName",
+    "tags": ["category-Structure"],
+    "description": "Calculates name for the smallest disconnected fragment (sometimes called a moiety by convention). This is meant to be the \u0027salt\u0027 name."
+}, {
+    "title": "Salt Count",
+    "format": "CALCULATED",
+    "name": "smallestMoietyCount",
+    "tags": ["category-Structure"],
+    "description": "Calculates number of repeats for the smallest disconnected fragment (sometimes called a moiety by convention). This is usually the same as the \u0027salt\u0027 count."
+}, {
+    "title": "Image URL",
+    "format": "CALCULATED",
+    "name": "img",
+    "tags": ["category-Structure"],
+    "description": "Calculates a URL for viewing an image of the structure."
+}, {
+    "title": "NCATS Predictor Target",
+    "format": "LOOKUP",
+    "name": "predictorTarget",
+    "tags": ["category-Annotations"],
+    "description": "Returns the best predicted target and -Log(IC50) using NCATS Predictor."
+}, {
+    "title": "NCATS Predictor Models",
+    "format": "LOOKUP",
+    "name": "predictor",
+    "tags": ["category-Annotations"],
+    "description": "Returns applicable NCATS Predictor models and their predicted values for a supplied structure."
+}, {
+    "title": "Tautomers",
+    "format": "CALCULATED",
+    "name": "tautomers",
+    "tags": ["category-Structure"],
+    "description": "Calculates tautomers for given structure."
+}, {
+    "title": "FASTMAP Embedding",
+    "format": "CALCULATED",
+    "name": "fastmap",
+    "tags": ["category-Calculations"],
+    "description": "Embed structures into n-dimensional space using fastmap algorithm",
+    "parameters": {
+        "basis": ["DENOVO", "MIPE"],
+        "metric": ["TANIMOTO", "HAMMING"],
+        "fingerprint": ["JCHEM", "PATH", "ECFP"]
+    }
+}, {
+    "title": "FDA UNII Code",
+    "format": "LOOKUP",
+    "name": "unii",
+    "tags": ["category-Annotations"],
+    "description": "Lookup UNII code from FDA sources."
+}, {
+    "title": "Highest Development Phase",
+    "format": "LOOKUP",
+    "name": "devphase",
+    "tags": ["category-Annotations"],
+    "description": "Fetch highest development phase from Inxight Drugs"
+}, {
+    "title": "Substance Description",
+    "format": "LOOKUP",
+    "name": "description",
+    "tags": ["category-Annotations"],
+    "description": "Fetch description of substance from stitcher"
+}, {
+    "title": "Substance primary MOA",
+    "format": "LOOKUP",
+    "name": "moa",
+    "tags": ["category-Annotations"],
+    "description": "Fetch primary MOA of substance from stitcher"
+}, {
+    "title": "DrugBank primary MOA",
+    "format": "LOOKUP",
+    "name": "drugbankmoa",
+    "tags": ["category-Annotations"],
+    "description": "Fetch DrugBank-annotated MOA of substance from stitcher"
+}, {
+    "title": "NPC primary MOA",
+    "format": "LOOKUP",
+    "name": "npcmoa",
+    "tags": ["category-Annotations"],
+    "description": "Fetch NPC-annotated MOA of substance from stitcher"
+}, {
+    "title": "Target geneIDs",
+    "format": "LOOKUP",
+    "name": "stitch_target",
+    "tags": ["category-Annotations"],
+    "description": "GeneID stitcher target"
+}, {
+    "title": "Target (Human) geneIDs",
+    "format": "LOOKUP",
+    "name": "stitch_target_human",
+    "tags": ["category-Annotations"],
+    "description": "GeneID stitcher human target"
+}, {
+    "title": "Primary Targets",
+    "format": "LOOKUP",
+    "name": "ptargets",
+    "tags": ["category-Annotations"],
+    "description": "Fetch primary target IDs for a compound"
+}, {
+    "title": "SP3 Carbon Fraction",
+    "format": "CALCULATED",
+    "name": "sp3f",
+    "tags": ["category-Structure"],
+    "description": "Fraction (from 0 to 1) of carbons which are in SP3 hybridization state. If 0 carbons, returns 0."
+}, {
+    "title": "SP3/(SP3+SP2) Carbon Fraction",
+    "format": "CALCULATED",
+    "name": "sp3sp2f",
+    "tags": ["category-Structure"],
+    "description": "Fraction (from 0 to 1) of carbon atoms found in SP3 among all sp2+sp3 carbons."
+}, {
+    "title": "CAS Registry Number",
+    "format": "LOOKUP",
+    "name": "cas",
+    "tags": ["category-Annotations"],
+    "description": "CAS registry number as obtained from FDA GSRS records."
+}, {
+    "title": "Preferred Term (FDA)",
+    "format": "LOOKUP",
+    "name": "pt",
+    "tags": ["category-Annotations"],
+    "description": "FDA GSRS preferred term for substance record."
+}, {
+    "title": "Names (FDA)",
+    "format": "LOOKUP",
+    "name": "names",
+    "tags": ["category-Annotations"],
+    "description": "FDA GSRS list of names for record."
+}, {
+    "title": "Set Lookup:DEA",
+    "format": "SUPPLIER",
+    "name": "dea",
+    "tags": ["category-Supplier"],
+    "description": "Lookup structure in \u0027DEA\u0027 set"
+}, {
+    "title": "Set Lookup:DEA[URL]",
+    "format": "SUPPLIER_LINK",
+    "name": "dea(URL)",
+    "tags": ["category-SupplierURL"],
+    "description": "Lookup structure in \u0027DEA\u0027 set, returns URL"
+}, {
+    "title": "Set Lookup:TORONTO",
+    "format": "SUPPLIER",
+    "name": "toronto",
+    "tags": ["category-Supplier"],
+    "description": "Lookup structure in \u0027TORONTO\u0027 set"
+}, {
+    "title": "Set Lookup:TORONTO[URL]",
+    "format": "SUPPLIER_LINK",
+    "name": "toronto(URL)",
+    "tags": ["category-SupplierURL"],
+    "description": "Lookup structure in \u0027TORONTO\u0027 set, returns URL"
+}, {
+    "title": "Set Lookup:TOCRIS",
+    "format": "SUPPLIER",
+    "name": "tocris",
+    "tags": ["category-Supplier"],
+    "description": "Lookup structure in \u0027TOCRIS\u0027 set"
+}, {
+    "title": "Set Lookup:TOCRIS[URL]",
+    "format": "SUPPLIER_LINK",
+    "name": "tocris(URL)",
+    "tags": ["category-SupplierURL"],
+    "description": "Lookup structure in \u0027TOCRIS\u0027 set, returns URL"
+}, {
+    "title": "Set Lookup:AXON",
+    "format": "SUPPLIER",
+    "name": "axon",
+    "tags": ["category-Supplier"],
+    "description": "Lookup structure in \u0027AXON\u0027 set"
+}, {
+    "title": "Set Lookup:AXON[URL]",
+    "format": "SUPPLIER_LINK",
+    "name": "axon(URL)",
+    "tags": ["category-SupplierURL"],
+    "description": "Lookup structure in \u0027AXON\u0027 set, returns URL"
+}, {
+    "title": "Set Lookup:DEA_SCHED",
+    "format": "SUPPLIER",
+    "name": "dea_sched",
+    "tags": ["category-Supplier"],
+    "description": "Lookup structure in \u0027DEA_SCHED\u0027 set"
+}, {
+    "title": "Set Lookup:DEA_SCHED[URL]",
+    "format": "SUPPLIER_LINK",
+    "name": "dea_sched(URL)",
+    "tags": ["category-SupplierURL"],
+    "description": "Lookup structure in \u0027DEA_SCHED\u0027 set, returns URL"
+}, {
+    "title": "Set Lookup:SANTA_CRUZ",
+    "format": "SUPPLIER",
+    "name": "santa_cruz",
+    "tags": ["category-Supplier"],
+    "description": "Lookup structure in \u0027SANTA_CRUZ\u0027 set"
+}, {
+    "title": "Set Lookup:SANTA_CRUZ[URL]",
+    "format": "SUPPLIER_LINK",
+    "name": "santa_cruz(URL)",
+    "tags": ["category-SupplierURL"],
+    "description": "Lookup structure in \u0027SANTA_CRUZ\u0027 set, returns URL"
+}, {
+    "title": "Set Lookup:SELLECK",
+    "format": "SUPPLIER",
+    "name": "selleck",
+    "tags": ["category-Supplier"],
+    "description": "Lookup structure in \u0027SELLECK\u0027 set"
+}, {
+    "title": "Set Lookup:SELLECK[URL]",
+    "format": "SUPPLIER_LINK",
+    "name": "selleck(URL)",
+    "tags": ["category-SupplierURL"],
+    "description": "Lookup structure in \u0027SELLECK\u0027 set, returns URL"
+}]

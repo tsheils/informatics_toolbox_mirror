@@ -26,7 +26,7 @@ export class ResolverService {
     getOptions(): Observable<any> {
        return this.http.get<any>(URL + '_options').pipe(
             map(res => {
-            if(ENVIRONMENT.public === true) {
+            if (ENVIRONMENT.public === true) {
                 const ret = res.filter(field => !field.tags.includes('restricted'));
                 return ret;
             } else {

@@ -135,6 +135,14 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         return ret;
     }
 
+    replacePipes(stringToEval: string): string {
+        if (typeof stringToEval === 'string') {
+            stringToEval = stringToEval.replace(/\|/g, ' ');
+        }
+
+        return stringToEval;
+    }
+
     ngOnDestroy() {
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();

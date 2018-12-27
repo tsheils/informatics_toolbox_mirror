@@ -57,12 +57,15 @@ textarea {
 
 .values-results-container, .values-instructions {
     padding: 0 10px 0 0;
-    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
 }
 
 .options-container, .options-instructions {
     padding: 0 0 0 10px;
+    min-width: 405px;
     width: 405px;
+    max-width: 405px;
 }
 
 .options {
@@ -78,7 +81,11 @@ textarea {
 
 .results-container, .results-instructions {
     flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
     padding-left: 20px;
+    max-width: calc(100% - 705px);
+    max-height: 100%;
 }
 
 .textarea-results-container {
@@ -89,8 +96,29 @@ textarea {
     }
 }
 
+.results-sub-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    height: 100%;
+}
+
 .results-table-container {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    height: calc(100% - 56.5167px);
+    flex: 1 0 auto;
     overflow: auto;
+
+    td.mat-cell:not(:last-child), td.mat-footer-cell:not(:last-child), th.mat-header-cell:not(:last-child) {
+        padding-right: 10px;
+    }
+}
+
+.results-table-sub-container {
+    display: flex;
+    flex-direction: row;
 }
 
 .text-bottom {
