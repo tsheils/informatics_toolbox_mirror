@@ -5,8 +5,8 @@
   <div class="options-instructions">
     <span class="text-bottom">Resolve to:</span>
   </div>
-  <div class="results-instructions">
-    <div #dataList *ngIf="dataSource.data.length > 0" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end center">
+  <div class="results-instructions-container">
+    <div #dataList *ngIf="dataSource.data.length > 0" class="results-instructions">
       <div>
         <button mat-button [matMenuTriggerFor]="menu">
           Download Data
@@ -37,12 +37,30 @@
   </div>
   <div class="options-container">
     <div class="options">
-      <div *ngFor="let option of options">
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let categoryName of categoryNames" [expanded]="categoryName == 'Previously used' || categoryName == 'Popular'">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{categoryName}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <div *ngFor="let option of categories[categoryName]">
+              <mat-checkbox [checked]="lastUsedOptions[option.name]" (change)="checked($event, option.name)" name={{option.name}}>
+                {{option.title}}
+              </mat-checkbox>
+              <mat-icon matTooltip={{option.description}} class="help-icon">_help_</mat-icon>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <!-- <div *ngFor="let option of options">
         <mat-checkbox (change)="checked($event, option.name)" name={{option.name}}>
           {{option.title}}
         </mat-checkbox>
         <mat-icon matTooltip={{option.description}} class="help-icon">_help_</mat-icon>
-      </div>
+      </div> -->
     </div>
     <div class="actions-container">
       <button mat-raised-button color="accent" name="Calbutton" (click)="resolve()" [disabled]="allowResolve()">Resolve</button>

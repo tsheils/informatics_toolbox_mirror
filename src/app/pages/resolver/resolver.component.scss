@@ -40,6 +40,7 @@ div {
     align-items: stretch;
     padding: 0 20px 20px 20px;
     max-height: 500px;
+    height: 500px;
 }
 
 .directions-container {
@@ -70,7 +71,11 @@ textarea {
 
 .options {
     height: calc(100% - 47px);
-    overflow-y: auto
+    overflow-y: auto;
+
+    .mat-expansion-panel {
+        box-shadow: 0 0 0 0;
+    }
 }
 
 .actions-container {
@@ -79,13 +84,28 @@ textarea {
     text-align: right;
 }
 
-.results-container, .results-instructions {
+.results-container, .results-instructions-container {
     flex-grow: 1;
     flex-shrink: 0;
     flex-basis: auto;
     padding-left: 20px;
     max-width: calc(100% - 705px);
     max-height: 100%;
+}
+
+.results-instructions-container {
+    display: flex;
+
+    .results-instructions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        width: 100%;
+
+        .mat-slide-toggle {
+            padding-bottom: 5px;
+        }
+    }
 }
 
 .textarea-results-container {
