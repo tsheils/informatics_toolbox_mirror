@@ -1,41 +1,18 @@
-<div fxLayout="row" fxLayout.xs="column" class="directions-container">
-  <div class="values-instructions text-bottom">
-    Enter a drug name or structure, one per line, or separated by ',' or ';', and click the 'Resolve' button
-  </div>
-  <div class="options-instructions">
-    <span class="text-bottom">Resolve to:</span>
-  </div>
-  <div class="results-instructions-container">
-    <div #dataList *ngIf="dataSource.data.length > 0" class="results-instructions">
-      <div>
-        <button mat-button [matMenuTriggerFor]="menu">
-          Download Data
-          <mat-icon>file_download</mat-icon>
-        </button>
-      </div>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)=" downloadJSON()">
-          <mat-icon>code</mat-icon>
-          <span>JSON</span>
-        </button>
-        <button mat-menu-item (click)=" downloadCSV()">
-          <mat-icon>border_all</mat-icon>
-          <span>CSV</span>
-        </button>
-      </mat-menu>
-      <div>
-        <mat-slide-toggle [color]="'primary'" (change)="showTable($event)">
-          Show data in table
-        </mat-slide-toggle>
-      </div>
+<div class="content-container">
+  <div class="values-container">
+    <div class="values-instructions">
+      Enter a drug name or structure, one per line, or separated by ',' or ';', and click the 'Resolve' button
+    </div>
+    <textarea class="targetBox" placeholder="aspirin" spellcheck="false" [formControl]="resolverCtrl"></textarea>
+    <div class="values-actions-container">
+      <span class="space-between"></span>
+      <button mat-raised-button color="accent" (click)="nextFromValues()">Next</button>
     </div>
   </div>
-</div>
-<div class="content-container">
-  <div class="values-results-container">
-    <textarea class="targetBox" placeholder="aspirin" spellcheck="false" [formControl]="resolverCtrl"></textarea>
-  </div>
   <div class="options-container">
+    <div class="options-instructions">
+      <span class="text-bottom">Resolve to:</span>
+    </div>
     <div class="options">
       <mat-accordion>
         <mat-expansion-panel *ngFor="let categoryName of categoryNames" [expanded]="categoryName == 'Previously used' || categoryName == 'Popular'">
@@ -63,10 +40,37 @@
       </div> -->
     </div>
     <div class="actions-container">
+      <button class="show-on-small" mat-raised-button color="accent" (click)="backFromOptions()">Back</button>
+      <span class="space-between"></span>
       <button mat-raised-button color="accent" name="Calbutton" (click)="resolve()" [disabled]="allowResolve()">Resolve</button>
     </div>
   </div>
   <div class="results-container">
+    <div class="results-instructions-container">
+      <div #dataList *ngIf="dataSource.data.length > 0" class="results-instructions">
+        <div>
+          <button mat-button [matMenuTriggerFor]="menu">
+            Download Data
+            <mat-icon>file_download</mat-icon>
+          </button>
+        </div>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)=" downloadJSON()">
+            <mat-icon>code</mat-icon>
+            <span>JSON</span>
+          </button>
+          <button mat-menu-item (click)=" downloadCSV()">
+            <mat-icon>border_all</mat-icon>
+            <span>CSV</span>
+          </button>
+        </mat-menu>
+        <div>
+          <mat-slide-toggle [color]="'primary'" (change)="showTable($event)">
+            Show data in table
+          </mat-slide-toggle>
+        </div>
+      </div>
+    </div>
     <div *ngIf="loaded && showTableData === true" class="results-sub-container">
       <div #dataList>
         <mat-form-field>
@@ -90,9 +94,11 @@
         </div>
       </div>
     </div>
-
     <div class="textarea-results-container" *ngIf="loaded && showTableData === false">
-      <textarea class="raw">{{rawData}}</textarea>
+      <textarea>{{rawData}}</textarea>
+    </div>
+    <div class="results-actions-container">
+      <button mat-raised-button color="accent" (click)="backFromResults()">Back</button>
     </div>
   </div>
 </div>

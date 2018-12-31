@@ -41,10 +41,12 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     categoryNames: Array<string> = [];
     dataSource = new MatTableDataSource<any[]>([]);
     private ngUnsubscribe: Subject<any> = new Subject();
-
+    private contentElement: HTMLElement;
+    private scrollToTopElement: HTMLElement;
 
     constructor(
-        private resolverService: ResolverService
+        private resolverService: ResolverService,
+        private elementRef: ElementRef
     ) {}
     ngOnInit() {
         this.previouslyUsedOptions = JSON.parse(localStorage.getItem('previouslyUsedOptions')) || {};
@@ -150,6 +152,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
             this.rawData =  lines.join('\n');
             this.loaded = true;
         });
+        this.processResponsiveness();
         this.lastUsedOptions = {};
         this.properties.forEach(property => {
             if (this.previouslyUsedOptions[property] == null) {
@@ -160,6 +163,30 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         });
         localStorage.setItem('previouslyUsedOptions', JSON.stringify(this.previouslyUsedOptions));
         localStorage.setItem('lastUsedOptions', JSON.stringify(this.lastUsedOptions));
+    }
+
+    processResponsiveness(): void {
+        if (window.innerWidth <= 1250 && window.innerWidth > 820) {
+            this.contentElement.classList.replace('step-1', 'step-2');
+        } else if (window.innerWidth <= 820) {
+            this.contentElement.classList.replace('step-2', 'step-3');
+        }
+    }
+
+    backFromResults(): void {
+        if (window.innerWidth <= 1250 && window.innerWidth > 820) {
+            this.contentElement.classList.replace('step-2', 'step-1');
+        } else if (window.innerWidth <= 820) {
+            this.contentElement.classList.replace('step-3', 'step-2');
+        }
+    }
+
+    nextFromValues(): void {
+        this.contentElement.classList.replace('step-1', 'step-2');
+    }
+
+    backFromOptions(): void {
+        this.contentElement.classList.replace('step-2', 'step-1');
     }
 
     checked(event: any, property: string) {
@@ -178,10 +205,29 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         setTimeout(() => {
-            const topElement = document.getElementsByClassName('directions-container')[0];
-            topElement.scrollIntoView(true);
+            this.contentElement = this.elementRef.nativeElement.querySelector('.content-container');
+            this.contentElement.classList.add('step-1');
+            this.processWindowResize();
+            window.addEventListener('resize', () => {
+                this.processWindowResize();
+            });
+            const elements = document.getElementsByClassName('scroll-to-top');
+            if (elements && elements.length) {
+                this.scrollToTopElement = elements[0] as HTMLElement;
+                this.scrollToTopElement.style.display = 'none';
+            }
         });
     }
+
+    processWindowResize(): void {
+        this.contentElement.style.height = `${window.innerHeight.toString()}px`;
+        this.contentElement.style.maxHeight = `${window.innerHeight.toString()}px`;
+        this.contentElement.scrollIntoView(true);
+        if (window.innerWidth > 820 && this.contentElement.classList.contains('step-3')) {
+            this.contentElement.classList.replace('step-3', 'step-2');
+        }
+    }
+
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim(); // Remove whitespace
         filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
@@ -238,6 +284,9 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();
         window.URL.revokeObjectURL(this.link.href);
+        if (this.scrollToTopElement != null) {
+            this.scrollToTopElement.style.display = 'block';
+        }
     }
 }
 
