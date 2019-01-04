@@ -6,6 +6,7 @@ import {MatPaginator, MatSort, MatTableDataSource, MatExpansionModule} from '@an
 import {ActivatedRoute} from '@angular/router';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
     templateUrl: './resolver.component.html',
@@ -43,6 +44,11 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     private ngUnsubscribe: Subject<any> = new Subject();
     private contentElement: HTMLElement;
     private scrollToTopElement: HTMLElement;
+    private resultsElement: HTMLElement;
+    private bodyElement: HTMLElement;
+    isLoading = true;
+    resolveButtonLabel = 'Resolve';
+    isResultsExpanded = false;
 
     constructor(
         private resolverService: ResolverService,
@@ -119,6 +125,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
                     }
                 });
                 this.options = res;
+                this.isLoading = false;
             });
 
         this.resolverCtrl.valueChanges.subscribe(val => this.names = true);
@@ -126,6 +133,8 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     resolve(): void {
+        this.isLoading = true;
+        this.resolveButtonLabel = 'Resolving...';
         this.rawData = '';
         this.dataSource.data = [];
         let dataArr = [];
@@ -151,8 +160,18 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
             this.dataSource.data = dataArr;
             this.rawData =  lines.join('\n');
             this.loaded = true;
+            this.resolveButtonLabel = 'Resolved!';
+            setTimeout(() => {
+                this.resolveButtonLabel = 'Resolve';
+                this.isLoading = false;
+                this.processResponsiveness();
+            }, 2000);
+        }, error => {
+            setTimeout(() => {
+                this.resolveButtonLabel = 'Error!';
+                this.isLoading = false;
+            }, 2000);
         });
-        this.processResponsiveness();
         this.lastUsedOptions = {};
         this.properties.forEach(property => {
             if (this.previouslyUsedOptions[property] == null) {
@@ -216,6 +235,9 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.scrollToTopElement = elements[0] as HTMLElement;
                 this.scrollToTopElement.style.display = 'none';
             }
+            this.resultsElement = this.elementRef.nativeElement.querySelector('.results-container');
+            this.bodyElement = document.getElementsByTagName('body')[0];
+            console.log(this.bodyElement);
         });
     }
 
@@ -225,6 +247,15 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         this.contentElement.scrollIntoView(true);
         if (window.innerWidth > 820 && this.contentElement.classList.contains('step-3')) {
             this.contentElement.classList.replace('step-3', 'step-2');
+        } else if (window.innerWidth < 1250) {
+            if (this.isResultsExpanded) {
+                if (window.innerWidth > 820) {
+                    this.contentElement.classList.replace('step-1', 'step-2');
+                } else {
+                    this.contentElement.classList.replace('step-1', 'step-3');
+                }
+                this.shrinkResults(true);
+            }
         }
     }
 
@@ -286,6 +317,28 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         window.URL.revokeObjectURL(this.link.href);
         if (this.scrollToTopElement != null) {
             this.scrollToTopElement.style.display = 'block';
+        }
+    }
+
+    expandResults() {
+        this.bodyElement.style.overflow = 'hidden';
+        this.resultsElement.classList.add('full-page');
+        this.isResultsExpanded = true;
+    }
+
+    shrinkResults(noAnimation?: boolean) {
+        if (noAnimation == null || !noAnimation) {
+            this.resultsElement.classList.add('shrink-animation');
+            setTimeout(() => {
+                this.resultsElement.classList.remove('full-page');
+                this.resultsElement.classList.remove('shrink-animation');
+                this.isResultsExpanded = false;
+                this.bodyElement.style.overflow = null;
+            }, 500);
+        } else {
+            this.resultsElement.classList.remove('full-page');
+            this.isResultsExpanded = false;
+            this.bodyElement.style.overflow = null;
         }
     }
 }

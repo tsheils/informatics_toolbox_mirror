@@ -42,12 +42,25 @@
     <div class="actions-container">
       <button class="show-on-small" mat-raised-button color="accent" (click)="backFromOptions()">Back</button>
       <span class="space-between"></span>
-      <button mat-raised-button color="accent" name="Calbutton" (click)="resolve()" [disabled]="allowResolve()">Resolve</button>
+      <button class="resolve-button" mat-raised-button color="accent" name="Calbutton" (click)="resolve()" [disabled]="allowResolve() || isLoading">{{resolveButtonLabel}}</button>
     </div>
   </div>
   <div class="results-container">
     <div class="results-instructions-container">
       <div #dataList *ngIf="dataSource.data.length > 0" class="results-instructions">
+        <span class="results-expand-shrink">
+          <a *ngIf="!isResultsExpanded" (click)="expandResults()" class="" matTooltip="Full page">
+            <i class="material-icons">
+              unfold_more
+            </i>
+          </a>
+          <a *ngIf="isResultsExpanded" (click)="shrinkResults()" class="">
+            <i class="material-icons">
+              unfold_less
+            </i>
+          </a>
+        </span>
+        <span class="space-between"></span>
         <div>
           <button mat-button [matMenuTriggerFor]="menu">
             Download Data

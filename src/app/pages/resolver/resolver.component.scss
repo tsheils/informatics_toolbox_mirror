@@ -189,6 +189,25 @@ textarea {
     .results-actions-container, .values-actions-container {
         display: none;
     }
+
+    .results-container.full-page {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+        z-index: 1000;
+        max-width: 100%;
+        padding: 0 20px 20px 20px;
+        animation-name: expandFromMidle;
+        animation-duration: 500ms;
+    }
+
+    .results-container.shrink-animation {
+        animation-name: shrinkToMidle;
+        animation-duration: 500ms;
+    }
 }
 
 @media(max-width: 1250px) {
@@ -197,6 +216,10 @@ textarea {
         transition: all 500ms ease;
         bottom: 0;
         top: 0;
+    }
+
+    .results-expand-shrink {
+        display: none;
     }
 }
 
@@ -355,5 +378,33 @@ textarea {
         .results-container {
             left: 0;
         }
+    }
+}
+
+.resolve-button {
+    width: 110px;
+}
+
+a {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+@keyframes expandFromMidle {
+    from {
+        left: 50%;
+    };
+    to {
+        left: 0;
+    }
+}
+
+@keyframes shrinkToMidle {
+    from {
+        left: 0;
+    };
+    to {
+        left: 50%;
     }
 }
