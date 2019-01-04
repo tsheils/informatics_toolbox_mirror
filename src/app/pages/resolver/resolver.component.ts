@@ -296,3 +296,7 @@ export class Option {
     name: string;
     description: string;
 }
+
+interface DOMTokenList {
+    replace(oldToken: string, newToken: string): void;
+}
