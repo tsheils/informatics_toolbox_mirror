@@ -156,6 +156,10 @@ textarea {
     max-height: 100%;
 }
 
+.filter-input {
+    max-width: 400px;
+}
+
 @media(min-width: 1250px) {
     .values-instructions, .options-instructions, .results-instructions-container {
         height: 70px;
@@ -201,12 +205,12 @@ textarea {
         max-width: 100%;
         padding: 0 20px 20px 20px;
         animation-name: expandFromMidle;
-        animation-duration: 500ms;
+        animation-duration: 300ms;
     }
 
     .results-container.shrink-animation {
         animation-name: shrinkToMidle;
-        animation-duration: 500ms;
+        animation-duration: 300ms;
     }
 }
 
@@ -393,7 +397,7 @@ a {
 
 @keyframes expandFromMidle {
     from {
-        left: 50%;
+        left: 705px;
     };
     to {
         left: 0;
@@ -405,6 +409,6 @@ a {
         left: 0;
     };
     to {
-        left: 50%;
+        left: 705px;
     }
 }

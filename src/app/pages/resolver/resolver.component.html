@@ -49,14 +49,14 @@
     <div class="results-instructions-container">
       <div #dataList *ngIf="dataSource.data.length > 0" class="results-instructions">
         <span class="results-expand-shrink">
-          <a *ngIf="!isResultsExpanded" (click)="expandResults()" class="" matTooltip="Full page">
+          <a *ngIf="!isResultsExpanded" (click)="expandResults()" class="" matTooltip="Full screen">
             <i class="material-icons">
-              unfold_more
+              fullscreen
             </i>
           </a>
           <a *ngIf="isResultsExpanded" (click)="shrinkResults()" class="">
             <i class="material-icons">
-              unfold_less
+                fullscreen_exit
             </i>
           </a>
         </span>
@@ -85,8 +85,9 @@
       </div>
     </div>
     <div *ngIf="loaded && showTableData === true" class="results-sub-container">
-      <div #dataList>
-        <mat-form-field>
+      <div fxLayout="row" #dataList>
+        <span class="space-between"></span>
+        <mat-form-field class="filter-input">
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
       </div>

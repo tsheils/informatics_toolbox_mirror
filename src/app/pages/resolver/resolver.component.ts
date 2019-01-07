@@ -165,7 +165,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.resolveButtonLabel = 'Resolve';
                 this.isLoading = false;
                 this.processResponsiveness();
-            }, 2000);
+            }, 1000);
         }, error => {
             setTimeout(() => {
                 this.resolveButtonLabel = 'Error!';
@@ -334,7 +334,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.resultsElement.classList.remove('shrink-animation');
                 this.isResultsExpanded = false;
                 this.bodyElement.style.overflow = null;
-            }, 500);
+            }, 300);
         } else {
             this.resultsElement.classList.remove('full-page');
             this.isResultsExpanded = false;
