@@ -7,7 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-interface DOMTokenList {
+export interface DOMTokenList {
     replace(oldToken: string, newToken: string): void;
 }
 
@@ -23,7 +23,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
 
     resolverCtrl = new FormControl();
     file: any;
-    link: any;
+    link: HTMLAnchorElement;
     data: any;
     imgSrcBase: string;
     properties: string[] = [];
@@ -132,6 +132,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.resolverCtrl.valueChanges.subscribe(val => this.names = true);
         this.link = document.createElement('a');
+        this.link.hidden = true;
     }
 
     resolve(): void {
@@ -188,26 +189,38 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
 
     processResponsiveness(): void {
         if (window.innerWidth <= 1250 && window.innerWidth > 820) {
-            this.contentElement.classList.replace('step-1', 'step-2');
+            // this.contentElement.classList.replace('step-1', 'step-2');
+            this.contentElement.classList.add('step-2');
+            this.contentElement.classList.remove('step-1');
         } else if (window.innerWidth <= 820) {
-            this.contentElement.classList.replace('step-2', 'step-3');
+            // this.contentElement.classList.replace('step-2', 'step-3');
+            this.contentElement.classList.add('step-3');
+            this.contentElement.classList.remove('step-2');
         }
     }
 
     backFromResults(): void {
         if (window.innerWidth <= 1250 && window.innerWidth > 820) {
-            this.contentElement.classList.replace('step-2', 'step-1');
+            // this.contentElement.classList.replace('step-2', 'step-1');
+            this.contentElement.classList.add('step-1');
+            this.contentElement.classList.remove('step-2');
         } else if (window.innerWidth <= 820) {
-            this.contentElement.classList.replace('step-3', 'step-2');
+            // this.contentElement.classList.replace('step-3', 'step-2');
+            this.contentElement.classList.add('step-2');
+            this.contentElement.classList.remove('step-3');
         }
     }
 
     nextFromValues(): void {
-        this.contentElement.classList.replace('step-1', 'step-2');
+        // this.contentElement.classList.replace('step-1', 'step-2');
+        this.contentElement.classList.add('step-2');
+        this.contentElement.classList.remove('step-1');
     }
 
     backFromOptions(): void {
-        this.contentElement.classList.replace('step-2', 'step-1');
+        // this.contentElement.classList.replace('step-2', 'step-1');
+        this.contentElement.classList.add('step-1');
+        this.contentElement.classList.remove('step-2');
     }
 
     checked(event: any, property: string) {
@@ -239,7 +252,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
             }
             this.resultsElement = this.elementRef.nativeElement.querySelector('.results-container');
             this.bodyElement = document.getElementsByTagName('body')[0];
-            console.log(this.bodyElement);
+            this.bodyElement.appendChild(this.link);
         });
     }
 
@@ -248,13 +261,19 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         this.contentElement.style.maxHeight = `${window.innerHeight.toString()}px`;
         this.contentElement.scrollIntoView({behavior: 'smooth'});
         if (window.innerWidth > 820 && this.contentElement.classList.contains('step-3')) {
-            this.contentElement.classList.replace('step-3', 'step-2');
+            // this.contentElement.classList.replace('step-3', 'step-2');
+            this.contentElement.classList.add('step-2');
+            this.contentElement.classList.remove('step-3');
         } else if (window.innerWidth < 1250) {
             if (this.isResultsExpanded) {
                 if (window.innerWidth > 820) {
-                    this.contentElement.classList.replace('step-1', 'step-2');
+                    // this.contentElement.classList.replace('step-1', 'step-2');
+                    this.contentElement.classList.add('step-2');
+                    this.contentElement.classList.remove('step-1');
                 } else {
-                    this.contentElement.classList.replace('step-1', 'step-3');
+                    // this.contentElement.classList.replace('step-1', 'step-3');
+                    this.contentElement.classList.add('step-3');
+                    this.contentElement.classList.remove('step-1');
                 }
                 this.shrinkResults(true);
             }
@@ -268,26 +287,35 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     downloadJSON(): void {
-        this.file = new Blob([JSON.stringify(this.dataSource.data)], { type: 'text/plain'});
-        this.link.download = 'resolver.json';
-        this.downloadFile();
+        // this.file = new Blob([JSON.stringify(this.dataSource.data)], { type: 'text/plain'});
+        // this.link.href = 'data:text/json;charset=utf-8,' + encodeURI(JSON.stringify(this.dataSource.data));
+        // this.link.download = 'resolver.json';
+        // this.link.target = '_blank';
+        this.downloadFile('json', JSON.stringify(this.dataSource.data));
     }
 
     downloadCSV(): void {
-        const dataKeys = this.fields.join('\t');
+        const fields = this.fields.map(field => `"${field.replace(/"/g, '\"')}"`);
+        const dataKeys = this.fields.join(',');
         const lines = [];
-        this.dataSource.data.forEach(data => lines.push(this.fields.map(field => data[field]).join('\t')));
+        this.dataSource.data.forEach(data => lines.push(this.fields.map(field => `"${data[field].replace(/"/g, '\"')}"`).join(',')));
         const csv = dataKeys + '\n' + lines.join('\n');
-        this.file = new Blob([csv], { type: 'text/csv'});
-        this.link.download = 'resolver.tsv';
-        this.downloadFile();
+        // this.file = new Blob([csv], { type: 'text/csv'});
+        // this.link.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+        // this.link.target = '_blank';
+        // this.link.download = 'resolver.csv';
+        this.downloadFile('csv', csv);
     }
 
-    downloadFile(): void {
-        this.link.href = window.URL.createObjectURL(this.file);
-
-         this.link.click();
-         window.open( this.link.href);
+    downloadFile(format: string, data: string): void {
+        // this.link.href = window.URL.createObjectURL(this.file);
+        // this.link.click();
+        // window.open(this.link.href);
+        this.link.href = `data:text/${format};charset=utf-8,${encodeURI(data)}`;
+        this.link.target = '_blank';
+        this.link.download = `resolver.${format}`;
+        // this.downloadFile();
+        this.link.click();
     }
 
     showTable(event: any): void {
@@ -320,6 +348,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.scrollToTopElement != null) {
             this.scrollToTopElement.style.display = 'block';
         }
+        this.bodyElement.removeChild(this.link);
     }
 
     expandResults() {
