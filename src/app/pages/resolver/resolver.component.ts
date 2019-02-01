@@ -6,13 +6,15 @@ import {MatPaginator, MatSort, MatTableDataSource, MatExpansionModule} from '@an
 import {ActivatedRoute} from '@angular/router';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import { MatTooltipModule } from '@angular/material/tooltip';
+
+interface DOMTokenList {
+    replace(oldToken: string, newToken: string): void;
+}
 
 @Component({
     templateUrl: './resolver.component.html',
     styleUrls: ['./resolver.component.scss']
 })
-
 export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() tool: Tool;
     @ViewChild(MatSort) sort: MatSort;
@@ -244,7 +246,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     processWindowResize(): void {
         this.contentElement.style.height = `${window.innerHeight.toString()}px`;
         this.contentElement.style.maxHeight = `${window.innerHeight.toString()}px`;
-        this.contentElement.scrollIntoView(true);
+        this.contentElement.scrollIntoView({behavior: 'smooth'});
         if (window.innerWidth > 820 && this.contentElement.classList.contains('step-3')) {
             this.contentElement.classList.replace('step-3', 'step-2');
         } else if (window.innerWidth < 1250) {
@@ -348,8 +350,4 @@ export class Option {
     format: string;
     name: string;
     description: string;
-}
-
-interface DOMTokenList {
-    replace(oldToken: string, newToken: string): void;
 }
