@@ -8,6 +8,8 @@ import {QhtsHeatmapBrowserComponent} from '../pages/qhts-heatmap-browser/qhts-he
 import {ResolverComponent} from '../pages/resolver/resolver.component';
 import {ScaffoldHopperComponent} from '../pages/scaffold-hopper/scaffold-hopper.component';
 import {IqcConvertComponent} from "../pages/iqc-convert/iqc-convert.component";
+import {NcatsFindExcelComponent} from "../pages/ncatsfind-excel/ncatsfind-excel.component";
+import {ChemkitComponent} from "../pages/chemkit/chemkit.component";
 
 @Injectable()
 export class ComponentNameService {
@@ -22,6 +24,8 @@ export class ComponentNameService {
       this.COMPONENTS.set('ResolverComponent', ResolverComponent);
       this.COMPONENTS.set('ScaffoldHopperComponent', ScaffoldHopperComponent);
       this.COMPONENTS.set('IqcConvertComponent', IqcConvertComponent);
+      this.COMPONENTS.set('NcatsFindExcelComponent', NcatsFindExcelComponent);
+      this.COMPONENTS.set('ChemkitComponent', ChemkitComponent);
   }
 
   getComponent(name: string): Type<any> {

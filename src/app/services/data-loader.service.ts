@@ -4,6 +4,7 @@ import {Observable, Subject, of, BehaviorSubject} from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {Tool} from '../models/tool';
+import {LoadingService} from "./loading.service";
 
 const URL = environment.TOOL_URL;
 const ENVIRONMENT = environment;
@@ -19,7 +20,10 @@ export class DataLoaderService {
     filteredDataMap: Map<string, Tool[]> = new Map();
 
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        private loadingService: LoadingService
+    ) {
         this._getData();
     }
 
@@ -37,6 +41,7 @@ export class DataLoaderService {
     }
 
     _getData(): void {
+        console.log(this);
         if (this.dataMap.size > 0) {
             this._dataSource.next(this.dataMap);
         } else {
@@ -53,6 +58,7 @@ export class DataLoaderService {
     }
 
     filterData(filterObj): void {
+        this.loadingService.toggleVisible(true);
             this.filterMap.set(filterObj.property, filterObj.filters);
         let filteredList: Tool[] = [];
         if (this.filterMap.size === 0) {

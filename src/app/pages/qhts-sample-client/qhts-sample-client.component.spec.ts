@@ -3,9 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { QhtsSampleClientComponent } from './qhts-sample-client.component';
 import {NCATSImage} from '../../models/ncatsimage';
 import {Tool} from '../../models/tool';
-import {JavaWebStartComponent} from '../java-web-start/java-web-start.component';
+import {JavaWebStartComponent} from '../../templates/java-web-start/java-web-start.component';
 
-import {ScreenshotDisplayComponent} from '../../screenshot-display/screenshot-display.component';
+import {ScreenshotDisplayComponent} from '../../templates/screenshot-display/screenshot-display.component';
 import {APP_BASE_HREF} from '@angular/common';
 import {MaterialModule} from '../../../assets/material/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
