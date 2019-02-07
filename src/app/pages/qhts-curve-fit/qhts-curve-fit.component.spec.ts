@@ -4,7 +4,7 @@ import { QhtsCurveFitComponent } from './qhts-curve-fit.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MaterialModule} from '../../../assets/material/material.module';
 import {Tool} from '../../models/tool';
-import {JavaWebStartComponent} from '../java-web-start/java-web-start.component';
+import {JavaWebStartComponent} from '../../templates/java-web-start/java-web-start.component';
 
 describe('QhtsCurveFitComponent', () => {
   let component: QhtsCurveFitComponent;

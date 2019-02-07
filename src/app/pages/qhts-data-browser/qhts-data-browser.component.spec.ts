@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { QhtsDataBrowserComponent } from './qhts-data-browser.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MaterialModule} from '../../../assets/material/material.module';
-import {ScreenshotDisplayComponent} from '../../screenshot-display/screenshot-display.component';
-import {JavaWebStartComponent} from '../java-web-start/java-web-start.component';
+import {ScreenshotDisplayComponent} from '../../templates/screenshot-display/screenshot-display.component';
+import {JavaWebStartComponent} from '../../templates/java-web-start/java-web-start.component';
 import {Tool} from '../../models/tool';
 
 describe('QhtsDataBrowserComponent', () => {

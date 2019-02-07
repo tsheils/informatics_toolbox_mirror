@@ -1,3 +1,9 @@
 
 <app-tool-basics [tool]=tool></app-tool-basics>
 <ng-template appNcatsCustomContent></ng-template>
+    <div *ngIf="!details" fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" fxLayoutAlign.lt-sm="start center">
+        <div fxFlex = "95">
+            <h1>Nothing else here?</h1>
+            <h3> contact {{tool.contact.join(', ')}} and ask them to provide screenshots and details!</h3>
+        </div>
+    </div>
