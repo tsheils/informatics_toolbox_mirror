@@ -31,7 +31,15 @@
         <div class = "mat-title">Tool Type: {{tool.toolType}}</div>
       </mat-list-item>
       <mat-list-item *ngIf="tool.contact.length > 0">
-        <div class = "mat-title">NCATS Contact: {{tool.contact.join()}}</div>
+        <div class = "mat-title">NCATS Contact:
+          <span *ngFor = "let contact of informaticists">
+              <span *ngIf = "contact.email; else noLink">
+                <a href="mailto:{{contact.email}}?subject={{tool.toolName}} question">{{contact.name}}</a>&nbsp;&nbsp;&nbsp;
+    </span>
+    <ng-template #noLink>{{contact.name}}&nbsp;&nbsp;&nbsp;</ng-template>
+
+          </span>
+          </div>
       </mat-list-item>
       <mat-list-item *ngIf="tool.collaborators.length > 0">
         <div class = "mat-title">In Collaboration with: {{tool.collaborators}}</div>

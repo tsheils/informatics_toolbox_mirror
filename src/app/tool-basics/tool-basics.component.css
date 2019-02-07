@@ -4,11 +4,6 @@ span.tool-name.mat-display-4.mobile-header {
     left: 0;
 }
 
-.tool-banner {
-    height: 25vh;
-    width: 100vw;
-}
-
 .tool-name {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     position: absolute;
