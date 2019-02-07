@@ -32,6 +32,14 @@ background-color: #f7f7f7;
     height: 100%;
 }
 
+.loadingIcon {
+    position: absolute;
+    height:100%;
+    width:100%;
+    background-color: rgba(0,0,0,0.3); /* Black background with opacity */
+    z-index: 666;
+}
+
 @media screen and (max-width: 768px) {
     .grid-list {
         display: grid;

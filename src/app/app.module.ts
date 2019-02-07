@@ -5,7 +5,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MaterialModule} from '../assets/material/material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {NcatsHeaderComponent} from './ncats-header/ncats-header.component';
 import {NcatsFooterComponent} from './ncats-footer/ncats-footer.component';
 import {LoadingService} from './services/loading.service';
@@ -19,11 +19,11 @@ import { QhtsDataBrowserComponent } from './pages/qhts-data-browser/qhts-data-br
 import { ToolBasicsComponent } from './tool-basics/tool-basics.component';
 import {UnfurlingMetaService} from './services/unfurling-meta.service';
 import { QhtsCurveFitComponent } from './pages/qhts-curve-fit/qhts-curve-fit.component';
-import {JavaWebStartComponent} from './pages/java-web-start/java-web-start.component';
+import {JavaWebStartComponent} from './templates/java-web-start/java-web-start.component';
 import {QhtsPlateBrowserComponent} from './pages/qhts-plate-browser/qhts-plate-browser.component';
 import { CustomContentDirective } from './tool-details/custom-content.directive';
 import {ComponentNameService} from './services/component-name.service';
-import { ScreenshotDisplayComponent } from './screenshot-display/screenshot-display.component';
+import { ScreenshotDisplayComponent } from './templates/screenshot-display/screenshot-display.component';
 import { QhtsSampleClientComponent } from './pages/qhts-sample-client/qhts-sample-client.component';
 import { QhtsHeatmapBrowserComponent } from './pages/qhts-heatmap-browser/qhts-heatmap-browser.component';
 import { ResolverComponent } from './pages/resolver/resolver.component';
@@ -32,6 +32,9 @@ import { ToolFiltersComponent } from './tool-filters/tool-filters.component';
 import { ScaffoldHopperComponent } from './pages/scaffold-hopper/scaffold-hopper.component';
 import { IqcConvertComponent } from './pages/iqc-convert/iqc-convert.component';
 import {NcatsFindExcelComponent} from "./pages/ncatsfind-excel/ncatsfind-excel.component";
+import { MarkdownViewerComponent } from './templates/markdown-viewer/markdown-viewer.component';
+import {MarkdownModule} from "ngx-markdown";
+import { ChemkitComponent } from './pages/chemkit/chemkit.component';
 
 @NgModule({
   imports: [
@@ -42,7 +45,8 @@ import {NcatsFindExcelComponent} from "./pages/ncatsfind-excel/ncatsfind-excel.c
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+      MarkdownModule.forRoot({ loader: HttpClient })
   ],
   providers: [
       ComponentNameService,
@@ -72,8 +76,9 @@ import {NcatsFindExcelComponent} from "./pages/ncatsfind-excel/ncatsfind-excel.c
         ToolFiltersComponent,
         ScaffoldHopperComponent,
         IqcConvertComponent,
-        NcatsFindExcelComponent
-
+        NcatsFindExcelComponent,
+        MarkdownViewerComponent,
+        ChemkitComponent
     ],
     entryComponents: [
         CCalculatorComponent,
@@ -85,7 +90,8 @@ import {NcatsFindExcelComponent} from "./pages/ncatsfind-excel/ncatsfind-excel.c
         ResolverComponent,
         ScaffoldHopperComponent,
         IqcConvertComponent,
-        NcatsFindExcelComponent
+        NcatsFindExcelComponent,
+        ChemkitComponent
     ],
   bootstrap: [AppComponent]
 })

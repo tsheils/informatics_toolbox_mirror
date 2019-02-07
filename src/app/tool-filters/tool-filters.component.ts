@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Subject} from 'rxjs/index';
 import {takeUntil} from 'rxjs/internal/operators';
@@ -9,7 +9,7 @@ import {DataLoaderService} from '../services/data-loader.service';
   templateUrl: './tool-filters.component.html',
   styleUrls: ['./tool-filters.component.css']
 })
-export class ToolFiltersComponent implements OnInit {
+export class ToolFiltersComponent implements OnInit, OnDestroy {
   @Input() filters: string[];
   @Input() property: string;
   filterSelection = new SelectionModel<string>(true, []);
@@ -18,7 +18,7 @@ export class ToolFiltersComponent implements OnInit {
 
   ngOnInit() {
 
-      this.filterSelection.onChange
+      this.filterSelection.changed
           .pipe(takeUntil(this.ngUnsubscribe))
           .subscribe(change => {
               this.dataLoaderService.filterData({property: this.property, filters: this.filterSelection.selected});
@@ -28,4 +28,10 @@ export class ToolFiltersComponent implements OnInit {
   clearFilters() {
       this.filterSelection.clear();
   }
+
+    ngOnDestroy() {
+      this.clearFilters();
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
+    }
 }

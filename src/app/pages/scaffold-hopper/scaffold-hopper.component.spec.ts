@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScaffoldHopperComponent } from './scaffold-hopper.component';
 import {MaterialModule} from "../../../assets/material/material.module";
-import {ScreenshotDisplayComponent} from "../../screenshot-display/screenshot-display.component";
-import {JavaWebStartComponent} from "../java-web-start/java-web-start.component";
+import {ScreenshotDisplayComponent} from "../../templates/screenshot-display/screenshot-display.component";
+import {JavaWebStartComponent} from "../../templates/java-web-start/java-web-start.component";
 import {QhtsPlateBrowserComponent} from "../qhts-plate-browser/qhts-plate-browser.component";
 import {APP_BASE_HREF} from "@angular/common";
 import {FlexLayoutModule} from "@angular/flex-layout";
