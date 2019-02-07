@@ -26,7 +26,6 @@ export class ToolBasicsComponent implements OnInit {
       this.unfurlingMetaService.setMetaData(this.tool);
       this.tool.contact.forEach(contact =>
           this.informaticists.push({name: contact, email: this.emailLookupService.getEmail(contact)}));
-    console.log(this);
   }
 
 }

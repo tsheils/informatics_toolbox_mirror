@@ -41,7 +41,6 @@ export class DataLoaderService {
     }
 
     _getData(): void {
-        console.log(this);
         if (this.dataMap.size > 0) {
             this._dataSource.next(this.dataMap);
         } else {

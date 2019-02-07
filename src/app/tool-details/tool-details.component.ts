@@ -70,7 +70,6 @@ export class ToolDetailsComponent implements OnInit, AfterViewInit {
     }
 
     loadComponent() {
-        console.log(this);
         const instance: Type<any> = this.componentNameService.getComponent(this.tool.component);
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(instance);
         const viewContainerRef = this.componentHost.viewContainerRef;
