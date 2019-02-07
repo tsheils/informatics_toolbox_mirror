@@ -17,7 +17,7 @@ import {ComponentNameService} from '../services/component-name.service';
 export class ToolDetailsComponent implements OnInit, AfterViewInit {
   @Input() tool: Tool;
     @ViewChild(CustomContentDirective) componentHost: CustomContentDirective;
-
+    details = false;
 
     constructor(private route: ActivatedRoute,
                 private metaService: Meta,
@@ -30,6 +30,7 @@ export class ToolDetailsComponent implements OnInit, AfterViewInit {
             this.tool = res.tool;
             if (this.tool && this.tool.component) {
                 this.loadComponent();
+                this.details = true;
             }
         });
 
@@ -69,6 +70,7 @@ export class ToolDetailsComponent implements OnInit, AfterViewInit {
     }
 
     loadComponent() {
+        console.log(this);
         const instance: Type<any> = this.componentNameService.getComponent(this.tool.component);
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(instance);
         const viewContainerRef = this.componentHost.viewContainerRef;
