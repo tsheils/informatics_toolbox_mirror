@@ -30,6 +30,7 @@ export class ToolListComponent implements OnInit, OnDestroy {
                 ) { }
 
     ngOnInit() {
+        this.resetScroll();
         this.loadingService.loading$.subscribe(res => this.loading = res);
         this.dataLoaderService.data$.subscribe(res => {
             this.filteredTools = [];
@@ -56,7 +57,18 @@ search(term: string): void {
         this.dataLoaderService.search('');
     }
 
+    resetScroll() { (function smoothscroll() {
+        const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        if (currentScroll > 0) {
+            window.requestAnimationFrame(smoothscroll);
+            window.scrollTo(0, currentScroll - (currentScroll / 5));
+        }
+    })();
+    }
+
 ngOnDestroy() {
+        this.clear();
+     //   this.resetScroll();
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
 }
