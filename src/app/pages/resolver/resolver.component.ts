@@ -1,11 +1,13 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Tool} from '../../models/tool';
-import {ResolverService} from './services/resolver.service';
-import {MatPaginator, MatSort, MatTableDataSource, MatExpansionModule} from '@angular/material';
-import {ActivatedRoute} from '@angular/router';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Tool } from '../../models/tool';
+import { ResolverService } from './services/resolver.service';
+import { MatPaginator, MatSort, MatTableDataSource, MatExpansionModule } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Option } from './option';
+import { OptionsManager } from './options-manager';
 
 export interface DOMTokenList {
     replace(oldToken: string, newToken: string): void;
@@ -26,22 +28,22 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     link: HTMLAnchorElement;
     data: any;
     imgSrcBase: string;
-    properties: string[] = [];
+    // properties: string[] = [];
     names = false;
     loaded = false;
     showTableData = false;
     rawData: string;
     fields: string[];
-    options: Option[];
-    categories: { [category: string]: Array<Option> } = {};
-    priorityOptions: { [category: string]: number} = {
-        'qhts': 3,
-        'smiles': 2,
-        'lychi': 1,
-    };
-    previouslyUsedOptions: { [category: string]: number} = {};
-    lastUsedOptions: { [category: string]: number} = {};
-    categoryNames: Array<string> = [];
+    // options: Option[];
+    // categories: { [category: string]: Array<Option> } = {};
+    // priorityOptions: { [category: string]: number } = {
+    //     'qhts': 3,
+    //     'smiles': 2,
+    //     'lychi': 1,
+    // };
+    previouslyUsedOptions: { [category: string]: number } = {};
+    lastUsedOptions: { [category: string]: number } = {};
+    // categoryNames: Array<string> = [];
     dataSource = new MatTableDataSource<any[]>([]);
     private ngUnsubscribe: Subject<any> = new Subject();
     private contentElement: HTMLElement;
@@ -51,83 +53,97 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     isLoading = true;
     resolveButtonLabel = 'Resolve';
     isResultsExpanded = false;
+    optionsFilterTimer: any;
+    filteredOptions: Array<Option>;
+    optionsManager: OptionsManager;
 
     constructor(
         private resolverService: ResolverService,
         private elementRef: ElementRef
-    ) {}
+    ) { }
     ngOnInit() {
         this.previouslyUsedOptions = JSON.parse(localStorage.getItem('previouslyUsedOptions')) || {};
         this.lastUsedOptions = JSON.parse(localStorage.getItem('lastUsedOptions')) || {};
-        let priorityOptionsCategoryName = 'Popular';
+        // const priorityOptionsCategoryName = 'Active Options';
+
+        let priorityOptionNames;
 
         if (Object.keys(this.lastUsedOptions).length > 0 || Object.keys(this.previouslyUsedOptions).length > 0) {
-            priorityOptionsCategoryName = 'Previously used';
-            this.priorityOptions = {};
+            // this.priorityOptions = {};
+
+            priorityOptionNames = [];
 
             Object.keys(this.lastUsedOptions).forEach(key => {
-                this.priorityOptions[key] = this.lastUsedOptions[key];
-                this.properties.push(key);
+                // this.priorityOptions[key] = this.lastUsedOptions[key];
+                // this.properties.push(key);
+                priorityOptionNames.push(key);
             });
 
             Object.keys(this.previouslyUsedOptions).forEach((key) => {
-                if (this.priorityOptions[key] == null && Object.keys(this.priorityOptions).length < 6) {
-                    this.priorityOptions[key] = this.previouslyUsedOptions[key];
+                if (!priorityOptionNames.includes(key) && priorityOptionNames.length < 6) {
+                    priorityOptionNames.push(key);
                 }
             });
         }
 
         this.resolverService.getOptions()
             .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe(res => {
-                res.forEach(option => {
-
-                    if (this.priorityOptions[option.name] != null) {
-                        if (this.categories[priorityOptionsCategoryName] == null) {
-                            this.categories[priorityOptionsCategoryName] = [];
-                            this.categoryNames.unshift(priorityOptionsCategoryName);
-                        }
-
-                        if (this.categories[priorityOptionsCategoryName].length === 0
-                            || this.priorityOptions[option.name]
-                            <= this.priorityOptions[this.categories[priorityOptionsCategoryName]
-                            [this.categories[priorityOptionsCategoryName].length - 1].name]) {
-                            this.categories[priorityOptionsCategoryName].push(option);
-                        } else {
-                            for (let i = 0; i < this.categories[priorityOptionsCategoryName].length; i++) {
-                                if (this.priorityOptions[option.name] > this.priorityOptions[this.categories
-                                    [priorityOptionsCategoryName][i].name]) {
-                                    this.categories[priorityOptionsCategoryName].splice(i, 0, option);
-                                    break;
-                                }
-                            }
-                        }
-                    } else if (option.tags != null && option.tags.length) {
-                        option.tags.forEach(tag => {
-                            if (tag.indexOf('category-') > -1) {
-                                const category = tag.split('category-').pop();
-                                if (this.categories[category] == null) {
-                                    this.categories[category] = [];
-                                    this.categoryNames.push(category);
-                                }
-
-                                if (this.categories[category].length === 0
-                                    || option.title >= this.categories[category][this.categories[category].length - 1].title) {
-                                    this.categories[category].push(option);
-                                } else {
-                                    for (let i = 0; i < this.categories[category].length; i++) {
-                                        if (option.title < this.categories[category][i].title) {
-                                            this.categories[category].splice(i, 0, option);
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        });
-                    }
-                });
-                this.options = res;
+            .subscribe(options => {
+                this.optionsManager = new OptionsManager(options, priorityOptionNames);
+                this.optionsManager.setSelectedOptions(priorityOptionNames, Object.keys(this.lastUsedOptions).length || null);
                 this.isLoading = false;
+                // res.forEach(option => {
+
+                //     if (this.priorityOptions[option.name] != null) {
+                //         if (this.categories[priorityOptionsCategoryName] == null) {
+                //             this.categories[priorityOptionsCategoryName] = [];
+                //             this.categoryNames.unshift(priorityOptionsCategoryName);
+                //         }
+
+                //         if (this.categories[priorityOptionsCategoryName].length === 0
+                //             || this.priorityOptions[option.name]
+                //             <= this.priorityOptions[this.categories[priorityOptionsCategoryName]
+                //             [this.categories[priorityOptionsCategoryName].length - 1].name]) {
+                //             this.categories[priorityOptionsCategoryName].push(option);
+                //         } else {
+                //             for (let i = 0; i < this.categories[priorityOptionsCategoryName].length; i++) {
+                //                 if (this.priorityOptions[option.name] > this.priorityOptions[this.categories
+                //                 [priorityOptionsCategoryName][i].name]) {
+                //                     this.categories[priorityOptionsCategoryName].splice(i, 0, option);
+                //                     break;
+                //                 }
+                //             }
+                //         }
+                //     } else {
+
+                //         if (option.tags == null && option.tags.length === 0) {
+                //             option.tags = ['category-misc'];
+                //         }
+
+                //         option.tags.forEach(tag => {
+                //             if (tag.indexOf('category-') > -1) {
+                //                 const category = tag.split('category-').pop();
+                //                 if (this.categories[category] == null) {
+                //                     this.categories[category] = [];
+                //                     this.categoryNames.push(category);
+                //                 }
+
+                //                 if (this.categories[category].length === 0
+                //                     || option.title >= this.categories[category][this.categories[category].length - 1].title) {
+                //                     this.categories[category].push(option);
+                //                 } else {
+                //                     for (let i = 0; i < this.categories[category].length; i++) {
+                //                         if (option.title < this.categories[category][i].title) {
+                //                             this.categories[category].splice(i, 0, option);
+                //                             break;
+                //                         }
+                //                     }
+                //                 }
+                //             }
+                //         });
+                //     }
+                // });
+                // this.options = res;
             });
 
         this.resolverCtrl.valueChanges.subscribe(val => this.names = true);
@@ -142,12 +158,13 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dataSource.data = [];
         let dataArr = [];
         const lines = [];
-        this.resolverService.resolveData(this.properties, this.resolverCtrl.value.trim().split(/[\t\n,;]+/)).subscribe(res => {
+        const properties = this.optionsManager.selectedOptionNames;
+        this.resolverService.resolveData(properties, this.resolverCtrl.value.trim().split(/[\t\n,;]+/)).subscribe(res => {
             dataArr = res.map(data => {
                 const ret: any = {};
                 if (data.response) {
                     const arr = data.response.split('\t');
-                    this.properties.forEach((value, index) => {
+                    properties.forEach((value, index) => {
                         ret[value] = arr[index];
                     });
                 }
@@ -161,7 +178,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
             });
             dataArr = dataArr.sort((a, b) => a._id - b._id);
             this.dataSource.data = dataArr;
-            this.rawData =  lines.join('\n');
+            this.rawData = lines.join('\n');
             this.loaded = true;
             this.resolveButtonLabel = 'Resolved!';
             setTimeout(() => {
@@ -176,7 +193,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
             }, 2000);
         });
         this.lastUsedOptions = {};
-        this.properties.forEach(property => {
+        properties.forEach(property => {
             if (this.previouslyUsedOptions[property] == null) {
                 this.previouslyUsedOptions[property] = 0;
             }
@@ -223,16 +240,16 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         this.contentElement.classList.remove('step-2');
     }
 
-    checked(event: any, property: string) {
-        if (event.checked) {
-            this.properties.push(property);
-        } else {
-            this.properties = this.properties.filter(prop => prop !== property);
-        }
-    }
+    // checked(event: any, property: string) {
+    //     if (event.checked) {
+    //         this.properties.push(property);
+    //     } else {
+    //         this.properties = this.properties.filter(prop => prop !== property);
+    //     }
+    // }
 
     allowResolve(): boolean {
-        return this.properties.length === 0 || !this.names;
+        return this.optionsManager.selectedOptionNames.length === 0 || !this.names;
     }
 
     ngAfterViewInit() {
@@ -259,7 +276,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     processWindowResize(): void {
         this.contentElement.style.height = `${window.innerHeight.toString()}px`;
         this.contentElement.style.maxHeight = `${window.innerHeight.toString()}px`;
-        this.contentElement.scrollIntoView({behavior: 'smooth'});
+        this.contentElement.scrollIntoView({ behavior: 'smooth' });
         if (window.innerWidth > 820 && this.contentElement.classList.contains('step-3')) {
             // this.contentElement.classList.replace('step-3', 'step-2');
             this.contentElement.classList.add('step-2');
@@ -372,11 +389,74 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
             this.bodyElement.style.overflow = null;
         }
     }
-}
 
-export class Option {
-    title: string;
-    format: string;
-    name: string;
-    description: string;
+    applyOptionsFilter(filterInput: string): void {
+        if (this.optionsFilterTimer != null) {
+            clearTimeout(this.optionsFilterTimer);
+        }
+
+        if (filterInput) {
+            this.optionsFilterTimer = setTimeout(() => {
+                this.filteredOptions = [];
+
+                if (this.properties && this.properties.length && this.filteredOptions && this.filteredOptions.length) {
+                    this.crossCheckOptions();
+                } else {
+                    this.filteredOptions = [];
+                }
+
+                this.options.forEach(option => {
+                    const keys = Object.keys(option);
+                    let contains = false;
+                    for (let i = 0; i < keys.length; i++) {
+                        if (filterInput && option[keys[i]].toString().toLowerCase().indexOf(filterInput.toLowerCase()) > -1) {
+                            contains = true;
+                            break;
+                        }
+                    }
+                    if (contains) {
+                        this.filteredOptions.push(option);
+                    }
+                });
+                clearTimeout(this.optionsFilterTimer);
+                this.optionsFilterTimer = null;
+            }, 500);
+        } else {
+            this.filteredOptions.forEach(option => {
+                for (let i = 0; i < this.properties.length; i++) {
+                    if (this.properties[i] === option.name) {
+                        for (let categoryNamesIndex = 1; categoryNamesIndex < this.categoryNames.length; categoryNamesIndex++) {
+                            let isMoved = false;
+                            for (let optionIndex = 0;
+                                optionIndex < this.categories[this.categoryNames[categoryNamesIndex]].length;
+                                optionIndex++) {
+                                    if (option.name === this.categories[this.categoryNames[categoryNamesIndex]][optionIndex].name) {
+                                        const movingOption = this.categories[this.categoryNames[categoryNamesIndex]].splice(optionIndex, 1);
+                                        this.categories['Active Options'].unshift(movingOption[0]);
+                                        isMoved = true;
+                                        break;
+                                    }
+                            }
+                            if (isMoved) {
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            });
+            this.filteredOptions = [];
+        }
+    }
+
+    private crossCheckOptions() {
+        this.filteredOptions = this.filteredOptions.map(option => {
+            for (let i = 0; i < this.properties.length; i++) {
+                if (this.properties[i] === option.name) {
+                    return option;
+                    break;
+                }
+            }
+        });
+    }
 }

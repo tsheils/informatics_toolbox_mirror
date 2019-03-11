@@ -11,11 +11,27 @@
   </div>
   <div class="options-container">
     <div class="options-instructions">
-      <span class="text-bottom">Resolve to:</span>
+      <span>Resolve to:</span>
+      <mat-form-field  floatLabel="never">
+        <input matInput (keyup)="applyOptionsFilter($event.target.value)" placeholder="Filter options">
+      </mat-form-field>
     </div>
     <div class="options">
-      <mat-accordion>
-        <mat-expansion-panel *ngFor="let categoryName of categoryNames" [expanded]="categoryName == 'Previously used' || categoryName == 'Popular'">
+      <div class="filtered-options" *ngIf="filteredOptions && filteredOptions.length">
+        <div class="filtered-options-header">
+          Filtered options
+        </div>
+        <div class="filtered-options-body">
+          <div *ngFor="let option of filteredOptions">
+            <mat-checkbox (change)="checked($event, option.name)" name={{option.name}}>
+              {{option.title}}
+            </mat-checkbox>
+            <mat-icon matTooltip={{option.description}} class="help-icon">_help_</mat-icon>
+          </div>
+        </div>
+      </div>
+      <mat-accordion multi="true">
+        <mat-expansion-panel *ngFor="let categoryName of categoryNames" [expanded]="categoryName == 'Active Options'">
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{categoryName}}
