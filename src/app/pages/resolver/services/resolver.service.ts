@@ -34,12 +34,11 @@ export class ResolverService {
             //     return res;
             // }
 
-            res.map(option => {
+            res = res.map(option => {
                 if ((ENVIRONMENT.public && !option.tags.includes('restricted')) || !ENVIRONMENT.public) {
                     return new Option().fromJSON(option);
                 }
             });
-
             return res;
         })
         );

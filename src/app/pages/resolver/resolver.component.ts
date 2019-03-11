@@ -90,7 +90,9 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(options => {
                 this.optionsManager = new OptionsManager(options, priorityOptionNames);
+                this.optionsManager.setCategories();
                 this.optionsManager.setSelectedOptions(priorityOptionNames, Object.keys(this.lastUsedOptions).length || null);
+                console.log(this.optionsManager);
                 this.isLoading = false;
                 // res.forEach(option => {
 
@@ -249,7 +251,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     // }
 
     allowResolve(): boolean {
-        return this.optionsManager.selectedOptionNames.length === 0 || !this.names;
+        return this.optionsManager && this.optionsManager.selectedOptionNames.length === 0 || !this.names;
     }
 
     ngAfterViewInit() {
@@ -339,16 +341,16 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         this.showTableData = event.checked;
     }
 
-    getLabel(field: string): string {
-        let ret: string;
-        const option: Option[] = this.options.filter(opt => opt.name === field);
-        if (option.length > 0) {
-            ret = option[0].title;
-        } else {
-            ret = field;
-        }
-        return ret;
-    }
+    // getLabel(field: string): string {
+    //     let ret: string;
+    //     const option: Option[] = this.options.filter(opt => opt.name === field);
+    //     if (option.length > 0) {
+    //         ret = option[0].title;
+    //     } else {
+    //         ret = field;
+    //     }
+    //     return ret;
+    // }
 
     replacePipes(stringToEval: string): string {
         if (typeof stringToEval === 'string') {
@@ -388,75 +390,5 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
             this.isResultsExpanded = false;
             this.bodyElement.style.overflow = null;
         }
-    }
-
-    applyOptionsFilter(filterInput: string): void {
-        if (this.optionsFilterTimer != null) {
-            clearTimeout(this.optionsFilterTimer);
-        }
-
-        if (filterInput) {
-            this.optionsFilterTimer = setTimeout(() => {
-                this.filteredOptions = [];
-
-                if (this.properties && this.properties.length && this.filteredOptions && this.filteredOptions.length) {
-                    this.crossCheckOptions();
-                } else {
-                    this.filteredOptions = [];
-                }
-
-                this.options.forEach(option => {
-                    const keys = Object.keys(option);
-                    let contains = false;
-                    for (let i = 0; i < keys.length; i++) {
-                        if (filterInput && option[keys[i]].toString().toLowerCase().indexOf(filterInput.toLowerCase()) > -1) {
-                            contains = true;
-                            break;
-                        }
-                    }
-                    if (contains) {
-                        this.filteredOptions.push(option);
-                    }
-                });
-                clearTimeout(this.optionsFilterTimer);
-                this.optionsFilterTimer = null;
-            }, 500);
-        } else {
-            this.filteredOptions.forEach(option => {
-                for (let i = 0; i < this.properties.length; i++) {
-                    if (this.properties[i] === option.name) {
-                        for (let categoryNamesIndex = 1; categoryNamesIndex < this.categoryNames.length; categoryNamesIndex++) {
-                            let isMoved = false;
-                            for (let optionIndex = 0;
-                                optionIndex < this.categories[this.categoryNames[categoryNamesIndex]].length;
-                                optionIndex++) {
-                                    if (option.name === this.categories[this.categoryNames[categoryNamesIndex]][optionIndex].name) {
-                                        const movingOption = this.categories[this.categoryNames[categoryNamesIndex]].splice(optionIndex, 1);
-                                        this.categories['Active Options'].unshift(movingOption[0]);
-                                        isMoved = true;
-                                        break;
-                                    }
-                            }
-                            if (isMoved) {
-                                break;
-                            }
-                        }
-                        break;
-                    }
-                }
-            });
-            this.filteredOptions = [];
-        }
-    }
-
-    private crossCheckOptions() {
-        this.filteredOptions = this.filteredOptions.map(option => {
-            for (let i = 0; i < this.properties.length; i++) {
-                if (this.properties[i] === option.name) {
-                    return option;
-                    break;
-                }
-            }
-        });
     }
 }

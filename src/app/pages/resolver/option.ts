@@ -2,22 +2,22 @@ import { jsonProperty, jsonIgnore, Serializable } from 'ts-serializable';
 
 export class Option extends Serializable {
     @jsonProperty(String)
-    title: string;
+    public title = '';
 
     @jsonProperty(String)
-    format: string;
+    public format = '';
 
     @jsonProperty(String)
-    name: string;
+    public name = '';
 
     @jsonProperty([String])
-    tags: Array<string>;
+    public tags: Array<string> = [];
 
     @jsonProperty(String)
-    description: string;
+    public description = '';
 
     @jsonIgnore()
-    isSelected: boolean;
+    public isSelected = false;
 
     setSelected(isSelected: boolean): void {
         this.isSelected = isSelected;
