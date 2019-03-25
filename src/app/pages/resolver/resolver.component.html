@@ -119,7 +119,7 @@
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
             <ng-container *ngFor="let field of fields" matColumnDef="{{field}}">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{getLabel(field)}}</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{optionsManager.getLabel(field)}}</th>
               <td mat-cell *matCellDef="let row">
                 {{replacePipes(row[field])}}
               </td>

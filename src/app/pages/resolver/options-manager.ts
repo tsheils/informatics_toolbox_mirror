@@ -12,17 +12,54 @@ export class OptionsManager {
 
     constructor(
         options: Array<Option> = [],
-        priorityOptionNames: Array<string> = ['qhts', 'smiles', 'lychi'],
-        selectedOptionNames?: Array<string>) {
+        priorityOptions: {
+            [option: string]: {
+                count: number,
+                selectedLast: boolean
+            }
+        } = {
+                'qhts': {
+                    count: 3,
+                    selectedLast: true
+                }, 'smiles': {
+                    count: 2,
+                    selectedLast: true
+                }, 'lychi': {
+                    count: 1,
+                    selectedLast: true
+                }
+
+            },
+        maxPriorityOptions: number = 10
+    ) {
         this.options = options;
-        this.init(priorityOptionNames, selectedOptionNames);
+        this.init(priorityOptions, maxPriorityOptions);
     }
 
-    init(priorityOptionNames: Array<string>, selectedOptionNames?: Array<string>): void {
+    init(
+        priorityOptions: {
+            [option: string]: {
+                count: number,
+                selectedLast: boolean
+            }
+        },
+        maxPriorityOptions: number
+    ): void {
         this.options.forEach(option => {
+            if (priorityOptions[option.name] != null) {
+                if (priorityOptions[option.name].selectedLast) {
 
-            if (priorityOptionNames.indexOf(option.name) > -1) {
-                this.priorityOptions.push(option);
+                    if (this.priorityOptions
+                        && this.priorityOptions.length === maxPriorityOptions
+                        && !this.priorityOptions[this.priorityOptions.length - 1].isSelected) {
+                            this.priorityOptions.pop();
+                    }
+
+                    option.isSelected = true;
+                    this.priorityOptions.unshift(option);
+                } else {
+                    this.priorityOptions.push(option);
+                }
             } else {
                 option.categories.forEach(category => {
 
@@ -44,6 +81,16 @@ export class OptionsManager {
                     }
                 });
             }
+
+            this.priorityOptions.sort((optionA, optionB) => {
+                if (optionA.isSelected && !optionB.isSelected) {
+                    return -1;
+                } else if (!optionA.isSelected && optionB.isSelected) {
+                    return 1;
+                } else {
+                    return priorityOptions[optionA.name].count - priorityOptions[optionB.name].count;
+                }
+            });
         });
     }
 
@@ -55,42 +102,6 @@ export class OptionsManager {
             }
         });
         return selectedOptionNames;
-    }
-
-    setSelectedOptions(optionNames: Array<string> = [], numPriorityOptions: number = 3): void {
-        optionNames.forEach(name => {
-            for (let i = 0; i < this.options.length; i++) {
-                if (this.options[i].name === name) {
-                    this.options[i].isSelected = true;
-                    break;
-                }
-            }
-        });
-
-        let countSelected = 0;
-        this.priorityOptions = this.priorityOptions.sort((a, b) => {
-
-            if (a.isSelected && b.isSelected) {
-                countSelected = countSelected + 2;
-                return 0;
-            }
-
-            if (a.isSelected) {
-                countSelected++;
-                return -1;
-            }
-
-            if (b.isSelected) {
-                countSelected++;
-                return 1;
-            }
-        });
-
-        if (countSelected < numPriorityOptions && numPriorityOptions <= this.priorityOptions.length) {
-            for (let i = countSelected; i < numPriorityOptions; i++) {
-                this.priorityOptions[i].isSelected = true;
-            }
-        }
     }
 
     getLabel(field: string): string {
@@ -130,7 +141,7 @@ export class OptionsManager {
 
             this.searchResults = [];
 
-                if (searchInput) {
+            if (searchInput) {
                 this.options.forEach(option => {
                     const keys = Object.keys(option);
                     let contains = false;
@@ -147,7 +158,6 @@ export class OptionsManager {
             }
             clearTimeout(this.searchTimer);
             this.searchTimer = null;
-            console.log(this.searchResults);
         }, 500);
     }
 

@@ -41,8 +41,12 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     //     'smiles': 2,
     //     'lychi': 1,
     // };
-    previouslyUsedOptions: { [category: string]: number } = {};
-    lastUsedOptions: { [category: string]: number } = {};
+    previouslyUsedOptions: {
+        [option: string]: {
+            count: number,
+            selectedLast: boolean
+        }
+    } = {};
     // categoryNames: Array<string> = [];
     dataSource = new MatTableDataSource<any[]>([]);
     private ngUnsubscribe: Subject<any> = new Subject();
@@ -62,37 +66,48 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         private elementRef: ElementRef
     ) { }
     ngOnInit() {
-        this.previouslyUsedOptions = JSON.parse(localStorage.getItem('previouslyUsedOptions')) || {};
-        this.lastUsedOptions = JSON.parse(localStorage.getItem('lastUsedOptions')) || {};
-        // const priorityOptionsCategoryName = 'Active Options';
-
-        let priorityOptionNames;
-
-        if (Object.keys(this.lastUsedOptions).length > 0 || Object.keys(this.previouslyUsedOptions).length > 0) {
-            // this.priorityOptions = {};
-
-            priorityOptionNames = [];
-
-            Object.keys(this.lastUsedOptions).forEach(key => {
-                // this.priorityOptions[key] = this.lastUsedOptions[key];
-                // this.properties.push(key);
-                priorityOptionNames.push(key);
-            });
-
-            Object.keys(this.previouslyUsedOptions).forEach((key) => {
-                if (!priorityOptionNames.includes(key) && priorityOptionNames.length < 6) {
-                    priorityOptionNames.push(key);
-                }
-            });
+        const previouslyUsedOptions = JSON.parse(localStorage.getItem('previouslyUsedOptions')) || {};
+        const lastUsedOptions = JSON.parse(localStorage.getItem('lastUsedOptions')) || {};
+        console.log(previouslyUsedOptions);
+        const keys = Object.keys(previouslyUsedOptions);
+        if (keys && keys.length > 0) {
+            if (typeof previouslyUsedOptions[keys[0]] === 'number') {
+                keys.forEach(key => {
+                    this.previouslyUsedOptions[key] = {
+                        count: previouslyUsedOptions[key],
+                        selectedLast: lastUsedOptions[key] != null
+                    };
+                });
+            } else {
+                this.previouslyUsedOptions = previouslyUsedOptions;
+            }
         }
+
+        // let priorityOptionNames;
+
+        // if (Object.keys(this.lastUsedOptions).length > 0 || Object.keys(this.previouslyUsedOptions).length > 0) {
+        //     // this.priorityOptions = {};
+
+        //     priorityOptionNames = [];
+
+        //     Object.keys(this.lastUsedOptions).forEach(key => {
+        //         // this.priorityOptions[key] = this.lastUsedOptions[key];
+        //         // this.properties.push(key);
+        //         priorityOptionNames.push(key);
+        //     });
+
+        //     Object.keys(this.previouslyUsedOptions).forEach((key) => {
+        //         if (!priorityOptionNames.includes(key) && priorityOptionNames.length < 6) {
+        //             priorityOptionNames.push(key);
+        //         }
+        //     });
+        // }
 
         this.resolverService.getOptions()
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(options => {
-                this.optionsManager = new OptionsManager(options, priorityOptionNames);
-                this.optionsManager.setSelectedOptions(priorityOptionNames, Object.keys(this.lastUsedOptions).length || null);
-                console.log(this.optionsManager.categories);
-                console.log(this.optionsManager);
+                this.optionsManager = new OptionsManager(options, this.previouslyUsedOptions);
+                // this.optionsManager.setSelectedOptions(priorityOptionNames, Object.keys(this.lastUsedOptions).length || null);
                 this.isLoading = false;
                 // res.forEach(option => {
 
@@ -194,16 +209,24 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.isLoading = false;
             }, 2000);
         });
-        this.lastUsedOptions = {};
+        console.log(this.previouslyUsedOptions);
+        Object.keys(this.previouslyUsedOptions).forEach(key => {
+            console.log(this.previouslyUsedOptions[key]);
+            this.previouslyUsedOptions[key].selectedLast = false;
+        });
+
         properties.forEach(property => {
             if (this.previouslyUsedOptions[property] == null) {
-                this.previouslyUsedOptions[property] = 0;
+                this.previouslyUsedOptions[property] = {
+                    count: 0,
+                    selectedLast: true
+                };
             }
-            this.previouslyUsedOptions[property]++;
-            this.lastUsedOptions[property] = Number.MAX_SAFE_INTEGER;
+            this.previouslyUsedOptions[property].count++;
+            this.previouslyUsedOptions[property].selectedLast = true;
         });
+        console.log(this.previouslyUsedOptions);
         localStorage.setItem('previouslyUsedOptions', JSON.stringify(this.previouslyUsedOptions));
-        localStorage.setItem('lastUsedOptions', JSON.stringify(this.lastUsedOptions));
     }
 
     processResponsiveness(): void {
