@@ -90,8 +90,8 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(options => {
                 this.optionsManager = new OptionsManager(options, priorityOptionNames);
-                this.optionsManager.setCategories();
                 this.optionsManager.setSelectedOptions(priorityOptionNames, Object.keys(this.lastUsedOptions).length || null);
+                console.log(this.optionsManager.categories);
                 console.log(this.optionsManager);
                 this.isLoading = false;
                 // res.forEach(option => {

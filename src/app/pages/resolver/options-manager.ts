@@ -2,24 +2,26 @@ import { Option } from './option';
 
 export class OptionsManager {
     private options: Array<Option>;
-    private priorityOptionNames: Array<string>;
     categories: { [category: string]: Array<Option> } = {
         'Active Options': []
     };
     private priorityOptions = this.categories['Active Options'];
-    searchResults: Array<Option>;
-    categoryNames: Array<string> = [];
+    searchResults: Array<Option> = [];
+    categoryNames: Array<string> = ['Active Options'];
     searchTimer: any;
 
-    constructor(options: Array<Option> = [], priorityOptionNames: Array<string> = ['qhts', 'smiles', 'lychi']) {
+    constructor(
+        options: Array<Option> = [],
+        priorityOptionNames: Array<string> = ['qhts', 'smiles', 'lychi'],
+        selectedOptionNames?: Array<string>) {
         this.options = options;
-        this.priorityOptionNames = priorityOptionNames;
+        this.init(priorityOptionNames, selectedOptionNames);
     }
 
-    setCategories(): void {
+    init(priorityOptionNames: Array<string>, selectedOptionNames?: Array<string>): void {
         this.options.forEach(option => {
 
-            if (this.priorityOptionNames.indexOf(option.name) > -1) {
+            if (priorityOptionNames.indexOf(option.name) > -1) {
                 this.priorityOptions.push(option);
             } else {
                 option.categories.forEach(category => {
@@ -145,6 +147,7 @@ export class OptionsManager {
             }
             clearTimeout(this.searchTimer);
             this.searchTimer = null;
+            console.log(this.searchResults);
         }, 500);
     }
 

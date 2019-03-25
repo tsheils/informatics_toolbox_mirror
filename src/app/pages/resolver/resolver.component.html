@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="options-container">
-    <div *ngIf="optionsManager">
+    <span *ngIf="optionsManager">
       <div class="options-instructions">
         <span>Resolve to:</span>
         <mat-form-field floatLabel="never">
@@ -18,37 +18,40 @@
         </mat-form-field>
       </div>
       <div class="options">
-        <div class="filtered-options" *ngIf="optionsManager.searchResults && optionsManager.searchResults.length">
-          <div class="filtered-options-header">
-            Search results
-          </div>
-          <div class="filtered-options-body">
-            <div *ngFor="let option of optionsManager.searchResults">
-              <mat-checkbox (change)="option.setSelected($event.checked)" name={{option.name}}>
-                {{option.title}}
-              </mat-checkbox>
-              <mat-icon matTooltip={{option.description}} class="help-icon">_help_</mat-icon>
+        <div>
+          <div class="filtered-options" *ngIf="optionsManager.searchResults && optionsManager.searchResults.length">
+            <div class="filtered-options-header">
+              Search results
             </div>
-          </div>
-        </div>
-        <mat-accordion multi="true">
-          <mat-expansion-panel *ngFor="let categoryName of optionsManager.categoryNames" [expanded]="categoryName == 'Active Options'">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                {{categoryName}}
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div>
-              <div *ngFor="let option of optionsManager.categories[categoryName]">
-                <mat-checkbox [checked]="lastUsedOptions[option.name]" (change)="option.setSelected($event.checked)" name={{option.name}}>
+            <div class="filtered-options-body">
+              <div *ngFor="let option of optionsManager.searchResults">
+                <mat-checkbox [(ngModel)]="option.isSelected" name={{option.name}}>
                   {{option.title}}
                 </mat-checkbox>
                 <mat-icon matTooltip={{option.description}} class="help-icon">_help_</mat-icon>
               </div>
             </div>
-          </mat-expansion-panel>
-        </mat-accordion>
-
+          </div>
+          <mat-accordion multi="true" *ngIf="!optionsManager.searchResults || !optionsManager.searchResults.length">
+            <mat-expansion-panel *ngFor="let categoryName of optionsManager.categoryNames"
+              [expanded]="categoryName == 'Active Options'">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{categoryName}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div>
+                <div *ngFor="let option of optionsManager.categories[categoryName]">
+                  <mat-checkbox [(ngModel)]="option.isSelected"
+                    name={{option.name}}>
+                    {{option.title}}
+                  </mat-checkbox>
+                  <mat-icon matTooltip={{option.description}} class="help-icon">_help_</mat-icon>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
         <!-- <div *ngFor="let option of options">
         <mat-checkbox (change)="checked($event, option.name)" name={{option.name}}>
           {{option.title}}
@@ -56,11 +59,12 @@
         <mat-icon matTooltip={{option.description}} class="help-icon">_help_</mat-icon>
       </div> -->
       </div>
-    </div>
+    </span>
     <div class="actions-container">
       <button class="show-on-small" mat-raised-button color="accent" (click)="backFromOptions()">Back</button>
       <span class="space-between"></span>
-      <button class="resolve-button" mat-raised-button color="accent" name="Calbutton" (click)="resolve()" [disabled]="allowResolve() || isLoading">{{resolveButtonLabel}}</button>
+      <button class="resolve-button" mat-raised-button color="accent" name="Calbutton" (click)="resolve()"
+        [disabled]="allowResolve() || isLoading">{{resolveButtonLabel}}</button>
     </div>
   </div>
   <div class="results-container">
