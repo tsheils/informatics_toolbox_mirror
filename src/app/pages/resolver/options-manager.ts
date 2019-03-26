@@ -46,14 +46,8 @@ export class OptionsManager {
         maxPriorityOptions: number
     ): void {
         this.options.forEach(option => {
-            if (priorityOptions[option.name] != null) {
+            if ( priorityOptions[option.name] != null) {
                 if (priorityOptions[option.name].selectedLast) {
-
-                    if (this.priorityOptions
-                        && this.priorityOptions.length === maxPriorityOptions
-                        && !this.priorityOptions[this.priorityOptions.length - 1].isSelected) {
-                            this.priorityOptions.pop();
-                    }
 
                     option.isSelected = true;
                     this.priorityOptions.unshift(option);
@@ -162,29 +156,35 @@ export class OptionsManager {
     }
 
     sortOptions(options: Array<Option> = []): Array<Option> {
-        const sortedOptions = this.options.sort((a, b) => {
-
-            if (a.isSelected && b.isSelected) {
-                return 0;
-            }
-
-            if (a.isSelected) {
+        const sortedOptions = options.sort((a, b) => {
+            if (a.isSelected === b.isSelected) {
+                if (a.title.toLowerCase() <= b.title.toLocaleLowerCase()) {
+                    return -1;
+                }
+                if (b.title.toLocaleLowerCase() < a.title.toLowerCase()) {
+                    return 1;
+                }
+            } else if (a.isSelected) {
                 return -1;
-            }
-
-            if (b.isSelected) {
-                return 1;
-            }
-
-            if (a.title.toLowerCase() <= b.title.toLocaleLowerCase()) {
-                return -1;
-            }
-
-            if (b.title.toLocaleLowerCase() < a.title.toLowerCase()) {
+            } else {
                 return 1;
             }
         });
-
         return sortedOptions;
+    }
+
+    reorganizeOptions(): void {
+        Object.keys(this.categories).forEach(category => {
+            if (category !== 'Active Options') {
+                let i = this.categories[category].length - 1;
+                for (i; i > -1; i--) {
+                    if (this.categories[category][i].isSelected) {
+                        const selectedOption = this.categories[category].splice(i, 1);
+                        this.priorityOptions.push(selectedOption[0]);
+                    }
+                }
+            }
+        });
+        this.priorityOptions = this.sortOptions(this.priorityOptions);
     }
 }
