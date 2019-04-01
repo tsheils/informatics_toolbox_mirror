@@ -45,7 +45,6 @@ export class ResolverService {
     }
 
     resolveData(parameters: string[], names: Array<string>): Observable<any> {
-        console.log(names);
         const url = URL + parameters.join('/');
         const data: any = {
             structure: names.join('\n'),
@@ -58,11 +57,8 @@ export class ResolverService {
     }
 
     private toUrlEncodedParams(body: {[paramName: string]: any }): string {
-        let encodedParams = '';
-        Object.keys(body).forEach((key, index) => {
-            encodedParams +=
-                `${index !== 0 ? '&' : ''}${encodeURIComponent(key)}=${encodeURIComponent(body[key])}`;
-        });
+        const encodedParams = Object.keys(body).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(body[key])}`)
+            .join('&');
         return encodedParams;
     }
 
