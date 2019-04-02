@@ -128,13 +128,17 @@ textarea {
 }
 
 .options-instructions {
-    display: flex;
-    justify-content: flex-start;
 
-    & > span {
-        white-space: nowrap;
-        padding-bottom: 1.25em;
-        padding-right: 5px;
+    & > div {
+
+        & > span {
+            white-space: nowrap;
+        }
+
+        display: flex;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
     }
 }
 
@@ -185,6 +189,12 @@ textarea {
 
 .filter-input {
     max-width: 400px;
+}
+
+.content-right {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
 }
 
 @media(min-width: 1250px) {

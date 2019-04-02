@@ -50,6 +50,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     optionsFilterTimer: any;
     filteredOptions: Array<Option>;
     optionsManager: OptionsManager;
+    isSearchEnabled = false;
 
     constructor(
         private resolverService: ResolverService,
@@ -287,5 +288,14 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
             this.isResultsExpanded = false;
             this.bodyElement.style.overflow = null;
         }
+    }
+
+    enableSearch(): void {
+        this.isSearchEnabled = true;
+    }
+
+    disableSearch(): void {
+        this.optionsManager.searchOptions('');
+        this.isSearchEnabled = false;
     }
 }
