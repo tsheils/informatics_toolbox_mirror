@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChi
 import { FormControl } from '@angular/forms';
 import { Tool } from '../../models/tool';
 import { ResolverService } from './services/resolver.service';
-import { MatPaginator, MatSort, MatTableDataSource, MatExpansionModule } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatRadioChange } from '@angular/material';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Option } from './option';
@@ -51,11 +51,15 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     filteredOptions: Array<Option>;
     optionsManager: OptionsManager;
     isSearchEnabled = false;
+    standardizationParameter: 'FRAGMENT' | 'CHARGE_NORMALIZE' | 'IDENTITY';
 
     constructor(
         private resolverService: ResolverService,
         private elementRef: ElementRef
-    ) { }
+    ) {
+        this.standardizationParameter = 'FRAGMENT';
+    }
+
     ngOnInit() {
         const previouslyUsedOptions = JSON.parse(localStorage.getItem('previouslyUsedOptions')) || {};
         const lastUsedOptions = JSON.parse(localStorage.getItem('lastUsedOptions')) || {};
@@ -93,7 +97,8 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         let dataArr = [];
         const lines = [];
         const properties = this.optionsManager.selectedOptionNames;
-        this.resolverService.resolveData(properties, this.resolverCtrl.value.trim().split(/[\t\n,;]+/)).subscribe(res => {
+        this.resolverService.resolveData(properties, this.resolverCtrl.value.trim().split(/[\t\n,;]+/), this.standardizationParameter)
+            .subscribe(res => {
             dataArr = res.map(data => {
                 const ret: any = {};
                 if (data.response) {
@@ -297,5 +302,9 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     disableSearch(): void {
         this.optionsManager.searchOptions('');
         this.isSearchEnabled = false;
+    }
+
+    standardizationChange(event: MatRadioChange): void {
+        this.standardizationParameter = event.value;
     }
 }

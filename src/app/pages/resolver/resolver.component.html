@@ -15,11 +15,31 @@
         <div *ngIf="!isSearchEnabled">
           <span>Resolve to:</span>
           <div class="content-right">
-            <a (click)="enableSearch()">
+            <!-- <a (click)="enableSearch()">
               <i class="material-icons">
                 search
               </i>
-            </a>
+            </a> -->
+            <button mat-icon-button (click)="enableSearch()">
+              <mat-icon>search</mat-icon>
+            </button>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>settings</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <mat-radio-group [value]="standardizationParameter" (change)="standardizationChange($event)">
+                <span mat-menu-item role="menuitemradio">
+                  <mat-radio-button value="FRAGMENT">Largest Fragment</mat-radio-button>
+                </span>
+                <span mat-menu-item role="menuitemradio">
+                  <mat-radio-button value="CHARGE_NORMALIZE">Normalize Charges</mat-radio-button>
+                </span>
+                <span mat-menu-item role="menuitemradio">
+                  <mat-radio-button value="IDENTITY">Basic</mat-radio-button>
+                </span>
+              </mat-radio-group>
+            </mat-menu>
+
           </div>
         </div>
         <div>
@@ -33,7 +53,7 @@
       </div>
       <div class="options">
         <div>
-          <div class="filtered-options" *ngIf="optionsManager.searchResults && optionsManager.searchResults.length">
+          <div class="filtered-options" *ngIf="isSearchEnabled">
             <div class="filtered-options-header">
               Search results
             </div>
@@ -44,9 +64,13 @@
                 </mat-checkbox>
                 <mat-icon matTooltip={{option.description}} class="help-icon">_help_</mat-icon>
               </div>
+              <div class="text-center"
+                *ngIf="!optionsManager.searchResults || optionsManager.searchResults.length === 0">
+                No results for your search.
+              </div>
             </div>
           </div>
-          <mat-accordion multi="true" *ngIf="!optionsManager.searchResults || !optionsManager.searchResults.length">
+          <mat-accordion multi="true" *ngIf="!isSearchEnabled">
             <mat-expansion-panel *ngFor="let categoryName of optionsManager.categoryNames"
               [expanded]="categoryName == 'Active Options'">
               <mat-expansion-panel-header>

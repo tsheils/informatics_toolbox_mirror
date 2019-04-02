@@ -44,14 +44,20 @@ export class ResolverService {
         );
     }
 
-    resolveData(parameters: string[], names: Array<string>): Observable<any> {
+    resolveData(
+        parameters: string[],
+        names: Array<string>,
+        standardization?: 'FRAGMENT' | 'CHARGE_NORMALIZE' | 'IDENTITY'): Observable<any> {
         const url = URL + parameters.join('/');
         const data: any = {
             structure: names.join('\n'),
             format: 'json'
         };
         if (ENVIRONMENT.public === false) {
-            data.apiKey = '5fd5bb2a05eb6195';
+            data.apikey = '5fd5bb2a05eb6195';
+        }
+        if (standardization != null) {
+            data.standardize = standardization;
         }
         return this.http.post<any>(url, this.toUrlEncodedParams(data), httpOptions);
     }
