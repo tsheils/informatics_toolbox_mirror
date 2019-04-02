@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Tool } from '../../models/tool';
 import { ResolverService } from './services/resolver.service';
@@ -55,12 +56,17 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
 
     constructor(
         private resolverService: ResolverService,
-        private elementRef: ElementRef
+        private elementRef: ElementRef,
+        private activatedRoute: ActivatedRoute,
+        private router: Router
     ) {
         this.standardizationParameter = 'FRAGMENT';
     }
 
     ngOnInit() {
+        if (this.activatedRoute.snapshot.queryParamMap.has('params')) {
+            this.resolverCtrl.setValue(this.activatedRoute.snapshot.queryParamMap.get('params'));
+        }
         const previouslyUsedOptions = JSON.parse(localStorage.getItem('previouslyUsedOptions')) || {};
         const lastUsedOptions = JSON.parse(localStorage.getItem('lastUsedOptions')) || {};
         const keys = Object.keys(previouslyUsedOptions);
@@ -99,39 +105,39 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         const properties = this.optionsManager.selectedOptionNames;
         this.resolverService.resolveData(properties, this.resolverCtrl.value.trim().split(/[\t\n,;]+/), this.standardizationParameter)
             .subscribe(res => {
-            dataArr = res.map(data => {
-                const ret: any = {};
-                if (data.response) {
-                    const arr = data.response.split('\t');
-                    properties.forEach((value, index) => {
-                        ret[value] = arr[index];
-                    });
-                }
-                ret._id = +data.id;
-                ret.input = data.input;
-                ret.source = data.source;
-                ret.url = data.url;
-                this.fields = Object.keys(ret).sort((a, b) => +(b === 'input') - +(a === 'input')).filter(field => field !== '_id');
-                lines.push(this.fields.map(field => ret[field]).join('\t'));
-                return ret;
+                dataArr = res.map(data => {
+                    const ret: any = {};
+                    if (data.response) {
+                        const arr = data.response.split('\t');
+                        properties.forEach((value, index) => {
+                            ret[value] = arr[index];
+                        });
+                    }
+                    ret._id = +data.id;
+                    ret.input = data.input;
+                    ret.source = data.source;
+                    ret.url = data.url;
+                    this.fields = Object.keys(ret).sort((a, b) => +(b === 'input') - +(a === 'input')).filter(field => field !== '_id');
+                    lines.push(this.fields.map(field => ret[field]).join('\t'));
+                    return ret;
+                });
+                dataArr = dataArr.sort((a, b) => a._id - b._id);
+                this.dataSource.data = dataArr;
+                this.rawData = lines.join('\n');
+                this.loaded = true;
+                this.resolveButtonLabel = 'Resolved!';
+                this.optionsManager.reorganizeOptions();
+                setTimeout(() => {
+                    this.resolveButtonLabel = 'Resolve';
+                    this.isLoading = false;
+                    this.processResponsiveness();
+                }, 1000);
+            }, error => {
+                setTimeout(() => {
+                    this.resolveButtonLabel = 'Error!';
+                    this.isLoading = false;
+                }, 2000);
             });
-            dataArr = dataArr.sort((a, b) => a._id - b._id);
-            this.dataSource.data = dataArr;
-            this.rawData = lines.join('\n');
-            this.loaded = true;
-            this.resolveButtonLabel = 'Resolved!';
-            this.optionsManager.reorganizeOptions();
-            setTimeout(() => {
-                this.resolveButtonLabel = 'Resolve';
-                this.isLoading = false;
-                this.processResponsiveness();
-            }, 1000);
-        }, error => {
-            setTimeout(() => {
-                this.resolveButtonLabel = 'Error!';
-                this.isLoading = false;
-            }, 2000);
-        });
         Object.keys(this.previouslyUsedOptions).forEach(key => {
             this.previouslyUsedOptions[key].selectedLast = false;
         });
@@ -147,6 +153,16 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
             this.previouslyUsedOptions[property].selectedLast = true;
         });
         localStorage.setItem('previouslyUsedOptions', JSON.stringify(this.previouslyUsedOptions));
+        this.router.navigate(
+            [],
+            {
+                relativeTo: this.activatedRoute,
+                queryParams: {
+                    'params': this.resolverCtrl.value
+                },
+                queryParamsHandling: 'merge'
+            }
+        );
     }
 
     processResponsiveness(): void {
