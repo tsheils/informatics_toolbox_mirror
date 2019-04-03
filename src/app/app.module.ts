@@ -35,6 +35,7 @@ import {NcatsFindExcelComponent} from "./pages/ncatsfind-excel/ncatsfind-excel.c
 import { MarkdownViewerComponent } from './templates/markdown-viewer/markdown-viewer.component';
 import {MarkdownModule} from "ngx-markdown";
 import { ChemkitComponent } from './pages/chemkit/chemkit.component';
+import { MolvecComponent } from './pages/molvec/molvec.component';
 
 @NgModule({
   imports: [
@@ -78,7 +79,8 @@ import { ChemkitComponent } from './pages/chemkit/chemkit.component';
         IqcConvertComponent,
         NcatsFindExcelComponent,
         MarkdownViewerComponent,
-        ChemkitComponent
+        ChemkitComponent,
+        MolvecComponent
     ],
     entryComponents: [
         CCalculatorComponent,
@@ -91,7 +93,8 @@ import { ChemkitComponent } from './pages/chemkit/chemkit.component';
         ScaffoldHopperComponent,
         IqcConvertComponent,
         NcatsFindExcelComponent,
-        ChemkitComponent
+        ChemkitComponent,
+        MolvecComponent
     ],
   bootstrap: [AppComponent]
 })
