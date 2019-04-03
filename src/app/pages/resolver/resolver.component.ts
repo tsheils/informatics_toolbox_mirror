@@ -59,13 +59,16 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         private elementRef: ElementRef,
         private activatedRoute: ActivatedRoute,
         private router: Router
-    ) {
-        this.standardizationParameter = 'FRAGMENT';
-    }
+    ) {}
 
     ngOnInit() {
         if (this.activatedRoute.snapshot.queryParamMap.has('params')) {
             this.resolverCtrl.setValue(this.activatedRoute.snapshot.queryParamMap.get('params'));
+        }
+        this.standardizationParameter = this.activatedRoute.snapshot.queryParamMap.get('standardize') as any || 'FRAGMENT';
+        let optionsFromUrl: Array<string>;
+        if (this.activatedRoute.snapshot.queryParamMap.has('options')) {
+            optionsFromUrl = this.activatedRoute.snapshot.queryParamMap.get('options').split(';');
         }
         const previouslyUsedOptions = JSON.parse(localStorage.getItem('previouslyUsedOptions')) || {};
         const lastUsedOptions = JSON.parse(localStorage.getItem('lastUsedOptions')) || {};
@@ -158,7 +161,9 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
             {
                 relativeTo: this.activatedRoute,
                 queryParams: {
-                    'params': this.resolverCtrl.value
+                    'params': this.resolverCtrl.value,
+                    'options': properties.join(';'),
+                    'standardize': this.standardizationParameter
                 },
                 queryParamsHandling: 'merge'
             }
