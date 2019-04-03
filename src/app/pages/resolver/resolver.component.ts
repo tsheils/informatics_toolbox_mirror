@@ -62,6 +62,8 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     ) {}
 
     ngOnInit() {
+        this.resolverCtrl.valueChanges.subscribe(val => this.names = true);
+
         if (this.activatedRoute.snapshot.queryParamMap.has('params')) {
             this.resolverCtrl.setValue(this.activatedRoute.snapshot.queryParamMap.get('params'));
         }
@@ -76,14 +78,41 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         if (keys && keys.length > 0) {
             if (typeof previouslyUsedOptions[keys[0]] === 'number') {
                 keys.forEach(key => {
+
+                    let selectedLast: boolean;
+
+                    if (optionsFromUrl != null) {
+                        selectedLast = optionsFromUrl.includes(key);
+                        optionsFromUrl = optionsFromUrl.filter(option => option !== key);
+                    } else {
+                        selectedLast = lastUsedOptions[key] != null;
+                    }
+
                     this.previouslyUsedOptions[key] = {
                         count: previouslyUsedOptions[key],
-                        selectedLast: lastUsedOptions[key] != null
+                        selectedLast: selectedLast
                     };
+                });
+            } else if (optionsFromUrl != null) {
+                keys.forEach(key => {
+                    this.previouslyUsedOptions[key] = {
+                        count: previouslyUsedOptions[key].count,
+                        selectedLast: optionsFromUrl.includes(key)
+                    };
+                    optionsFromUrl = optionsFromUrl.filter(option => option !== key);
                 });
             } else {
                 this.previouslyUsedOptions = previouslyUsedOptions;
             }
+        }
+
+        if (optionsFromUrl != null && optionsFromUrl.length > 0) {
+            optionsFromUrl.forEach(option => {
+                this.previouslyUsedOptions[option] = {
+                    count: 1,
+                    selectedLast: true
+                };
+            });
         }
 
         this.resolverService.getOptions()
@@ -91,9 +120,10 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
             .subscribe(options => {
                 this.optionsManager = new OptionsManager(options, this.previouslyUsedOptions);
                 this.isLoading = false;
+                if (this.resolverCtrl.value && this.optionsManager.selectedOptionNames.length > 0) {
+                    this.resolve();
+                }
             });
-
-        this.resolverCtrl.valueChanges.subscribe(val => this.names = true);
         this.link = document.createElement('a');
         this.link.hidden = true;
     }
@@ -106,7 +136,7 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         let dataArr = [];
         const lines = [];
         const properties = this.optionsManager.selectedOptionNames;
-        this.resolverService.resolveData(properties, this.resolverCtrl.value.trim().split(/[\t\n,;]+/), this.standardizationParameter)
+        this.resolverService.resolveData(properties, this.resolverCtrl.value.trim().split(/[\r\n]+/), this.standardizationParameter)
             .subscribe(res => {
                 dataArr = res.map(data => {
                     const ret: any = {};
