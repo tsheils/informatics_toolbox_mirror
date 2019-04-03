@@ -74,11 +74,11 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         const previouslyUsedOptions = JSON.parse(localStorage.getItem('previouslyUsedOptions')) || {};
         const lastUsedOptions = JSON.parse(localStorage.getItem('lastUsedOptions')) || {};
-        console.log(previouslyUsedOptions);
-        console.log(lastUsedOptions);
+
         const keys = Object.keys(previouslyUsedOptions);
         if (keys && keys.length > 0) {
             if (typeof previouslyUsedOptions[keys[0]] === 'number') {
+                localStorage.removeItem('lastUsedOptions');
                 keys.forEach(key => {
 
                     let selectedLast: boolean;
