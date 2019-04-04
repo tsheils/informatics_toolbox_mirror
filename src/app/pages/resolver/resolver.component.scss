@@ -3,6 +3,10 @@ mat-form-field {
     width: 100%;
 }
 
+.text-center {
+    text-align: center;
+}
+
 div {
     box-sizing: border-box;
 }
@@ -44,6 +48,7 @@ textarea {
     border-radius: 5px;
     box-sizing: border-box;
     border: 1px solid #607D8B;
+    font-size: 16px;
 }
 
 .values-container {
@@ -127,8 +132,38 @@ textarea {
 }
 
 .options-instructions {
-    display: flex;
-    justify-content: flex-start;
+
+    & > div {
+
+        & > span {
+            white-space: nowrap;
+        }
+
+        display: flex;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+}
+
+.filtered-options {
+    background-color: white;
+    font: 400 14px/20px Roboto,"Helvetica Neue",sans-serif;
+    border-radius: 4px;
+    margin-bottom: 16px;
+
+    .filtered-options-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0 24px;
+        border-radius: inherit;
+        height: 64px;
+    }
+
+    .filtered-options-body {
+        padding: 0 24px 16px;
+    }
 }
 
 .values-instructions, .options-instructions, .results-instructions-container {
@@ -158,6 +193,12 @@ textarea {
 
 .filter-input {
     max-width: 400px;
+}
+
+.content-right {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
 }
 
 @media(min-width: 1250px) {
