@@ -30,7 +30,6 @@ export class ToolListComponent implements OnInit, OnDestroy {
                 ) { }
 
     ngOnInit() {
-        console.log(this);
         this.loadingService.loading$.subscribe(res => this.loading = res);
         this.dataLoaderService.data$.subscribe(res => {
             this.filteredTools = [];
