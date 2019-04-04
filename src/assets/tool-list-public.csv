@@ -25,4 +25,4 @@ bioplanet,,https://tripod.nih.gov/bioplanet/,"Tongan Zhao, Ivan Grishagin, Ruili
 project cure mobile app,mobile app,https://cure.ncats.io,"Timothy Sheils, Noel Southall",mobile app for project cure,mobile app,,FDA,yes,,Clinician,https://spotlite.nih.gov/ncats/project_cure_ionic_app,yes,CURE,yes,,
 project cure,public website,https://cure.ncats.io,"Timothy Sheils, Noel Southall",web version of project CURE mobile app,website,,,yes,,Clinician,https://spotlite.nih.gov/ncats/project_cure_web_app,,CURE,yes,,
 project cure api,public api,https://cure-api.ncats.io/v1/reports,"Timothy Sheils, Noel Southall",public api for project CURE mobile app,API,,,yes,,Clinician,https://spotlite.nih.gov/ncats/project_cure_backend_app,,CURE,yes,,
-Molvec,,http://ifxprod6.ncats.nih.gov:8010/struct/,Dac-Trung Nguyen,,website,,,,,,https://spotlite.nih.gov/ncats/molvec,,,,,
+Molvec,"chemistry, website",http://ifxprod6.ncats.nih.gov:8010/struct/,Dac-Trung Nguyen,"Web tool to convert images of chemical structures from PDFs, web pages, and local image files to a chemical structure format (smiles or molfile)",website,,,,,,https://spotlite.nih.gov/ncats/molvec,,,yes,MolvecComponent,
