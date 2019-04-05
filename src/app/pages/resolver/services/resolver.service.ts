@@ -36,7 +36,7 @@ export class ResolverService {
 
                 res = res.map(option => {
                     if ((ENVIRONMENT.public && !option.tags.includes('restricted')) || !ENVIRONMENT.public) {
-                        return new Option().fromJSON(option);
+                        return new Option(option);
                     }
                 });
                 return res;

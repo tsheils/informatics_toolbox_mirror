@@ -1,22 +1,11 @@
-import { jsonProperty, jsonIgnore, Serializable } from 'ts-serializable';
+// import { jsonProperty, jsonIgnore, Serializable } from 'ts-serializable';
 
-export class Option extends Serializable {
-    @jsonProperty(String)
-    public title = '';
-
-    @jsonProperty(String)
-    public format = '';
-
-    @jsonProperty(String)
-    public name = '';
-
-    @jsonProperty([String])
-    public tags: Array<string> = [];
-
-    @jsonProperty(String)
-    public description = '';
-
-    @jsonIgnore()
+export class Option {
+    public title:string;
+    public format: string;
+    public name: string;
+    public tags: Array<string>;
+    public description: string;
     public isSelected = false;
 
     setSelected(isSelected: boolean): void {
@@ -41,5 +30,9 @@ export class Option extends Serializable {
         }
 
         return categories;
+    }
+
+    constructor (obj: any) {
+        Object.entries((obj)).forEach((prop) => this[prop[0]] = prop[1]);
     }
 }
