@@ -7,9 +7,10 @@ import {QhtsSampleClientComponent} from '../pages/qhts-sample-client/qhts-sample
 import {QhtsHeatmapBrowserComponent} from '../pages/qhts-heatmap-browser/qhts-heatmap-browser.component';
 import {ResolverComponent} from '../pages/resolver/resolver.component';
 import {ScaffoldHopperComponent} from '../pages/scaffold-hopper/scaffold-hopper.component';
-import {IqcConvertComponent} from "../pages/iqc-convert/iqc-convert.component";
-import {NcatsFindExcelComponent} from "../pages/ncatsfind-excel/ncatsfind-excel.component";
-import {ChemkitComponent} from "../pages/chemkit/chemkit.component";
+import {IqcConvertComponent} from '../pages/iqc-convert/iqc-convert.component';
+import {NcatsFindExcelComponent} from '../pages/ncatsfind-excel/ncatsfind-excel.component';
+import {ChemkitComponent} from '../pages/chemkit/chemkit.component';
+import {MolvecComponent} from '../pages/molvec/molvec.component';
 
 @Injectable()
 export class ComponentNameService {
@@ -26,6 +27,7 @@ export class ComponentNameService {
       this.COMPONENTS.set('IqcConvertComponent', IqcConvertComponent);
       this.COMPONENTS.set('NcatsFindExcelComponent', NcatsFindExcelComponent);
       this.COMPONENTS.set('ChemkitComponent', ChemkitComponent);
+      this.COMPONENTS.set('MolvecComponent', MolvecComponent);
   }
 
   getComponent(name: string): Type<any> {

@@ -1,7 +1,7 @@
  <div class = "tool-banner">
   <span class = "tool-name" [ngClass.lt-sm]="'mobile-header'">{{tool.toolName}}</span>
   <div *ngIf="tool.image; else empty">
-  <img class ="full-width-banner" [src] = imgSrc>
+  <img class ="full-width-banner" [src]="imgSrc">
   </div>
   <ng-template #empty>
     <div class="placeholder"></div>

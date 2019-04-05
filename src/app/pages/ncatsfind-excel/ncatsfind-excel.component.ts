@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Tool} from '../../models/tool';
 import {NCATSImage} from '../../models/ncatsimage';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-ncatsfind-excel',
@@ -11,6 +12,7 @@ export class NcatsFindExcelComponent implements OnInit {
     @Input() tool: Tool;
     imgSrcBase: string;
     images: NCATSImage[];
+    fileSrc: string;
 
     ngOnInit() {
         this.imgSrcBase = './assets/images/' + this.tool.toolName.toLowerCase().replace(/ /g, '-');
@@ -28,5 +30,9 @@ export class NcatsFindExcelComponent implements OnInit {
                 'the structures don’t occupy as much real estate as embedding them in the cell directly, and Excel’s ' +
                 'sort functions will still work well without issue.'})
         ];
+
+        const env = environment.public ? 'public' : 'private';
+
+        this.fileSrc = `./assets/files/${this.tool.toolName.toLowerCase().replace(/ /g, '-')}/SetupNCATSFind_${env}.zip`;
     }
 }
