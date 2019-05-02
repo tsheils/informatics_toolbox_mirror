@@ -292,8 +292,6 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         const fields = this.fields.map(field => `"${field.replace(/"/g, '\"')}"`);
         const dataKeys = this.fields.join(',');
         const lines = [];
-        console.log(this.fields);
-        console.log(this.dataSource.data);
         this.dataSource.data.forEach(data =>
             lines.push(this.fields.map(field => `"${data[field] && data[field].replace(/"/g, '\"') || ''}"`).join(',')));
         const csv = dataKeys + '\n' + lines.join('\n');
