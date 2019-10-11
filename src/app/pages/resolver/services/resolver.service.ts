@@ -6,7 +6,8 @@ import { map } from 'rxjs/operators';
 import { Option } from '../option';
 
 // const URL = 'https://tripod.nih.gov/servlet/resolverBeta3/';
-const URL = 'https://tripod.nih.gov/servlet/resolverBeta4/';
+// const URL = 'https://tripod.nih.gov/servlet/resolverBeta4/';
+const URL = 'https://tripod.nih.gov/servlet/resolverBetaMitch4/';
 const ENVIRONMENT = environment;
 const httpOptions = {
     headers: new HttpHeaders({
@@ -47,8 +48,10 @@ export class ResolverService {
     resolveData(
         parameters: string[],
         names: Array<string>,
-        standardization?: 'FRAGMENT' | 'CHARGE_NORMALIZE' | 'IDENTITY'): Observable<any> {
-        const url = URL + parameters.join('/');
+        standardization?: 'FRAGMENT' | 'CHARGE_NORMALIZE' | 'IDENTITY',
+        useApproxMatch: boolean = true,
+        useContains: boolean = false): Observable<any> {
+        const url = URL + parameters.join('/') + '/approx';
         const data: any = {
             structure: names.join('\n'),
             format: 'json'
@@ -59,7 +62,44 @@ export class ResolverService {
         if (standardization != null) {
             data.standardize = standardization;
         }
-        return this.http.post<any>(url, this.toUrlEncodedParams(data), httpOptions);
+        data.useApproxMatch = useApproxMatch;
+        data.useContains = useContains;
+        return this.http.post<any>(url, this.toUrlEncodedParams(data), httpOptions).pipe(
+            map(response => {
+                const emptyItems = [];
+                const results = response.map(item => {
+                    if (item.response) {
+                        const responseParts = item.response.split('\t');
+                        const recommendations = responseParts.splice(-1, 1);
+                        item.response = responseParts.join('\t');
+                        if (item.source && item.source === 'Fuzzy Match') {
+                            const emptyItem = {
+                                input: item.input,
+                                recommendations: recommendations[0].split('|')
+                            };
+                            emptyItems.push(emptyItem);
+                            item.source = 'N/A';
+                        }
+                    } else {
+                        let emptyResponse = '';
+                        parameters.forEach((parameter, index, list) => {
+                            emptyResponse += 'N/A';
+                            if (index !== list.length) {
+                                emptyResponse += '\t';
+                            }
+                        });
+                        item.response = emptyResponse;
+                        item.source = 'N/A';
+                    }
+                    return item;
+                });
+                const modifiedResponse = {
+                    results: results,
+                    recommendations: emptyItems
+                };
+                return modifiedResponse;
+            })
+        );
     }
 
     private toUrlEncodedParams(body: {[paramName: string]: any }): string {

@@ -23,11 +23,19 @@
             <button mat-icon-button (click)="enableSearch()">
               <mat-icon>search</mat-icon>
             </button>
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <button mat-icon-button [matMenuTriggerFor]="options" aria-label="Resolver options">
               <mat-icon>settings</mat-icon>
             </button>
-            <mat-menu #menu="matMenu">
-              <mat-radio-group [value]="standardizationParameter" (change)="standardizationChange($event)">
+            <mat-menu #options="matMenu">
+              <button mat-menu-item [matMenuTriggerFor]="standardize">Standardize</button>
+              <button mat-menu-item (click)="$event.stopPropagation()">
+                <mat-checkbox (change)="updateSpellcheckOption($event)">
+                  Spell check empty results
+                </mat-checkbox>
+              </button>
+            </mat-menu>
+            <mat-menu #standardize="matMenu">
+              <mat-radio-group [value]="settings.standardization" (change)="standardizationChange($event)">
                 <span mat-menu-item role="menuitemradio">
                   <mat-radio-button value="FRAGMENT">Largest Fragment</mat-radio-button>
                 </span>

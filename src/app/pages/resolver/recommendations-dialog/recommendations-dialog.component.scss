@@ -1,0 +1,32 @@
+table {
+    width: 100%;
+}
+
+th {
+    white-space: nowrap;
+    text-align: left;
+}
+
+th, td {
+    padding-right: 20px;
+}
+
+td {
+    padding-top: 10px;
+}
+
+a {
+    color: #337ab7;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.fill-middle {
+    flex-grow: 1;
+}
+
+.mat-button {
+    background-color: #337ab7;
+}

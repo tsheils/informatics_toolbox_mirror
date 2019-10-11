@@ -74,7 +74,6 @@ export class ToolDetailsComponent implements OnInit, AfterViewInit {
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(instance);
         const viewContainerRef = this.componentHost.viewContainerRef;
         viewContainerRef.clear();
-
         const componentRef = viewContainerRef.createComponent(componentFactory);
         componentRef.instance.tool = this.tool;
     }

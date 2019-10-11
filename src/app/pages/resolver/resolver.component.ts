@@ -3,11 +3,14 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Tool } from '../../models/tool';
 import { ResolverService } from './services/resolver.service';
-import { MatPaginator, MatSort, MatTableDataSource, MatRadioChange } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatRadioChange, MatCheckboxChange } from '@angular/material';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Option } from './option';
 import { OptionsManager } from './options-manager';
+import { Settings } from './resolver-settings';
+import { MatDialog } from '@angular/material';
+import { RecommendationsDialogComponent } from './recommendations-dialog/recommendations-dialog.component';
 
 export interface DOMTokenList {
     replace(oldToken: string, newToken: string): void;
@@ -52,13 +55,14 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     filteredOptions: Array<Option>;
     optionsManager: OptionsManager;
     isSearchEnabled = false;
-    standardizationParameter: 'FRAGMENT' | 'CHARGE_NORMALIZE' | 'IDENTITY';
+    settings: Settings;
 
     constructor(
         private resolverService: ResolverService,
         private elementRef: ElementRef,
         private activatedRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private dialog: MatDialog
     ) {}
 
     ngOnInit() {
@@ -67,7 +71,26 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.activatedRoute.snapshot.queryParamMap.has('params')) {
             this.resolverCtrl.setValue(this.activatedRoute.snapshot.queryParamMap.get('params'));
         }
-        this.standardizationParameter = this.activatedRoute.snapshot.queryParamMap.get('standardize') as any || 'FRAGMENT';
+
+        // settings
+        this.settings = JSON.parse(localStorage.getItem('resolverSettings')) || {
+            standardization: 'FRAGMENT',
+            useApproxMatch: true,
+            useContains: false
+        };
+
+        if (this.activatedRoute.snapshot.queryParamMap.has('standardize')) {
+            this.settings.standardization = this.activatedRoute.snapshot.queryParamMap.get('standardize') as any;
+        }
+
+        if (this.activatedRoute.snapshot.queryParamMap.has('useApproxMatch')) {
+            this.settings.useApproxMatch = this.activatedRoute.snapshot.queryParamMap.get('useApproxMatch') === 'true';
+        }
+
+        if (this.activatedRoute.snapshot.queryParamMap.has('useContains')) {
+            this.settings.useContains = this.activatedRoute.snapshot.queryParamMap.get('useContains') === 'true';
+        }
+
         let optionsFromUrl: Array<string>;
         if (this.activatedRoute.snapshot.queryParamMap.has('options')) {
             optionsFromUrl = this.activatedRoute.snapshot.queryParamMap.get('options').split(';');
@@ -138,16 +161,21 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
         let dataArr = [];
         const lines = [];
         const properties = this.optionsManager.selectedOptionNames;
-        this.resolverService.resolveData(properties, this.resolverCtrl.value.trim().split(/[\r\n]+/), this.standardizationParameter)
+        this.resolverService.resolveData(properties,
+            this.resolverCtrl.value.trim().split(/[\r\n]+/),
+            this.settings.standardization,
+            this.settings.useApproxMatch,
+            this.settings.useContains)
             .subscribe(res => {
-                dataArr = res.map(data => {
+                if (res.recommendations && res.recommendations.length > 0) {
+                    this.processRecommendations(res.recommendations);
+                }
+                dataArr = res.results.map(data => {
                     const ret: any = {};
-                    if (data.response) {
-                        const arr = data.response.split('\t');
-                        properties.forEach((value, index) => {
-                            ret[value] = arr[index];
-                        });
-                    }
+                    const arr = data.response && data.response.split('\t') || [];
+                    properties.forEach((value, index) => {
+                        ret[value] = arr[index] || 'N/A';
+                    });
                     ret._id = +data.id;
                     ret.input = data.input;
                     ret.source = data.source;
@@ -195,11 +223,32 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
                 queryParams: {
                     'params': this.resolverCtrl.value,
                     'options': properties.join(';'),
-                    'standardize': this.standardizationParameter
+                    'standardize': this.settings.standardization,
+                    'useApproxMatch': this.settings.useApproxMatch,
+                    'useContains': this.settings.useContains
                 },
                 queryParamsHandling: 'merge'
             }
         );
+        localStorage.setItem('resolverSettings', JSON.stringify(this.settings));
+    }
+
+    processRecommendations(recommendations: Array<any>): void {
+        const dialogRef = this.dialog.open(RecommendationsDialogComponent, {
+            width: '600px',
+            data: recommendations
+        });
+
+        dialogRef.afterClosed().subscribe(selectedRecommendations => {
+            if (selectedRecommendations) {
+                let inputValue = this.resolverCtrl.value;
+                selectedRecommendations.forEach(rec => {
+                    inputValue = inputValue.replace(rec.input, rec.recommendation);
+                });
+                this.resolverCtrl.setValue(inputValue);
+                this.resolve();
+            }
+        });
     }
 
     processResponsiveness(): void {
@@ -359,6 +408,10 @@ export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     standardizationChange(event: MatRadioChange): void {
-        this.standardizationParameter = event.value;
+        this.settings.standardization = event.value;
+    }
+
+    updateSpellcheckOption(event: MatCheckboxChange): void {
+        this.settings.useApproxMatch = event.checked;
     }
 }
