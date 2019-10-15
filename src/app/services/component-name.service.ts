@@ -11,6 +11,7 @@ import {IqcConvertComponent} from '../pages/iqc-convert/iqc-convert.component';
 import {NcatsFindExcelComponent} from '../pages/ncatsfind-excel/ncatsfind-excel.component';
 import {ChemkitComponent} from '../pages/chemkit/chemkit.component';
 import {MolvecComponent} from '../pages/molvec/molvec.component';
+import {SimilarityComponent} from "../pages/similarity/similarity.component";
 
 @Injectable()
 export class ComponentNameService {
@@ -28,6 +29,7 @@ export class ComponentNameService {
       this.COMPONENTS.set('NcatsFindExcelComponent', NcatsFindExcelComponent);
       this.COMPONENTS.set('ChemkitComponent', ChemkitComponent);
       this.COMPONENTS.set('MolvecComponent', MolvecComponent);
+      this.COMPONENTS.set('SimilarityComponent', SimilarityComponent);
   }
 
   getComponent(name: string): Type<any> {

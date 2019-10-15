@@ -7,6 +7,7 @@ export const environment = {
     production: true,
     public: false,
     BASE_URL: '/toolbox',
-    TOOL_URL: 'assets/tool-list-private.csv'
+    TOOL_URL: 'assets/tool-list-private.csv',
+    MOL_CONVERT_URL: 'https://apis.ncats.nih.gov:9595/ms/route/structure/transform/smiles/sdf'
 };
 

@@ -13,10 +13,4 @@ export class IqcConvertComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  convert():void {
-
-  }
-
-  onSubmit(){}
 }

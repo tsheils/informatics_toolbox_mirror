@@ -36,6 +36,11 @@ import { MarkdownViewerComponent } from './templates/markdown-viewer/markdown-vi
 import {MarkdownModule} from "ngx-markdown";
 import { ChemkitComponent } from './pages/chemkit/chemkit.component';
 import { MolvecComponent } from './pages/molvec/molvec.component';
+import { SimilarityComponent } from './pages/similarity/similarity.component';
+import {DragonDropImageComponent} from "./widgets/dragon-drop-image/dragon-drop-image.component";
+import {SketcherComponent} from "./widgets/marvin-sketcher/sketcher.component";
+import {StructureSetterService} from "./widgets/marvin-sketcher/services/structure-setter.service";
+import {MolConverterService} from "./widgets/marvin-sketcher/services/mol-converter.service";
 
 @NgModule({
   imports: [
@@ -54,7 +59,9 @@ import { MolvecComponent } from './pages/molvec/molvec.component';
     LoadingService,
       DataLoaderService,
       UnfurlingMetaService,
-      ResolverService
+      ResolverService,
+      MolConverterService,
+      StructureSetterService
   ],
     declarations: [
         AppComponent,
@@ -80,7 +87,10 @@ import { MolvecComponent } from './pages/molvec/molvec.component';
         NcatsFindExcelComponent,
         MarkdownViewerComponent,
         ChemkitComponent,
-        MolvecComponent
+        MolvecComponent,
+        SimilarityComponent,
+        DragonDropImageComponent,
+        SketcherComponent
     ],
     entryComponents: [
         CCalculatorComponent,
@@ -94,7 +104,9 @@ import { MolvecComponent } from './pages/molvec/molvec.component';
         IqcConvertComponent,
         NcatsFindExcelComponent,
         ChemkitComponent,
-        MolvecComponent
+        MolvecComponent,
+        SimilarityComponent,
+        SketcherComponent
     ],
   bootstrap: [AppComponent]
 })

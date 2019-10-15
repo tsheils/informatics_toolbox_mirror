@@ -1,0 +1,79 @@
+<div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs = "column" class="similarity-form">
+  <div fxFlex ="50">
+    <div class = "mat-display-2">Similarity Analysis with NCGC Collection</div>
+    <form (ngSubmit)="onSubmit()" method="post" action="/overlap/?similarity=true" #similarityForm="ngForm">
+      <input type="file" class="form-control" name="FileName"
+             id="file" placeholder="Load file to compare">
+      <p class="help-block">Please load an .csv or .txt  file</p>
+      <p class="help-block">if you have a txt or csv file, you can convert it to SMILES format by
+        making sure the first column is the smiles, insert # as the first character in the header,
+        and use tab-separated, e.g., something like this:</p>
+      <mat-form-field>
+        <input matInput placeholder="Tanimoto cutoff" value =".095">
+        <!--<mat-select [(value)]="selected">
+          <mat-option value="Response">Response</mat-option>
+          <mat-option value="RT">Retention Time</mat-option>
+        </mat-select>-->
+      </mat-form-field>
+      <br>
+      <button mat-raised-button [color]="'primary'" type="submit" class="btn btn-success" [disabled]="!similarityForm.form.valid">Compare</button>
+    </form>
+  </div>
+</div>
+
+<div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around start" class="search-content">
+  <div *ngIf="loading" class = "loadingIcon" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div fxFlex="75" fxFlex.lt-sm="90">
+    <div fxLayout="row" class ="header-row">
+      <div class="section-header active">Structure Search</div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start center" class ="sketcher-row">
+      <div fxFlex="100">
+        <app-sketcher></app-sketcher>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start center">
+      <div fxFlex="30">
+        <mat-form-field class="full-width-field">
+          <mat-select [formControl]="typeCtrl">
+            <mat-option [value]="'substructure'">Overlay</mat-option>
+            <mat-option [value]="'sim'">Similarity</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="5"></div>
+      <div fxFlex="30" *ngIf="typeCtrl.value === 'sim'">
+        <div class="full-width-field">
+          <label for="identity" class="slider-label">Similarity Cutoff</label>
+          <mat-slider id="identity" class="cutoff-slider" aria-label="Similarity Cutoff"  min="0.1" max="1" step="0.1" [thumbLabel]="true" [formControl]="percentCtrl"></mat-slider>
+        </div>
+      </div>
+    </div>
+
+    <!--      <div fxFlex="5" *ngIf="typeCtrl.value === 'similarity'">
+          <mat-form-field class="full-width-field">
+              <input matInput [formControl]="percentCtrl">
+            </mat-form-field>
+          </div>-->
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start center">
+      <div fxFlex ="70">
+        <mat-form-field class="full-width-field">
+          <input matInput placeholder="smiles" [formControl]="smilesCtrl">
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row">
+      <div fxFlex="85">
+        <button mat-raised-button
+                [color]="'primary'"
+                [disabled]="!smilesCtrl.value"
+                (click)="search()">Search <mat-icon>search</mat-icon></button>
+      </div>
+    </div>
+  </div>
+
+
+  <app-dragon-drop-image (imagePasteEvent)="getMolFromBase($event)"></app-dragon-drop-image>
+</div>

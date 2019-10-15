@@ -55,7 +55,7 @@ stitcher,data stitcher,https://spotlite.nih.gov/ncats/stitcher and https://stitc
 fragment activity profiler,,https://tripod.nih.gov/ws/fap/fap.jnlp,Dac-Trung Nguyen,tool for analyzing of fragment activity relationship,,,,,,"Data Scientist, Biologist, Chemist",,,,,,
 molplot,molecular plotting ,https://tripod.nih.gov/ws/molplot/molplot.jnlp,Dac-Trung Nguyen,biomolecular activity visualization,,,,,,"Data Scientist, Biologist, Chemist",,,,,,
 overlap,chemical overlapping tool,http://qhts.nih.gov/overlap.html,Dac-Trung Nguyen,tool for finding overlap between molecular dataset with our library or any datasets,,,,no,,"Data Scientist, Biologist, Chemist",,,,,,
-similarity ,similarity tool,http://qhts.nih.gov/similarity.html,Dac-Trung Nguyen,tool for finding similarity between any two molecular datasets,,,,no,,"Data Scientist, Biologist, Chemist",,,,,,
+similarity,similarity tool,http://qhts.nih.gov/similarity.html,Dac-Trung Nguyen,tool for finding similarity between any two molecular datasets,website,,,no,,"Data Scientist, Biologist, Chemist",,,,,SimilarityComponent,
 annotations,NPC annotations,http://qhts.nih.gov/npc_export.html,Dac-Trung Nguyen,tool for export npc annotations,,,,no,Yes,"Data Scientist, Biologist, Chemist",,,,,,
 translator blackboard,data exploration,https://translator.ncats.io/blackboard ,"Dac-Trung Nguyen, Mark Williams",blackboard architecture prototype for translator,website,,,yes,,Developer,https://spotlite.nih.gov/ncats/blackboard ,yes,,yes,,
 scaffold trend explorer,"scaffolds, visualization",https://tripod.nih.gov/ste,Dac-Trung Nguyen,Visualize scaffold aggregated properties over time,website,,,yes,No,"Data Scientist, Chemist",https://spotlite.nih.gov/ncats/ScaffoldTrends,yes,,yes,,
