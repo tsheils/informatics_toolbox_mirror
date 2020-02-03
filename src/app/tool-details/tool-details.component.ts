@@ -16,7 +16,7 @@ import {ComponentNameService} from '../services/component-name.service';
 })
 export class ToolDetailsComponent implements OnInit, AfterViewInit {
   @Input() tool: Tool;
-    @ViewChild(CustomContentDirective) componentHost: CustomContentDirective;
+    @ViewChild(CustomContentDirective, { static: true }) componentHost: CustomContentDirective;
     details = false;
 
     constructor(private route: ActivatedRoute,

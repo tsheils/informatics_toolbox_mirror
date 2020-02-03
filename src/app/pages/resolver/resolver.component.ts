@@ -19,9 +19,9 @@ export interface DOMTokenList {
 })
 export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() tool: Tool;
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild('datalist') datalist: ElementRef;
+    @ViewChild(MatSort, { static: false }) sort: MatSort;
+    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+    @ViewChild('datalist', { static: false }) datalist: ElementRef;
 
     resolverCtrl = new FormControl();
     file: any;
