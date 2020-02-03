@@ -3,7 +3,10 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Tool } from '../../models/tool';
 import { ResolverService } from './services/resolver.service';
-import { MatPaginator, MatSort, MatTableDataSource, MatRadioChange } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatRadioChange } from '@angular/material/radio';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Option } from './option';
@@ -19,9 +22,9 @@ export interface DOMTokenList {
 })
 export class ResolverComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() tool: Tool;
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild('datalist') datalist: ElementRef;
+    @ViewChild(MatSort, { static: false }) sort: MatSort;
+    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+    @ViewChild('datalist', { static: false }) datalist: ElementRef;
 
     resolverCtrl = new FormControl();
     file: any;

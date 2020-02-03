@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NcatsFooterComponent } from './ncats-footer.component';
-import {MaterialModule} from "../../assets/material/material.module";
-import {FlexLayoutModule} from "@angular/flex-layout";
+import {MaterialModule} from '../../assets/material/material.module';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 
 describe('NcatsFooterComponent', () => {
@@ -11,7 +11,7 @@ describe('NcatsFooterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-        imports:[
+        imports: [
             FlexLayoutModule,
             MaterialModule
         ],

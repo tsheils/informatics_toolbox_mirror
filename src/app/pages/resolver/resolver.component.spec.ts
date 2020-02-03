@@ -1,13 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResolverComponent } from './resolver.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MaterialModule} from "../../../assets/material/material.module";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {FlexLayoutModule} from "@angular/flex-layout";
-import {ToolBasicsComponent} from "../../tool-basics/tool-basics.component";
-import {ResolverService} from "./services/resolver.service";
-import {HttpClientModule} from "@angular/common/http";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MaterialModule} from '../../../assets/material/material.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {ToolBasicsComponent} from '../../tool-basics/tool-basics.component';
+import {ResolverService} from './services/resolver.service';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('ResolverComponent', () => {
   let component: ResolverComponent;
@@ -21,9 +22,10 @@ describe('ResolverComponent', () => {
             ReactiveFormsModule,
             FlexLayoutModule,
             HttpClientModule,
-            MaterialModule
+            MaterialModule,
+            RouterTestingModule
         ],
-        providers : [
+        providers: [
             ResolverService
         ],
       declarations: [

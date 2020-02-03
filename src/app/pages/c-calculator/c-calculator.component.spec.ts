@@ -13,7 +13,7 @@ import {ToolComponent} from '../../tool/tool.component';
 import {ToolBasicsComponent} from '../../tool-basics/tool-basics.component';
 import { APP_BASE_HREF } from '@angular/common';
 import {Tool} from '../../models/tool';
-import {FlexLayoutModule} from "@angular/flex-layout";
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 describe('CCalculatorComponent', () => {
   let component: CCalculatorComponent;

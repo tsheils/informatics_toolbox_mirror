@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Tool} from '../models/tool';
 import {UnfurlingMetaService} from '../services/unfurling-meta.service';
 import {environment} from '../../environments/environment.prod';
-import {EmailLookupService} from "../services/email-lookup.service";
+import {EmailLookupService} from '../services/email-lookup.service';
 
 @Component({
   selector: 'app-tool-basics',

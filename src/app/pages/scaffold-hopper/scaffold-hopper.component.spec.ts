@@ -1,15 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScaffoldHopperComponent } from './scaffold-hopper.component';
-import {MaterialModule} from "../../../assets/material/material.module";
-import {ScreenshotDisplayComponent} from "../../templates/screenshot-display/screenshot-display.component";
-import {JavaWebStartComponent} from "../../templates/java-web-start/java-web-start.component";
-import {QhtsPlateBrowserComponent} from "../qhts-plate-browser/qhts-plate-browser.component";
-import {APP_BASE_HREF} from "@angular/common";
-import {FlexLayoutModule} from "@angular/flex-layout";
-import {ToolBasicsComponent} from "../../tool-basics/tool-basics.component";
-import {NCATSImage} from "../../models/ncatsimage";
-import {Tool} from "../../models/tool";
+import {MaterialModule} from '../../../assets/material/material.module';
+import {ScreenshotDisplayComponent} from '../../templates/screenshot-display/screenshot-display.component';
+import {JavaWebStartComponent} from '../../templates/java-web-start/java-web-start.component';
+import {QhtsPlateBrowserComponent} from '../qhts-plate-browser/qhts-plate-browser.component';
+import {APP_BASE_HREF} from '@angular/common';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {ToolBasicsComponent} from '../../tool-basics/tool-basics.component';
+import {NCATSImage} from '../../models/ncatsimage';
+import {Tool} from '../../models/tool';
 
 describe('ScaffoldHopperComponent', () => {
   let component: ScaffoldHopperComponent;
@@ -55,10 +55,11 @@ describe('ScaffoldHopperComponent', () => {
           'image': '',
           'component': ''
       });
+      component.imgSrcBase  = './assets/images/' + component.tool.toolName.toLowerCase().replace(/ /g, '-');
       component.images = [
-          new NCATSImage({url: this.imgSrcBase + '/primary.png', caption: 'Compare dose responses across assays.'}),
-          new NCATSImage({url: this.imgSrcBase + '/browse.png', caption: 'At a glance browse qHTS data for large data sets. '}),
-          new NCATSImage({url: this.imgSrcBase + '/helper.png', caption: 'Heat Map client helper.'})
+          new NCATSImage({url: component.imgSrcBase + '/primary.png', caption: 'Compare dose responses across assays.'}),
+          new NCATSImage({url: component.imgSrcBase + '/browse.png', caption: 'At a glance browse qHTS data for large data sets. '}),
+          new NCATSImage({url: component.imgSrcBase + '/helper.png', caption: 'Heat Map client helper.'})
       ];
     fixture.detectChanges();
   });

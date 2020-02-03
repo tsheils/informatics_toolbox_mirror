@@ -1,7 +1,7 @@
 // import { jsonProperty, jsonIgnore, Serializable } from 'ts-serializable';
 
 export class Option {
-    public title:string;
+    public title: string;
     public format: string;
     public name: string;
     public tags: Array<string>;

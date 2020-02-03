@@ -2,6 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { DataLoaderService } from './data-loader.service';
 import {HttpClientModule} from '@angular/common/http';
+import {LoadingService} from "./loading.service";
 
 describe('DataLoaderService', () => {
   beforeEach(() => {
@@ -9,7 +10,10 @@ describe('DataLoaderService', () => {
         imports: [
             HttpClientModule
         ],
-      providers: [DataLoaderService]
+      providers: [
+          DataLoaderService,
+          LoadingService
+      ]
     });
   });
 

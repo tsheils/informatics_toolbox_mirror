@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {Observable, Subject, of, BehaviorSubject} from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, Observable, of} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {Tool} from '../models/tool';
-import {LoadingService} from "./loading.service";
+import {LoadingService} from './loading.service';
 
 const URL = environment.TOOL_URL;
 const ENVIRONMENT = environment;

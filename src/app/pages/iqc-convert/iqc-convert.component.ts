@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Tool} from "../../models/tool";
+import {Tool} from '../../models/tool';
 
 @Component({
   selector: 'app-iqc-convert',
@@ -8,15 +8,15 @@ import {Tool} from "../../models/tool";
 })
 export class IqcConvertComponent implements OnInit {
     @Input() tool: Tool;
-    selected: string ='Response';
+    selected = 'Response';
   constructor() { }
 
   ngOnInit() {
   }
 
-  convert():void {
+  convert(): void {
 
   }
 
-  onSubmit(){}
+  onSubmit() {}
 }
