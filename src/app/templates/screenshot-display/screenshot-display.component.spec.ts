@@ -24,9 +24,9 @@ describe('ScreenshotDisplayComponent', () => {
     fixture = TestBed.createComponent(ScreenshotDisplayComponent);
     component = fixture.componentInstance;
       component.images = [
-          new NCATSImage({url: this.imgSrcBase + '/primary.png', caption: 'Compare dose responses across assays.'}),
-          new NCATSImage({url: this.imgSrcBase + '/browse.png', caption: 'At a glance browse qHTS data for large data sets. '}),
-          new NCATSImage({url: this.imgSrcBase + '/helper.png', caption: 'Heat Map client helper.'})
+          new NCATSImage({url: './assets/images/qhts-web-browser-beta/primary.png', caption: 'Compare dose responses across assays.'}),
+          new NCATSImage({url: './assets/images/qhts-web-browser-beta/browse.png', caption: 'At a glance browse qHTS data for large data sets. '}),
+          new NCATSImage({url: './assets/images/qhts-web-browser-beta/helper.png', caption: 'Heat Map client helper.'})
       ];
       component.size = 30;
     fixture.detectChanges();

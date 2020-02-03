@@ -27,7 +27,7 @@ import {ScreenshotDisplayComponent} from './templates/screenshot-display/screens
 import {QhtsSampleClientComponent} from './pages/qhts-sample-client/qhts-sample-client.component';
 import {QhtsHeatmapBrowserComponent} from './pages/qhts-heatmap-browser/qhts-heatmap-browser.component';
 import { APP_BASE_HREF } from '@angular/common';
-import {ToolFiltersComponent} from "./tool-filters/tool-filters.component";
+import {ToolFiltersComponent} from './tool-filters/tool-filters.component';
 
 
 describe('AppComponent', () => {

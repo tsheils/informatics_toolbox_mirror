@@ -1,4 +1,4 @@
-
+<div *ngIf = tool>
 <app-tool-basics [tool]=tool></app-tool-basics>
 <ng-template appNcatsCustomContent></ng-template>
     <div *ngIf="!details" fxLayout="row" fxLayoutAlign="space-around center" fxLayout.xs="column" fxLayoutAlign.lt-sm="start center">
@@ -7,3 +7,4 @@
             <h3> contact {{tool.contact.join(', ')}} and ask them to provide screenshots and details!</h3>
         </div>
     </div>
+</div>

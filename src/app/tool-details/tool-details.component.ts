@@ -14,8 +14,8 @@ import {ComponentNameService} from '../services/component-name.service';
   templateUrl: './tool-details.component.html',
   styleUrls: ['./tool-details.component.css']
 })
-export class ToolDetailsComponent implements OnInit, AfterViewInit {
-  @Input() tool: Tool;
+export class ToolDetailsComponent implements OnInit {
+    @Input() tool: Tool;
     @ViewChild(CustomContentDirective, { static: true }) componentHost: CustomContentDirective;
     details = false;
 
@@ -31,43 +31,42 @@ export class ToolDetailsComponent implements OnInit, AfterViewInit {
             if (this.tool && this.tool.component) {
                 this.loadComponent();
                 this.details = true;
+                this.metaService.updateTag({
+                        content: this.tool.toolName
+                    },
+                    'property="og:description"'
+                );
+                this.metaService.updateTag({
+                        content: this.tool.description
+                    },
+                    'name="twitter:description"'
+                );
+                this.metaService.updateTag({
+                        content: this.tool.toolName
+                    },
+                    'property="og:title"'
+                );
+                this.metaService.updateTag({
+                        content: this.tool.toolName
+                    },
+                    'name="twitter:title"'
+                );
+                /*this.metaService.addTags([{
+                        content: window.location.href + '/assets/' + this.intern.mugshot,
+                        property: 'og:image'
+                    }, {
+                        content: window.location.href + '/assets/' + this.intern.mugshot,
+                        name: 'twitter:image'
+                    }],
+                    true
+                );*/
             }
         });
-
-        this.metaService.updateTag({
-                content: this.tool.toolName
-            },
-            'property="og:description"'
-        );
-        this.metaService.updateTag({
-                content: this.tool.description
-            },
-            'name="twitter:description"'
-        );
-        this.metaService.updateTag({
-                content: this.tool.toolName
-            },
-            'property="og:title"'
-        );
-        this.metaService.updateTag({
-                content: this.tool.toolName
-            },
-            'name="twitter:title"'
-        );
-        /*this.metaService.addTags([{
-                content: window.location.href + '/assets/' + this.intern.mugshot,
-                property: 'og:image'
-            }, {
-                content: window.location.href + '/assets/' + this.intern.mugshot,
-                name: 'twitter:image'
-            }],
-            true
-        );*/
     }
 
-    ngAfterViewInit() {
+/*    ngAfterViewInit() {
         window.scrollTo(0, 0);
-    }
+    }*/
 
     loadComponent() {
         const instance: Type<any> = this.componentNameService.getComponent(this.tool.component);

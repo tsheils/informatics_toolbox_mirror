@@ -3,7 +3,7 @@ import {DataLoaderService} from '../services/data-loader.service';
 import {Tool} from '../models/tool';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Subject} from 'rxjs/index';
-import {LoadingService} from "../services/loading.service";
+import {LoadingService} from '../services/loading.service';
 
 
 @Component({

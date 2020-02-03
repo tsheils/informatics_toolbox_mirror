@@ -29,7 +29,7 @@ import {ScreenshotDisplayComponent} from '../templates/screenshot-display/screen
 import {QhtsSampleClientComponent} from '../pages/qhts-sample-client/qhts-sample-client.component';
 import {QhtsHeatmapBrowserComponent} from '../pages/qhts-heatmap-browser/qhts-heatmap-browser.component';
 import {Tool} from '../models/tool';
-import {ToolFiltersComponent} from "../tool-filters/tool-filters.component";
+import {ToolFiltersComponent} from '../tool-filters/tool-filters.component';
 
 describe('ToolComponent', () => {
   let component: ToolComponent;

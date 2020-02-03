@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 const EMAILS: Map<string, any> = new Map <string, any>( [
-    ['Noel Southall', {email: 'southalln@mail.nih.gov', staff:'southalln'}],
+    ['Noel Southall', {email: 'southalln@mail.nih.gov', staff: 'southalln'}],
     ['John Braisted', {email: 'john.braisted@nih.gov'}],
     ['Dac-Trung Nguyen', {email: 'nguyenda@mail.nih.gov'}],
     ['Vishal Siramshetty', {email: 'vishalbabu.siramshetty@nih.gov'}],
@@ -14,11 +14,11 @@ const EMAILS: Map<string, any> = new Map <string, any>( [
     ['Dammika Amugoda Kankanange', {email: 'dammika.amugoda@nih.gov', staff: 'amugodadn'}],
     ['Jorge Neyra', {email: 'jorge.neyra@nih.gov'}],
     ['Niko Anderson', {email: 'niko.anderson@nih.gov'}],
-    ['Min Shen', {email: 'shenmin@mail.nih.gov', staff:'shenmin'}],
-    ['Xin Hu', {email: 'xin.hu@nih.gov', staff:'hux6'}],
+    ['Min Shen', {email: 'shenmin@mail.nih.gov', staff: 'shenmin'}],
+    ['Xin Hu', {email: 'xin.hu@nih.gov', staff: 'hux6'}],
     ['Alexey Zakharov', {email: 'alexey.zakharov@nih.gov'}],
     ['Gergely Zahoranszky-Kohalmi', {email: 'gergely.zahoranszky-kohalmi@nih.gov', staff: 'zahoranszkykog2'}],
-    ['Hongmao Sun', {email: 'hongmao.sun@nih.gov', staff:'sunh7'}],
+    ['Hongmao Sun', {email: 'hongmao.sun@nih.gov', staff: 'sunh7'}],
     ['Hui Guo', {email: 'hui.guo@nih.gov'}],
     ['Ruili Huang', {email: 'ruili.huang@nih.gov', staff: 'huangru'}],
     ['Lin Ye', {email: 'lin.ye2@nih.gov'}],
@@ -28,7 +28,7 @@ const EMAILS: Map<string, any> = new Map <string, any>( [
     ['Gregory Tawa', {email: 'gregory.tawa@nih.gov'}],
     ['Bryan Queme', {email: 'bryan.queme@nih.gov'}],
     ['Yuhong Wang', {email: 'wangyuh@mail.nih.gov'}]
-])
+]);
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,7 @@ export class EmailLookupService {
 
   constructor() { }
 
-  getEmail(name: string): string{
+  getEmail(name: string): string {
       const user = EMAILS.get(name);
       return user ? user.email : null;
   }

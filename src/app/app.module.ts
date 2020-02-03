@@ -31,9 +31,9 @@ import {ResolverService} from './pages/resolver/services/resolver.service';
 import { ToolFiltersComponent } from './tool-filters/tool-filters.component';
 import { ScaffoldHopperComponent } from './pages/scaffold-hopper/scaffold-hopper.component';
 import { IqcConvertComponent } from './pages/iqc-convert/iqc-convert.component';
-import {NcatsFindExcelComponent} from "./pages/ncatsfind-excel/ncatsfind-excel.component";
+import {NcatsFindExcelComponent} from './pages/ncatsfind-excel/ncatsfind-excel.component';
 import { MarkdownViewerComponent } from './templates/markdown-viewer/markdown-viewer.component';
-import {MarkdownModule} from "ngx-markdown";
+import {MarkdownModule} from 'ngx-markdown';
 import { ChemkitComponent } from './pages/chemkit/chemkit.component';
 import { MolvecComponent } from './pages/molvec/molvec.component';
 

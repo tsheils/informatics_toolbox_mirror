@@ -51,10 +51,11 @@ describe('QhtsPlateBrowserComponent', () => {
           'image': '',
           'component': ''
       });
+      component.imgSrcBase  = './assets/images/' + component.tool.toolName.toLowerCase().replace(/ /g, '-');
       component.images = [
-          new NCATSImage({url: this.imgSrcBase + '/primary.png', caption: 'Compare dose responses across assays.'}),
-          new NCATSImage({url: this.imgSrcBase + '/browse.png', caption: 'At a glance browse qHTS data for large data sets. '}),
-          new NCATSImage({url: this.imgSrcBase + '/helper.png', caption: 'Heat Map client helper.'})
+          new NCATSImage({url: component.imgSrcBase + '/primary.png', caption: 'Compare dose responses across assays.'}),
+          new NCATSImage({url: component.imgSrcBase + '/browse.png', caption: 'At a glance browse qHTS data for large data sets. '}),
+          new NCATSImage({url: component.imgSrcBase + '/helper.png', caption: 'Heat Map client helper.'})
       ];
     fixture.detectChanges();
   });
